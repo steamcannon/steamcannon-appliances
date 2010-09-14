@@ -1,0 +1,27 @@
+#!/bin/sh
+
+# chkconfig: 2345 92 26
+# description: Starts and stops the RHQ server
+#
+# processname: java
+
+# exit if there is no postgresql installed
+[ `rpm -qa postgresql* | wc -l` -eq "0" ] && exit
+
+[ -f /etc/sysconfig/rhq ] && . /etc/sysconfig/rhq
+
+memory=`dmesg | grep ^Memory: | awk '{ print $2 }' | awk -F\/ '{ print $2 }' | sed 's/\k//g'`
+
+JAVA_HOME=/usr/lib/jvm/java-1.6.0/
+RHQ_SERVER_HOME=$RHQ_HOME
+RHQ_SERVER_JAVA_OPTS="-Xms$(($memory / 1024 - $memory / 10240))M -Xmx$(($memory / 1024 - $memory / 10240))M -XX:PermSize=$(($memory / 1024 / 4))M -XX:MaxPermSize=$(($memory / 1024 / 4))M"
+RHQ_SERVER_PRECONFIGURED_FILE=$RHQ_SERVER_HOME/etc/rhq-server.preconfigured
+
+# Configure RHQ so we don't need to use web configuration wizard
+if [ ! -f $RHQ_SERVER_PRECONFIGURED_FILE ]; then
+  /usr/share/rhq/preconfigure-rhq.sh > $RHQ_SERVER_HOME/preconfigure.log
+
+  [ "$?" = "0" ] && touch $RHQ_SERVER_PRECONFIGURED_FILE
+fi
+
+. $RHQ_SERVER_HOME/bin/rhq-server.sh
