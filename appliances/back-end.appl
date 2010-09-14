@@ -1,0 +1,15 @@
+name: back-end
+version: 1
+release: 0
+summary: back-end appliance with JBoss AS 6
+hardware:
+  memory: 512
+  partitions:
+    "/":
+      size: 2
+appliances:
+  - steamcannon-base
+packages:
+  includes:
+    - jboss-as6
+    - jboss-as6-cloud-profiles
