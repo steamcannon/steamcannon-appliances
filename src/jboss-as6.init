@@ -27,12 +27,7 @@
 # Check that networking is up.
 [ ${NETWORKING} = "no" ] && exit 0
 
-NAME="$(basename $0)"
-unset ISBOOT
-if [ "${NAME:0:1}" = "S" -o "${NAME:0:1}" = "K" ]; then
-    NAME="${NAME:3}"
-    ISBOOT="1"
-fi
+NAME="jboss-as6"
 
 # Source configuration.
 [ -f /etc/java/java.conf ] && . /etc/java/java.conf
@@ -58,10 +53,6 @@ JBOSSCP=${JBOSSCP:-"$JBOSS_HOME/bin/shutdown.jar:$JBOSS_HOME/client/jbossall-cli
 
 if [ `curl -o /dev/null -s -m 5 -w '%{http_code}' http://169.254.169.254/latest/meta-data/ami-id` -eq "200" ]; then
     EC2_LOCATION=true
-
-    if [ `curl -o /dev/null -s -m 5 -w '%{http_code}' http://169.254.169.254/1.0/user-data` -eq "200" ]; then
-        eval "`curl -s http://169.254.169.254/1.0/user-data`"
-    fi
 fi
 
 memory=`dmesg | grep ^Memory: | awk '{ print $2 }' | awk -F\/ '{ print $2 }' | sed 's/\k//g'`
