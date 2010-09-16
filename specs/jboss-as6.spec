@@ -56,6 +56,10 @@ rm -Rf $RPM_BUILD_ROOT
 %post
 /sbin/chkconfig --add %{name}
 
+ln -s /etc/sysconfig/%{name} /etc/sysconfig/jboss-as
+ln -s /opt/%{name} /opt/jboss-as
+ln -s /etc/init.d/%{name} /etc/init.d/jboss-as
+
 %files
 %defattr(-,%{name},%{name})
 /
