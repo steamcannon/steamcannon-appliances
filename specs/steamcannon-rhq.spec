@@ -1,7 +1,7 @@
 %define rhq_name rhq-cli
 
-Summary:        RHQ Helper for CirrAS
-Name:           cirras-rhq
+Summary:        RHQ Helper for SteamCannon
+Name:           steamcannon-rhq
 Version:        3.0.0
 Release:        1
 License:        LGPL

@@ -11,3 +11,5 @@ packages:
 post:
   base:
     - "/sbin/chkconfig --level 234 httpd on"
+    - "echo 'log_level: trace' > /etc/sysconfig/steamcannon-agent"
+

@@ -1,23 +1,26 @@
 #!/bin/sh
 #
-# cirras-management         Manages CirrAS management service
+# steamcannon-agent     Manages SteamCannon Agent
 #
 # chkconfig: 345 85 35
-# description: CirrAS management service
+# description: SteamCannon Agent service
 # processname: thin
 
 ### BEGIN INIT INFO
-# Provides: cirras-management
+# Provides: steamcannon-agent
 # Required-Start: $network $syslog
 # Required-Stop: $network
 # Default-Start:
 # Default-Stop:
-# Short-Description: CirrAS management service
-# Description: CirrAS management service
+# Short-Description: SteamCannon Agent service
+# Description: SteamCannon Agent service
 ### END INIT INFO
 
-PID_FILE=/var/lock/cirras-management.pid
-CIRRAS_MANAGEMENT_HOME=/usr/share/cirras-management
+PID_FILE=/var/lock/steamcannon-agent.pid
+STEAMCANNON_AGENT_HOME=/usr/share/steamcannon-agent
+STEAMCANNON_AGENT_ENVIRONMENT=${STEAMCANNON_AGENT_ENVIRONMENT:-"development"}
+
+THIN=/usr/lib/ruby/gems/1.8/bin/thin
 
 # Source function library.
 . /etc/init.d/functions
@@ -37,8 +40,8 @@ fi
 
 function procrunning() {
     procid=0
-    for procid in `pidof ruby`; do
-        ps -fp $procid | grep thin > /dev/null && pid=$procid
+    for procid in `pidof thin`; do
+        ps -fp $procid | grep "thin server (0.0.0.0:7575)" > /dev/null && pid=$procid
     done
 }
 
@@ -55,8 +58,8 @@ function success_or_failure() {
 start() {
     echo -n "Starting ${NAME}: "
 
-    cd $CIRRAS_MANAGEMENT_HOME
-    ruby thin -C config/config.yaml start > /dev/null
+    cd $STEAMCANNON_AGENT_HOME
+    $THIN -C config/thin/$STEAMCANNON_AGENT_ENVIRONMENT.yaml start > /dev/null
     RETVAL=$?
 
     success_or_failure
@@ -77,8 +80,8 @@ stop() {
         return $RETVAL 
     fi
 
-    cd $CIRRAS_MANAGEMENT_HOME
-    ruby thin -C config/config.yaml stop > /dev/null
+    cd $STEAMCANNON_AGENT_HOME
+    $THIN -C config/thin/$STEAMCANNON_AGENT_ENVIRONMENT.yaml stop > /dev/null
     RETVAL=$?
 
     success_or_failure
