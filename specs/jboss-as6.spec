@@ -24,6 +24,9 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 %description
 The JBoss Application Server
 
+# Don't complain about arch-specific packages in noarch build (HornetQ libaio natives)
+%global _binaries_in_noarch_packages_terminate_build 0
+
 %prep
 %setup -n jboss-%{jboss_version_full}
 
