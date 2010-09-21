@@ -63,24 +63,17 @@ if [ "x$JBOSS_CLOUD_DEPLOYMENT" != "x" ]; then
 	if [ "x$EC2_LOCATION" != "x" ]; then
         JBOSSCONF=${JBOSSCONF:-"cluster-ec2"}
 
-        if [ "x$JBOSS_JGROUPS_S3_PING_ACCESS_KEY" != "x" ]; then
-            JAVA_OPTS="$JAVA_OPTS -Djboss.jgroups.s3_ping.access_key=$JBOSS_JGROUPS_S3_PING_ACCESS_KEY"
+        if [ "x$JBOSS_JGROUPS_S3_PING_PRE_SIGNED_PUT_URL" != "x" ]; then
+            JAVA_OPTS="$JAVA_OPTS -Djboss.jgroups.s3_ping.pre_signed_put_url='$JBOSS_JGROUPS_S3_PING_PRE_SIGNED_PUT_URL'"
         else
-            echo "No JBOSS_JGROUPS_S3_PING_ACCESS_KEY provided."
+            echo "No JBOSS_JGROUPS_S3_PING_PRE_SIGNED_PUT_URL provided."
             exit 1
         fi
 
-        if [ "x$JBOSS_JGROUPS_S3_PING_ACCESS_KEY" != "x" ]; then
-            JAVA_OPTS="$JAVA_OPTS -Djboss.jgroups.s3_ping.secret_access_key=$JBOSS_JGROUPS_S3_PING_SECRET_ACCESS_KEY"
+        if [ "x$JBOSS_JGROUPS_S3_PING_PRE_SIGNED_DELETE_URL" != "x" ]; then
+            JAVA_OPTS="$JAVA_OPTS -Djboss.jgroups.s3_ping.pre_signed_delete_url='$JBOSS_JGROUPS_S3_PING_PRE_SIGNED_DELETE_URL'"
         else
-            echo "No JBOSS_JGROUPS_S3_PING_SECRET_ACCESS_KEY provided."
-            exit 1
-        fi
-
-        if [ "x$JBOSS_JGROUPS_S3_PING_BUCKET" != "x" ]; then
-            JAVA_OPTS="$JAVA_OPTS -Djboss.jgroups.s3_ping.bucket=$JBOSS_JGROUPS_S3_PING_BUCKET"
-        else
-            echo "No JBOSS_JGROUPS_S3_PING_BUCKET provided."
+            echo "No JBOSS_JGROUPS_S3_PING_PRE_SIGNED_DELETE_URL provided."
             exit 1
         fi
 
