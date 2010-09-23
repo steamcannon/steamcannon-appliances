@@ -84,6 +84,10 @@ if [ "x$JBOSS_CLOUD_DEPLOYMENT" != "x" ]; then
     fi
 fi
 
+if [ "x$JBOSS_PROXY_LIST" != "x" ]; then
+  JAVA_OPTS="$JAVA_OPTS -Djboss.modcluster.proxyList='$JBOSS_PROXY_LIST'"
+fi
+
 IP_ADDRESS=`ip addr list eth0 | grep "inet " | cut -d' ' -f6 | cut -d/ -f1`
 
 #define the script to use to start jboss
