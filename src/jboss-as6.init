@@ -82,6 +82,8 @@ if [ "x$JBOSS_CLOUD_DEPLOYMENT" != "x" ]; then
     else
         JBOSSCONF=${JBOSSCONF:-"cluster"}
     fi
+else
+  JBOSSCONF=${JBOSSCONF:-"all"}
 fi
 
 if [ "x$JBOSS_PROXY_LIST" != "x" ]; then
