@@ -2,6 +2,8 @@
 
 %define jboss_name jboss-as6
 
+%global _binaries_in_noarch_packages_terminate_build 0
+
 Summary:        TorqueBox JRuby
 Name:           torquebox-jruby
 Version:        %{torquebox_version}
