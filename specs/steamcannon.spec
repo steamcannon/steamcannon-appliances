@@ -1,12 +1,15 @@
 %define jruby_version 1.8
 %define steamcannon_version be8c0b1
 
+# Don't complain about arch-specific packages in noarch build
+%global _binaries_in_noarch_packages_terminate_build 0
+
 Summary:        SteamCannon Rails App
 Name:           steamcannon
 Version:        %{steamcannon_version}
 Release:        1%{?dist}
 License:        LGPL
-Requires:       torquebox-jruby
+Requires:       torquebox-cloud-profile-deployers
 BuildRequires:       libxml2 libxml2-devel libxslt libxslt-devel
 BuildArch:      noarch
 Group:          Applications/System
@@ -43,7 +46,7 @@ gem install --install-dir=$RPM_BUILD_ROOT/opt/jruby/lib/ruby/gems/%{jruby_versio
 
 rm -Rf $RPM_BUILD_ROOT/opt/jruby/lib/ruby/gems/%{jruby_version}/cache
 
-# %clean
+%clean
 rm -rf $RPM_BUILD_ROOT
 
 
