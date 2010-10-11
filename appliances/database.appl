@@ -10,7 +10,4 @@ packages:
 post:
   base:
     - "echo -e 'services:\n  - PostgreSQL\nlog_level: trace' > /etc/sysconfig/steamcannon-agent"
-    - "/sbin/chkconfig postgresql on"
-    - "/sbin/service postgresql initdb"
-    - "/bin/sed -i s/'^host'/'# host'/g /var/lib/pgsql/data/pg_hba.conf"
-    - "/bin/echo 'host    all         all         0.0.0.0/0          md5' >> /var/lib/pgsql/data/pg_hba.conf"
+
