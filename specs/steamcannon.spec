@@ -1,5 +1,5 @@
 %define jruby_version 1.8
-%define steamcannon_version be8c0b1
+%define steamcannon_version 069d642
 
 # Don't complain about arch-specific packages in noarch build
 %global _binaries_in_noarch_packages_terminate_build 0
@@ -33,7 +33,7 @@ cp -R %{name}-%{name}-%{steamcannon_version} $RPM_BUILD_ROOT/opt/steamcannon
 # install required gems 
 gem install --install-dir=$RPM_BUILD_ROOT/opt/jruby/lib/ruby/gems/%{jruby_version} --ignore-dependencies --force --no-ri --no-rdoc authlogic -v 2.1.5
 gem install --install-dir=$RPM_BUILD_ROOT/opt/jruby/lib/ruby/gems/%{jruby_version} --ignore-dependencies --force --no-ri --no-rdoc aws s3 haml compass
-gem install --install-dir=$RPM_BUILD_ROOT/opt/jruby/lib/ruby/gems/%{jruby_version} --ignore-dependencies --force --no-ri --no-rdoc bbrowning-deltacloud-client -v 0.0.9.7 --source http://rubygems.org
+gem install --install-dir=$RPM_BUILD_ROOT/opt/jruby/lib/ruby/gems/%{jruby_version} --ignore-dependencies --force --no-ri --no-rdoc steamcannon-deltacloud-client -v 0.0.9.7.2 --source http://rubygems.org
 gem install --install-dir=$RPM_BUILD_ROOT/opt/jruby/lib/ruby/gems/%{jruby_version} --ignore-dependencies --force --no-ri --no-rdoc paperclip -v 2.3.3
 gem install --install-dir=$RPM_BUILD_ROOT/opt/jruby/lib/ruby/gems/%{jruby_version} --ignore-dependencies --force --no-ri --no-rdoc simple-navigation -v 2.6.0
 gem install --install-dir=$RPM_BUILD_ROOT/opt/jruby/lib/ruby/gems/%{jruby_version} --ignore-dependencies --force --no-ri --no-rdoc aasm -v 2.1.5
