@@ -31,17 +31,17 @@ install -d -m 755 $RPM_BUILD_ROOT/opt/jruby/lib/ruby/gems/%{jruby_version}/gems
 cp -R %{name}-%{name}-%{steamcannon_version} $RPM_BUILD_ROOT/opt/steamcannon
 
 # install required gems 
-gem install --install-dir=$RPM_BUILD_ROOT/opt/jruby/lib/ruby/gems/%{jruby_version} --ignore-dependencies --force --no-ri --no-rdoc authlogic -v 2.1.5
-gem install --install-dir=$RPM_BUILD_ROOT/opt/jruby/lib/ruby/gems/%{jruby_version} --ignore-dependencies --force --no-ri --no-rdoc aws s3 haml compass
-gem install --install-dir=$RPM_BUILD_ROOT/opt/jruby/lib/ruby/gems/%{jruby_version} --ignore-dependencies --force --no-ri --no-rdoc steamcannon-deltacloud-client -v 0.0.9.7.2 --source http://rubygems.org
-gem install --install-dir=$RPM_BUILD_ROOT/opt/jruby/lib/ruby/gems/%{jruby_version} --ignore-dependencies --force --no-ri --no-rdoc paperclip -v 2.3.3
-gem install --install-dir=$RPM_BUILD_ROOT/opt/jruby/lib/ruby/gems/%{jruby_version} --ignore-dependencies --force --no-ri --no-rdoc simple-navigation -v 2.6.0
-gem install --install-dir=$RPM_BUILD_ROOT/opt/jruby/lib/ruby/gems/%{jruby_version} --ignore-dependencies --force --no-ri --no-rdoc aasm -v 2.1.5
-gem install --install-dir=$RPM_BUILD_ROOT/opt/jruby/lib/ruby/gems/%{jruby_version} --ignore-dependencies --force --no-ri --no-rdoc rest-client -v 1.6.1
-gem install --install-dir=$RPM_BUILD_ROOT/opt/jruby/lib/ruby/gems/%{jruby_version} --ignore-dependencies --force --no-ri --no-rdoc json -v 1.4.6
+gem install --install-dir=$RPM_BUILD_ROOT/opt/jruby/lib/ruby/gems/%{jruby_version} --ignore-dependencies --force --no-ri --no-rdoc --platform java authlogic -v 2.1.5
+gem install --install-dir=$RPM_BUILD_ROOT/opt/jruby/lib/ruby/gems/%{jruby_version} --ignore-dependencies --force --no-ri --no-rdoc --platform java aws s3 haml compass
+gem install --install-dir=$RPM_BUILD_ROOT/opt/jruby/lib/ruby/gems/%{jruby_version} --ignore-dependencies --force --no-ri --no-rdoc --platform java steamcannon-deltacloud-client -v 0.0.9.7.2 --source http://rubygems.org
+gem install --install-dir=$RPM_BUILD_ROOT/opt/jruby/lib/ruby/gems/%{jruby_version} --ignore-dependencies --force --no-ri --no-rdoc --platform java paperclip -v 2.3.3
+gem install --install-dir=$RPM_BUILD_ROOT/opt/jruby/lib/ruby/gems/%{jruby_version} --ignore-dependencies --force --no-ri --no-rdoc --platform java simple-navigation -v 2.6.0
+gem install --install-dir=$RPM_BUILD_ROOT/opt/jruby/lib/ruby/gems/%{jruby_version} --ignore-dependencies --force --no-ri --no-rdoc --platform java aasm -v 2.1.5
+gem install --install-dir=$RPM_BUILD_ROOT/opt/jruby/lib/ruby/gems/%{jruby_version} --ignore-dependencies --force --no-ri --no-rdoc --platform java rest-client -v 1.6.1
+gem install --install-dir=$RPM_BUILD_ROOT/opt/jruby/lib/ruby/gems/%{jruby_version} --ignore-dependencies --force --no-ri --no-rdoc --platform java json -v 1.4.6
 
 # These gems are dependencies of those required above. 
-gem install --install-dir=$RPM_BUILD_ROOT/opt/jruby/lib/ruby/gems/%{jruby_version} --ignore-dependencies --force --no-ri --no-rdoc http_connection nokogiri proxies uuidtools xml-simple
+gem install --install-dir=$RPM_BUILD_ROOT/opt/jruby/lib/ruby/gems/%{jruby_version} --ignore-dependencies --force --no-ri --no-rdoc --platform java http_connection nokogiri proxies uuidtools xml-simple
 
 
 rm -Rf $RPM_BUILD_ROOT/opt/jruby/lib/ruby/gems/%{jruby_version}/cache
