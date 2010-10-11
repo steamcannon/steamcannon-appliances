@@ -1,0 +1,34 @@
+name: steamcannon
+version: 1
+release: 1
+summary: Appliance for SteamCannon management console with Torquebox and AS-6
+
+os:
+  name: fedora
+  version: 13
+
+hardware:
+  memory: 512
+  partitions:
+    "/":
+      size: 2
+appliances:
+  - torquebox-back-end
+packages:
+  includes:
+    - steamcannon-deltacloud-core
+    - postgresql-server
+
+post:
+  base:
+    - "echo -e 'services:\n  - PostgreSQL\nlog_level: trace' > /etc/sysconfig/steamcannon"
+    - "/sbin/chkconfig postgresql on"
+    - "/sbin/service postgresql initdb"
+    - "/bin/sed -i s/'^host'/'# host'/g /var/lib/pgsql/data/pg_hba.conf"
+    - "/bin/echo 'host    all         all         0.0.0.0/0          md5' >> /var/lib/pgsql/data/pg_hba.conf"
+    
+repos:
+  - name: "steamcannon-#ARCH#"
+    baseurl: "http://repo.steamcannon.org/packages/#OS_NAME#/#OS_VERSION#/RPMS/#ARCH#"
+  - name: "steamcannon-noarch"
+    baseurl: "http://repo.steamcannon.org/packages/#OS_NAME#/#OS_VERSION#/RPMS/noarch"
