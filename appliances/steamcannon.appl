@@ -1,5 +1,5 @@
 name: steamcannon
-version: 1.1
+version: 1.1.3
 release: 1
 summary: Appliance for SteamCannon management console with Torquebox and AS-6
 
@@ -27,7 +27,11 @@ post:
     - "/sbin/service postgresql initdb"
     - "/bin/sed -i s/'^host'/'# host'/g /var/lib/pgsql/data/pg_hba.conf"
     - "/bin/echo 'host    all         all         0.0.0.0/0          md5' >> /var/lib/pgsql/data/pg_hba.conf"
-    - "su - postgres -c '/usr/bin/createuser steamcannon -P steamcannon'"
+    - "cp /opt/steamcannon/config/steamcannon.yml.example /opt/steamcannon/config/steamcannon.yml"
+    - "/bin/sed -i s/'^#deltacloud_url'/'deltacloud_url'/g /opt/steamcannon/config/steamcannon.yml"
+    - "/bin/sed -i s/'^#certificate_password'/'certificate_password'/g /opt/steamcannon/config/steamcannon.yml"
+    - "echo -e '---\nappliaction:\n  RAILS_ROOT: /opt/steamcannon\n  RAILS_ENV: production\nweb:\n  context: /\n' > /opt/jboss-as/server/all/deploy/steamcannon-rails.yml"
+    - "su - postgres -c \"echo -e \\\"create user steamcannon with superuser password 'steamcannon'\\\" | psql\" "
     - "su - postgres -c '/usr/bin/createdb steamcannon_production -O steamcannon'"
     - "cd /opt/steamcannon; /opt/jruby/bin/jruby -S rake db:setup"
     
