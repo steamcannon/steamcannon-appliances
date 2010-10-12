@@ -1,5 +1,5 @@
 name: steamcannon
-version: 1
+version: 1.1
 release: 1
 summary: Appliance for SteamCannon management console with Torquebox and AS-6
 
@@ -16,7 +16,8 @@ appliances:
   - torquebox-back-end
 packages:
   includes:
-    - steamcannon-deltacloud-core
+    - steamcannon
+    - steamcannon-deltacloud-core-deployment
     - postgresql-server
 
 post:
@@ -26,9 +27,15 @@ post:
     - "/sbin/service postgresql initdb"
     - "/bin/sed -i s/'^host'/'# host'/g /var/lib/pgsql/data/pg_hba.conf"
     - "/bin/echo 'host    all         all         0.0.0.0/0          md5' >> /var/lib/pgsql/data/pg_hba.conf"
+    - "su - postgres -c '/usr/bin/createuser steamcannon -P steamcannon'"
+    - "su - postgres -c '/usr/bin/createdb steamcannon_production -O steamcannon'"
+    - "cd /opt/steamcannon; /opt/jruby/bin/jruby -S rake db:setup"
     
 repos:
-  - name: "steamcannon-#ARCH#"
-    baseurl: "http://repo.steamcannon.org/packages/#OS_NAME#/#OS_VERSION#/RPMS/#ARCH#"
+  - name: "steamcannon-#BASE_ARCH#"
+    baseurl: "http://repo.steamcannon.org/packages/#OS_NAME#/#OS_VERSION#/RPMS/#BASE_ARCH#"
   - name: "steamcannon-noarch"
     baseurl: "http://repo.steamcannon.org/packages/#OS_NAME#/#OS_VERSION#/RPMS/noarch"
+  - name: "steamcannon-local"
+    baseurl: "file:///root/steamcannon-appliances/build/topdir/fedora/13/RPMS/noarch"
+    ephemeral: true
