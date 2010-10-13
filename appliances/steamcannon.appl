@@ -1,6 +1,6 @@
 name: steamcannon
-version: 1.1.3
-release: 1
+version: 1
+release: 5
 summary: Appliance for SteamCannon management console with Torquebox and AS-6
 
 os:
@@ -30,10 +30,14 @@ post:
     - "cp /opt/steamcannon/config/steamcannon.yml.example /opt/steamcannon/config/steamcannon.yml"
     - "/bin/sed -i s/'^#deltacloud_url'/'deltacloud_url'/g /opt/steamcannon/config/steamcannon.yml"
     - "/bin/sed -i s/'^#certificate_password'/'certificate_password'/g /opt/steamcannon/config/steamcannon.yml"
-    - "echo -e '---\nappliaction:\n  RAILS_ROOT: /opt/steamcannon\n  RAILS_ENV: production\nweb:\n  context: /\n' > /opt/jboss-as/server/all/deploy/steamcannon-rails.yml"
-    - "su - postgres -c \"echo -e \\\"create user steamcannon with superuser password 'steamcannon'\\\" | psql\" "
-    - "su - postgres -c '/usr/bin/createdb steamcannon_production -O steamcannon'"
-    - "cd /opt/steamcannon; /opt/jruby/bin/jruby -S rake db:setup"
+    - "echo -e '---\napplication:\n  RAILS_ROOT: /opt/steamcannon\n  RAILS_ENV: production\nweb:\n  context: /\n' > /opt/jboss-as/server/default/deploy/steamcannon-rails.yml"
+
+    - "echo -e '/bin/su postgres -c \"/usr/bin/createuser -SDR steamcannon\"' >> /etc/rc.local"
+    - "echo -e '/bin/su postgres -c \"/usr/bin/createdb steamcannon_production -O steamcannon\"' >> /etc/rc.local"
+    - "echo -e 'echo -e \"ALTER USER steamcannon WITH PASSWORD \\\'steamcannon\\\';\" | /bin/su postgres -c /usr/bin/psql' >> /etc/rc.local"
+    - "echo -e 'cd /opt/steamcannon; export RAILS_ENV=production; /opt/jruby/bin/jruby -S rake db:setup' >> /etc/rc.local"
+    - "echo -e 'rm -rf /opt/jboss-as/server/default/deploy/ROOT.war' >> /etc/rc.local"
+    - "echo -e '/etc/init.d/jboss-as start' >> /etc/rc.local"
     
 repos:
   - name: "steamcannon-#BASE_ARCH#"
@@ -41,5 +45,5 @@ repos:
   - name: "steamcannon-noarch"
     baseurl: "http://repo.steamcannon.org/packages/#OS_NAME#/#OS_VERSION#/RPMS/noarch"
   - name: "steamcannon-local"
-    baseurl: "file:///root/steamcannon-appliances/build/topdir/fedora/13/RPMS/noarch"
+    baseurl: "file:///mnt/boxgrinder/steamcannon-appliances/build/topdir/fedora/13/RPMS/noarch"
     ephemeral: true
