@@ -2,6 +2,7 @@
 %define jboss_version 6.0.0.M5
 %define jboss_version_full 6.0.0.20100911-M5
 %define jgroups_version 2.10.1.SNAPSHOT
+%define jgroups_version_target 2.10.1.GA
 %define mod_cluster_version 1.1.0.Final
 
 Summary:        The JBoss AS 6 cloud profiles (cluster and group)
@@ -29,7 +30,7 @@ The JBoss AS 6 cloud profiles (cluster and group)
 
 %prep
 %setup -T -b 0 -n jboss-%{jboss_version_full}
-%setup -T -b 5 -n JGroups-%{jgroups_version}.bin
+%setup -T -b 5 -n JGroups-%{jgroups_version_target}.bin
 %setup -T -b 6 -c -n mod_cluster-%{mod_cluster_version}
 
 %install
@@ -48,8 +49,8 @@ cp -R jboss-%{jboss_version_full}/server/all/* $RPM_BUILD_ROOT/opt/%{jboss_name}
 cp -R jboss-%{jboss_version_full}/server/all/* $RPM_BUILD_ROOT/opt/%{jboss_name}/server/cluster-ec2/
 
 # JGroups update
-cp JGroups-%{jgroups_version}.bin/jgroups-%{jgroups_version}.jar $RPM_BUILD_ROOT/opt/%{jboss_name}/server/cluster-ec2/lib/jgroups.jar
-cp JGroups-%{jgroups_version}.bin/jgroups-%{jgroups_version}.jar $RPM_BUILD_ROOT/opt/%{jboss_name}/server/cluster/lib/jgroups.jar
+cp JGroups-%{jgroups_version_target}.bin/jgroups-%{jgroups_version_target}.jar $RPM_BUILD_ROOT/opt/%{jboss_name}/server/cluster-ec2/lib/jgroups.jar
+cp JGroups-%{jgroups_version_target}.bin/jgroups-%{jgroups_version_target}.jar $RPM_BUILD_ROOT/opt/%{jboss_name}/server/cluster/lib/jgroups.jar
 
 # mod_cluster update
 
