@@ -60,6 +60,7 @@ rm -Rf $RPM_BUILD_ROOT
 ln -s /etc/sysconfig/%{name} /etc/sysconfig/jboss-as
 ln -s /opt/%{name} /opt/jboss-as
 ln -s /etc/init.d/%{name} /etc/init.d/jboss-as
+ln -s /etc/init.d/%{name} /etc/init.d/jboss_as
 
 %files
 %defattr(-,%{name},%{name})
