@@ -1,7 +1,5 @@
 %define torquebox_version 1.0.0.Beta22
 
-%define jboss_name jboss-as6
-
 %global _binaries_in_noarch_packages_terminate_build 0
 
 Summary:        TorqueBox JRuby
@@ -37,7 +35,7 @@ rm -Rf $RPM_BUILD_ROOT/opt/jruby/lib/ruby/gems/1.8/cache
 rm -Rf $RPM_BUILD_ROOT
 
 %files
-%defattr(-,%{jboss_name},%{jboss_name})
+%defattr(-,root,root)
 /
 
 %changelog
