@@ -1,5 +1,5 @@
 %define jruby_version 1.8
-%define steamcannon_version 069d642
+%define steamcannon_version 4d535df
 %define jruby_path $RPM_BUILD_ROOT/opt/jruby
 %define jruby_gems %{jruby_path}/lib/ruby/gems/%{jruby_version}
 %define jruby_cmd /opt/jruby/bin/jruby

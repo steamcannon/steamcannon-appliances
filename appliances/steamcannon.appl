@@ -1,6 +1,6 @@
 name: steamcannon
 version: 1
-release: 5
+release: 7
 summary: Appliance for SteamCannon management console with Torquebox and JBoss AS 6
 appliances:
   - steamcannon-torquebox-back-end
@@ -15,15 +15,7 @@ post:
     - "/sbin/service postgresql initdb"
     - "/bin/sed -i s/'^host'/'# host'/g /var/lib/pgsql/data/pg_hba.conf"
     - "/bin/echo 'host    all         all         0.0.0.0/0          md5' >> /var/lib/pgsql/data/pg_hba.conf"
-    - "cp /opt/steamcannon/config/steamcannon.yml.example /opt/steamcannon/config/steamcannon.yml"
-    - "/bin/sed -i s/'^#deltacloud_url'/'deltacloud_url'/g /opt/steamcannon/config/steamcannon.yml"
-    - "/bin/sed -i s/'^#certificate_password'/'certificate_password'/g /opt/steamcannon/config/steamcannon.yml"
-    - "echo -e '---\napplication:\n  RAILS_ROOT: /opt/steamcannon\n  RAILS_ENV: production\nweb:\n  context: /\n' > /opt/jboss-as/server/default/deploy/steamcannon-rails.yml"
-
-    - "echo -e '/bin/su postgres -c \"/usr/bin/createuser -SDR steamcannon\"' >> /etc/rc.local"
-    - "echo -e '/bin/su postgres -c \"/usr/bin/createdb steamcannon_production -O steamcannon\"' >> /etc/rc.local"
-    - "echo -e 'echo -e \"ALTER USER steamcannon WITH PASSWORD \\\'steamcannon\\\';\" | /bin/su postgres -c /usr/bin/psql' >> /etc/rc.local"
-    - "echo -e 'cd /opt/steamcannon; export RAILS_ENV=production; /opt/jruby/bin/jruby -S rake db:setup' >> /etc/rc.local"
+    - "echo '/opt/steamcannon/bin/appliance_initialization.sh' >> /etc/rc.local"
     - "echo -e 'rm -rf /opt/jboss-as/server/default/deploy/ROOT.war' >> /etc/rc.local"
     - "echo -e '/etc/init.d/jboss-as start' >> /etc/rc.local"
 repos:
