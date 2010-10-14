@@ -8,7 +8,7 @@ hardware:
     "/":
       size: 5
 appliances:
-  - torquebox-back-end
+  - steamcannon-torquebox-back-end
   - steamcannon-database
 post:
   base:
@@ -20,8 +20,3 @@ post:
     - "echo -e '/bin/su postgres -c \"/usr/bin/createuser -SDR steamcannon\"' >> /etc/rc.local"
     - "echo -e '/bin/su postgres -c \"/usr/bin/createdb steamcannon -O steamcannon\"' >> /etc/rc.local"
     - "echo -e 'echo -e \"ALTER USER steamcannon WITH PASSWORD \\'steamcannon\\';\" | /bin/su postgres -c /usr/bin/psql' >> /etc/rc.local"
-repos:
-  - name: "steamcannon-#BASE_ARCH#"
-    baseurl: "http://repo.steamcannon.org/packages/#OS_NAME#/#OS_VERSION#/RPMS/#BASE_ARCH#"
-  - name: "steamcannon-noarch"
-    baseurl: "http://repo.steamcannon.org/packages/#OS_NAME#/#OS_VERSION#/RPMS/noarch"
