@@ -9,14 +9,10 @@ hardware:
       size: 5
 appliances:
   - steamcannon-torquebox-back-end
-  - steamcannon-database
+packages:
+  includes:
+    - postgresql-server
 post:
   base:
+    - "echo -e '\n  - PostgreSQL' >> /etc/sysconfig/steamcannon-agent"
     - "/sbin/chkconfig postgresql on"
-    - "/sbin/chkconfig jboss-as6 on"
-    - "/sbin/service postgresql initdb"
-    - "/bin/sed -i s/'^host'/'# host'/g /var/lib/pgsql/data/pg_hba.conf"
-    - "echo 'host    all         all         0.0.0.0/0          md5' >> /var/lib/pgsql/data/pg_hba.conf"
-    - "echo -e '/bin/su postgres -c \"/usr/bin/createuser -SDR steamcannon\"' >> /etc/rc.local"
-    - "echo -e '/bin/su postgres -c \"/usr/bin/createdb steamcannon -O steamcannon\"' >> /etc/rc.local"
-    - "echo -e 'echo -e \"ALTER USER steamcannon WITH PASSWORD \\'steamcannon\\';\" | /bin/su postgres -c /usr/bin/psql' >> /etc/rc.local"
