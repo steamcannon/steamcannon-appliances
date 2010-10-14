@@ -35,12 +35,15 @@ rm -Rf $RPM_BUILD_ROOT
 
 cd %{_topdir}/BUILD
 install -d -m 755 %{buildroot}%{gemdir}/gems
+install -d -m 755 %{buildroot}/opt/jboss-as/server/default/deploy
+
+# TODO - Need sinatra dependency
 
 # install required gems 
 %{gemcommand} install --install-dir=%{buildroot}%{gemdir} --ignore-dependencies --force --no-ri --no-rdoc %{gemname} -v %{deltacloud_version}
 
 # Write deltacloud-rack.yml file 
-printf "application:\n\tRACK_ROOT: %{geminstdir}-java\n\tRACK_ENV: production\nweb:\\n\tcontext: /deltacloud\nenvironment:\n\tAPI_DRIVER: ec2" > /opt/jboss-as/server/cluster-ec2/deploy/deltacloud-rack.yml
+printf "application:\n    RACK_ROOT: %{geminstdir}-java\n    RACK_ENV: production\nweb:\\n    context: /deltacloud\nenvironment:\n    API_DRIVER: ec2" > %{buildroot}/opt/jboss-as/server/default/deploy/deltacloud-rack.yml
 
 %clean
 rm -rf %{buildroot}
@@ -51,6 +54,7 @@ rm -rf %{buildroot}
 %{gemdir}/gems/%{gemname}-%{deltacloud_version}-java/
 %{gemdir}/cache/%{gemname}-%{deltacloud_version}-java.gem
 %{gemdir}/specifications/%{gemname}-%{deltacloud_version}-java.gemspec
+/opt/jboss-as/server/default/deploy/deltacloud-rack.yml
 
 
 %changelog

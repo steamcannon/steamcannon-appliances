@@ -7,3 +7,4 @@ appliances:
 packages:
   includes:
     - torquebox-deployers
+    - torquebox-cloud-profile-deployers
