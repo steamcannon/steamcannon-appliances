@@ -1,0 +1,12 @@
+name: steamcannon-database
+summary: SteamCannon database appliance with PostgreSQL
+version: 1
+release: 0
+appliances:
+  - steamcannon-base
+packages:
+  includes:
+    - postgresql-server
+post:
+  base:
+    - "echo -e '\n  - PostgreSQL' >> /etc/sysconfig/steamcannon-agent"

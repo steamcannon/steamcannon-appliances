@@ -1,28 +1,16 @@
 name: steamcannon
 version: 1
 release: 5
-summary: Appliance for SteamCannon management console with Torquebox and AS-6
-
-os:
-  name: fedora
-  version: 13
-
-hardware:
-  memory: 512
-  partitions:
-    "/":
-      size: 2
+summary: Appliance for SteamCannon management console with Torquebox and JBoss AS 6
 appliances:
-  - torquebox-back-end
+  - steamcannon-torquebox-back-end
+  - steamcannon-database
 packages:
   includes:
     - steamcannon
     - steamcannon-deltacloud-core-deployment
-    - postgresql-server
-
 post:
   base:
-    - "echo -e 'services:\n  - PostgreSQL\nlog_level: trace' > /etc/sysconfig/steamcannon"
     - "/sbin/chkconfig postgresql on"
     - "/sbin/service postgresql initdb"
     - "/bin/sed -i s/'^host'/'# host'/g /var/lib/pgsql/data/pg_hba.conf"
@@ -38,12 +26,7 @@ post:
     - "echo -e 'cd /opt/steamcannon; export RAILS_ENV=production; /opt/jruby/bin/jruby -S rake db:setup' >> /etc/rc.local"
     - "echo -e 'rm -rf /opt/jboss-as/server/default/deploy/ROOT.war' >> /etc/rc.local"
     - "echo -e '/etc/init.d/jboss-as start' >> /etc/rc.local"
-    
 repos:
-  - name: "steamcannon-#BASE_ARCH#"
-    baseurl: "http://repo.steamcannon.org/packages/#OS_NAME#/#OS_VERSION#/RPMS/#BASE_ARCH#"
-  - name: "steamcannon-noarch"
-    baseurl: "http://repo.steamcannon.org/packages/#OS_NAME#/#OS_VERSION#/RPMS/noarch"
   - name: "steamcannon-local"
     baseurl: "file:///mnt/boxgrinder/steamcannon-appliances/build/topdir/fedora/13/RPMS/noarch"
     ephemeral: true

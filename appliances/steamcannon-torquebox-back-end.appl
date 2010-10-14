@@ -1,0 +1,9 @@
+name: steamcannon-torquebox-back-end
+version: 1
+release: 2
+summary: SteamCannon back-end appliance with JBoss AS 6 and TorqueBox
+appliances:
+  - steamcannon-back-end
+packages:
+  includes:
+    - torquebox-deployers

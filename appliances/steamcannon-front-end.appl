@@ -1,0 +1,14 @@
+name: steamcannon-front-end
+summary: SteamCannon front-end appliance with HTTPD and mod_cluster
+version: 1
+release: 1
+appliances:
+  - steamcannon-base
+packages:
+  includes:
+    - mod_cluster
+    - httpd
+post:
+  base:
+    - "/sbin/chkconfig --level 234 httpd on"
+    - "echo -e '\n  - ModCluster' >> /etc/sysconfig/steamcannon-agent"

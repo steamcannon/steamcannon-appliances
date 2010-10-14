@@ -1,0 +1,27 @@
+name: steamcannon-sandbox
+version: 1
+release: 0
+summary: Developer sandbox with JBoss AS and PostgreSQL for SteamCannon
+hardware:
+  memory: 1024
+  partitions:
+    "/":
+      size: 5
+appliances:
+  - torquebox-back-end
+  - steamcannon-database
+post:
+  base:
+    - "/sbin/chkconfig postgresql on"
+    - "/sbin/chkconfig jboss-as6 on"
+    - "/sbin/service postgresql initdb"
+    - "/bin/sed -i s/'^host'/'# host'/g /var/lib/pgsql/data/pg_hba.conf"
+    - "echo 'host    all         all         0.0.0.0/0          md5' >> /var/lib/pgsql/data/pg_hba.conf"
+    - "echo -e '/bin/su postgres -c \"/usr/bin/createuser -SDR steamcannon\"' >> /etc/rc.local"
+    - "echo -e '/bin/su postgres -c \"/usr/bin/createdb steamcannon -O steamcannon\"' >> /etc/rc.local"
+    - "echo -e 'echo -e \"ALTER USER steamcannon WITH PASSWORD \\'steamcannon\\';\" | /bin/su postgres -c /usr/bin/psql' >> /etc/rc.local"
+repos:
+  - name: "steamcannon-#BASE_ARCH#"
+    baseurl: "http://repo.steamcannon.org/packages/#OS_NAME#/#OS_VERSION#/RPMS/#BASE_ARCH#"
+  - name: "steamcannon-noarch"
+    baseurl: "http://repo.steamcannon.org/packages/#OS_NAME#/#OS_VERSION#/RPMS/noarch"

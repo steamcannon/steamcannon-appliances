@@ -22,6 +22,7 @@ packages:
     - wget
 post:
   base:
+    - "echo -e 'log_level: trace\nservices:' > /etc/sysconfig/steamcannon-agent" 
     - "echo 'cd /usr/share/steamcannon-agent && git pull' >> /etc/rc.local"
     - "echo 'cp /usr/share/steamcannon-agent/appliance/src/steamcannon-agent.init /etc/init.d/steamcannon-agent' >> /etc/rc.local"
     - "echo 'chmod +x /etc/init.d/steamcannon-agent' >> /etc/rc.local"

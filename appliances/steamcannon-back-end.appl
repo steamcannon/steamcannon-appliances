@@ -1,7 +1,7 @@
-name: back-end
+name: steamcannon-back-end
 version: 1
 release: 3
-summary: back-end appliance with JBoss AS 6
+summary: SteamCannon back-end appliance with JBoss AS 6
 hardware:
   memory: 512
   partitions:
@@ -15,4 +15,4 @@ packages:
     - jboss-as6-cloud-profiles
 post:
   base:
-    - "echo -e 'services:\n  - JBossAS\nlog_level: trace' > /etc/sysconfig/steamcannon-agent"
+    - "echo -e '\n  - JBossAS' >> /etc/sysconfig/steamcannon-agent"
