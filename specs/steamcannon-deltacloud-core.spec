@@ -44,6 +44,7 @@ install -d -m 755 %{buildroot}/opt/jboss-as/server/default/deploy
 %{gemcommand} install --install-dir=%{buildroot}%{gemdir} --ignore-dependencies --force --no-ri --no-rdoc sinatra -v 1.0
 %{gemcommand} install --install-dir=%{buildroot}%{gemdir} --ignore-dependencies --force --no-ri --no-rdoc eventmachine -v 0.12.10
 %{gemcommand} install --install-dir=%{buildroot}%{gemdir} --ignore-dependencies --force --no-ri --no-rdoc rack-accept -v 0.4.3
+%{gemcommand} install --install-dir=%{buildroot}%{gemdir} --ignore-dependencies --force --no-ri --no-rdoc amazon-ec2 -v 0.9.15
 
 # Write deltacloud-rack.yml file 
 printf "application:\n    RACK_ROOT: %{geminstdir}-java\n    RACK_ENV: production\nweb:\\n    context: /deltacloud\nenvironment:\n    API_DRIVER: ec2" > %{buildroot}/opt/jboss-as/server/default/deploy/deltacloud-rack.yml
@@ -67,9 +68,18 @@ rm -rf %{buildroot}
 %{gemdir}/cache/eventmachine-0.12.10-java.gem
 %{gemdir}/specifications/eventmachine-0.12.10-java.gemspec
 
+%{gemdir}/gems/amazon-ec2-0.9.15/
+%{gemdir}/cache/amazon-ec2-0.9.15.gem
+%{gemdir}/specifications/amazon-ec2-0.9.15.gemspec
+
 %{gemdir}/gems/rack-accept-0.4.3/
 %{gemdir}/cache/rack-accept-0.4.3.gem
 %{gemdir}/specifications/rack-accept-0.4.3.gemspec
+
+%{gemdir}/bin/ec2-gem-example.rb
+%{gemdir}/bin/ec2-gem-profile.rb
+%{gemdir}/bin/ec2sh
+%{gemdir}/bin/setup.rb
 
 %changelog
 * Mon Oct 11 2010  <builder@localhost.localdomain> - 0.0.7.1-1
