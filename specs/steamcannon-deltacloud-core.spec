@@ -1,5 +1,5 @@
 %define jruby_version 1.8
-%define deltacloud_version 0.0.7.1
+%define deltacloud_version 0.0.7.2
 %define gemname steamcannon-deltacloud-core
 %define gemdir /opt/jruby/lib/ruby/gems/%{jruby_version}
 %define geminstdir %{gemdir}/gems/%{gemname}-%{deltacloud_version}
@@ -41,6 +41,9 @@ install -d -m 755 %{buildroot}/opt/jboss-as/server/default/deploy
 
 # install required gems 
 %{gemcommand} install --install-dir=%{buildroot}%{gemdir} --ignore-dependencies --force --no-ri --no-rdoc %{gemname} -v %{deltacloud_version}
+%{gemcommand} install --install-dir=%{buildroot}%{gemdir} --ignore-dependencies --force --no-ri --no-rdoc sinatra -v 1.0
+%{gemcommand} install --install-dir=%{buildroot}%{gemdir} --ignore-dependencies --force --no-ri --no-rdoc eventmachine -v 0.12.10
+%{gemcommand} install --install-dir=%{buildroot}%{gemdir} --ignore-dependencies --force --no-ri --no-rdoc rack-accept -v 0.4.3
 
 # Write deltacloud-rack.yml file 
 printf "application:\n    RACK_ROOT: %{geminstdir}-java\n    RACK_ENV: production\nweb:\\n    context: /deltacloud\nenvironment:\n    API_DRIVER: ec2" > %{buildroot}/opt/jboss-as/server/default/deploy/deltacloud-rack.yml
@@ -56,6 +59,17 @@ rm -rf %{buildroot}
 %{gemdir}/specifications/%{gemname}-%{deltacloud_version}-java.gemspec
 /opt/jboss-as/server/default/deploy/deltacloud-rack.yml
 
+%{gemdir}/gems/sinatra-1.0/
+%{gemdir}/cache/sinatra-1.0.gem
+%{gemdir}/specifications/sinatra-1.0.gemspec
+
+%{gemdir}/gems/eventmachine-0.12.10/
+%{gemdir}/cache/eventmachine-0.12.10.gem
+%{gemdir}/specifications/eventmachine-0.12.10.gemspec
+
+%{gemdir}/gems/rack-accept-0.4.3/
+%{gemdir}/cache/rack-accept-0.4.3.gem
+%{gemdir}/specifications/rack-accept-0.4.3.gemspec
 
 %changelog
 * Mon Oct 11 2010  <builder@localhost.localdomain> - 0.0.7.1-1

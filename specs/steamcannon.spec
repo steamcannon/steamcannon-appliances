@@ -8,22 +8,22 @@
 %global _binaries_in_noarch_packages_terminate_build 0
 
 Summary:        SteamCannon Rails App
-Name:           steamcannon
+Name:           steamcannon-ui
 Version:        %{steamcannon_version}
 Release:        1%{?dist}
 License:        LGPL
-Requires:       torquebox-cloud-profile-deployers
+Requires:       torquebox-deployers
 BuildRequires:       libxml2 libxml2-devel libxslt libxslt-devel torquebox-jruby
 BuildArch:      noarch
 Group:          Applications/System
-Source0:        http://github.com/%{name}/%{name}/tarball/%{steamcannon_version}
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+Source0:        http://github.com/steamcannon/steamcannon/tarball/%{steamcannon_version}
+BuildRoot:      %{_tmppath}/steamcannon-%{version}-%{release}-root-%(%{__id_u} -n)
 
 %description
 SteamCannon Rails App for shooting your apps to the clouds
 
 %prep
-%setup -T -b 0 -n %{name}-%{name}-%{steamcannon_version}
+%setup -T -b 0 -n steamcannon-steamcannon-%{steamcannon_version}
 
 %install
 rm -Rf $RPM_BUILD_ROOT
@@ -31,7 +31,7 @@ rm -Rf $RPM_BUILD_ROOT
 cd %{_topdir}/BUILD
 install -d -m 755 $RPM_BUILD_ROOT/opt/jruby/lib/ruby/gems/%{jruby_version}/gems
 
-cp -R %{name}-%{name}-%{steamcannon_version} $RPM_BUILD_ROOT/opt/steamcannon
+cp -R steamcannon-steamcannon-%{steamcannon_version} $RPM_BUILD_ROOT/opt/steamcannon
 
 # install required gems 
 %{jruby_cmd} -S gem install --install-dir=%{jruby_gems} --force --ignore-dependencies --no-ri --no-rdoc --platform java authlogic -v 2.1.5

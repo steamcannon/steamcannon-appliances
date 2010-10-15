@@ -1,13 +1,13 @@
 name: steamcannon
 version: 1
-release: 10
+release: 12
 summary: Appliance for SteamCannon management console with Torquebox and JBoss AS 6
 appliances:
   - steamcannon-torquebox-back-end
   - steamcannon-database
 packages:
   includes:
-    - steamcannon
+    - steamcannon-ui
     - steamcannon-deltacloud-core-deployment
   excludes:
     - steamcannon-agent
