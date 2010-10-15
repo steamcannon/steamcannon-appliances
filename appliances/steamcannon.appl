@@ -1,18 +1,34 @@
 name: steamcannon
 version: 1
-release: 14
+release: 15
+
 summary: Appliance for SteamCannon management console with Torquebox and JBoss AS 6
-appliances:
-  - steamcannon-torquebox-back-end
-  - steamcannon-database
+
+os:
+  name: fedora
+  version: 13
+
+hardware:
+  memory: 512
+  partitions:
+    "/":
+      size: 2
+
 packages:
   includes:
+    - bash
+    - yum 
+    - wget
+    - which
+    - vim-minimal
+    - openssh-server
+    - openssh-clients
+    - jboss-as6
     - steamcannon-ui
+    - postgresql-server
+    - torquebox-deployers
     - steamcannon-deltacloud-core-deployment
-  excludes:
-    - steamcannon-agent
-    - jboss-as6-cloud-profiles 
-    - torquebox-cloud-profiles-deployers
+
 post:
   base:
     - "/sbin/chkconfig postgresql on"
@@ -22,6 +38,7 @@ post:
     - "echo '/bin/sh /opt/steamcannon/bin/appliance_initialization.sh' >> /etc/rc.local"
     - "echo -e 'rm -rf /opt/jboss-as/server/default/deploy/ROOT.war' >> /etc/rc.local"
     - "echo -e '/etc/init.d/jboss-as start' >> /etc/rc.local"
+
 repos:
   - name: "steamcannon-local"
     baseurl: "file:///mnt/boxgrinder/steamcannon-appliances/build/topdir/fedora/13/RPMS/noarch"

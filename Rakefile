@@ -17,10 +17,11 @@ namespace :steamcannon do
   end
 
   desc "Install RPM build dependencies"
-  task :dependencies => ['rpm:torquebox-jruby', 'rpm:steamcannon-deltacloud-core'] do
+  task :dependencies => ['rpm:jboss-as6', 'rpm:torquebox-jruby', 'rpm:steamcannon-deltacloud-core'] do
     sh 'yum install libxml2 libxml2-devel libxslt libxslt-devel'
     sh 'rpm -iF build/topdir/fedora/13/RPMS/noarch/torquebox-jruby*.rpm'
     sh 'rpm -iF build/topdir/fedora/13/RPMS/noarch/steamcannon-deltacloud-core*.rpm'
+    sh 'rpm -iF build/topdir/fedora/13/RPMS/noarch/jboss-as6-6.*.rpm'
   end
 
   desc "Install Steamcannon RPM"

@@ -17,7 +17,7 @@ BuildRoot: %{_tmppath}/%{name}-%{deltacloud_version}-%{release}-root-%(%{__id_u}
 BuildRequires: rubygems
 BuildArch: noarch
 Provides: rubygem(%{gemname}) = %{deltacloud_version}
-Requires: torquebox-cloud-profile-deployers
+Requires: torquebox-deployers
 
 %description
 The Deltacloud API is built as a service-based REST API.
