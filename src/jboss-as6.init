@@ -86,10 +86,6 @@ else
   JBOSSCONF=${JBOSSCONF:-"all"}
 fi
 
-if [ "x$JBOSS_PROXY_LIST" != "x" ]; then
-  JAVA_OPTS="$JAVA_OPTS -Djboss.modcluster.proxyList='$JBOSS_PROXY_LIST'"
-fi
-
 IP_ADDRESS=`ip addr list eth0 | grep "inet " | cut -d' ' -f6 | cut -d/ -f1`
 
 #define the script to use to start jboss
@@ -182,6 +178,9 @@ JAVA_OPTS="$JAVA_OPTS -Djboss.messaging.ServerPeerID=$JBOSS_SERVER_PEER_ID"
 
 [ "x$JBOSS_ADDITIONAL_PARAMS" != "x" ] && \
 JAVA_OPTS="$JAVA_OPTS $JBOSS_ADDITIONAL_PARAMS"
+
+# Allow ROOT context to be exposed via mod_cluster
+JAVA_OPTS="$JAVA_OPTS -Djboss.mod_cluster.excludedContexts=admin-console,invoker,bossws,jmx-console,juddi,web-console"
 
 # Set the awt.headless option
 JAVA_OPTS="$JAVA_OPTS -Djava.awt.headless=true"
