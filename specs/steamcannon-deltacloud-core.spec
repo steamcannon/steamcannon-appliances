@@ -63,9 +63,9 @@ rm -rf %{buildroot}
 %{gemdir}/cache/sinatra-1.0.gem
 %{gemdir}/specifications/sinatra-1.0.gemspec
 
-%{gemdir}/gems/eventmachine-0.12.10/
-%{gemdir}/cache/eventmachine-0.12.10.gem
-%{gemdir}/specifications/eventmachine-0.12.10.gemspec
+%{gemdir}/gems/eventmachine-0.12.10-java/
+%{gemdir}/cache/eventmachine-0.12.10-java.gem
+%{gemdir}/specifications/eventmachine-0.12.10-java.gemspec
 
 %{gemdir}/gems/rack-accept-0.4.3/
 %{gemdir}/cache/rack-accept-0.4.3.gem
