@@ -37,6 +37,9 @@ cp -R jboss-%{jboss_version_full}/* $RPM_BUILD_ROOT/opt/%{name}
 # it caused adding bad requires for package
 rm -rf $RPM_BUILD_ROOT/opt/%{name}/bin/jboss_init_solaris.sh
 
+# Remove ROOT.war files
+find $RPM_BUILD_ROOT/opt/%{name}/server/ -name "ROOT.war" | xargs rm -r
+
 install -d -m 755 $RPM_BUILD_ROOT%{_initrddir}
 install -m 755 %{SOURCE1} $RPM_BUILD_ROOT%{_initrddir}/%{name}
 
