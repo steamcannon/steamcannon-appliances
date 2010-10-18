@@ -1,5 +1,5 @@
 %define jruby_version 1.8
-%define steamcannon_version 4d535df
+%define steamcannon_version 813c49d
 %define jruby_path $RPM_BUILD_ROOT/opt/jruby
 %define jruby_gems %{jruby_path}/lib/ruby/gems/%{jruby_version}
 %define jruby_cmd /opt/jruby/bin/jruby
@@ -60,7 +60,7 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %files
-%defattr(-,root,root)
+%defattr(-,jboss-as6,jboss-as6)
 /
 
 %changelog

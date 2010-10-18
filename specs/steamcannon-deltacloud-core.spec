@@ -35,7 +35,7 @@ rm -Rf $RPM_BUILD_ROOT
 
 cd %{_topdir}/BUILD
 install -d -m 755 %{buildroot}%{gemdir}/gems
-install -d -m 755 %{buildroot}/opt/jboss-as/server/default/deploy
+install -d -m 755 %{buildroot}/opt/jboss-as/server/all/deploy
 
 # TODO - Need sinatra dependency
 
@@ -47,7 +47,7 @@ install -d -m 755 %{buildroot}/opt/jboss-as/server/default/deploy
 %{gemcommand} install --install-dir=%{buildroot}%{gemdir} --ignore-dependencies --force --no-ri --no-rdoc amazon-ec2 -v 0.9.15
 
 # Write deltacloud-rack.yml file 
-printf "application:\n    RACK_ROOT: %{geminstdir}-java\n    RACK_ENV: production\nweb:\\n    context: /deltacloud\nenvironment:\n    API_DRIVER: ec2" > %{buildroot}/opt/jboss-as/server/default/deploy/deltacloud-rack.yml
+printf "application:\n    RACK_ROOT: %{geminstdir}-java\n    RACK_ENV: production\nweb:\\n    context: /deltacloud\nenvironment:\n    API_DRIVER: ec2" > %{buildroot}/opt/jboss-as/server/all/deploy/deltacloud-rack.yml
 
 %clean
 rm -rf %{buildroot}
@@ -58,7 +58,7 @@ rm -rf %{buildroot}
 %{gemdir}/gems/%{gemname}-%{deltacloud_version}-java/
 %{gemdir}/cache/%{gemname}-%{deltacloud_version}-java.gem
 %{gemdir}/specifications/%{gemname}-%{deltacloud_version}-java.gemspec
-/opt/jboss-as/server/default/deploy/deltacloud-rack.yml
+/opt/jboss-as/server/all/deploy/deltacloud-rack.yml
 
 %{gemdir}/gems/sinatra-1.0/
 %{gemdir}/cache/sinatra-1.0.gem

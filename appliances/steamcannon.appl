@@ -1,6 +1,6 @@
 name: steamcannon
 version: 1
-release: 15
+release: 21
 
 summary: Appliance for SteamCannon management console with Torquebox and JBoss AS 6
 
@@ -36,7 +36,9 @@ post:
     - "/bin/sed -i s/'^host'/'# host'/g /var/lib/pgsql/data/pg_hba.conf"
     - "/bin/echo 'host    all         all         0.0.0.0/0          md5' >> /var/lib/pgsql/data/pg_hba.conf"
     - "echo '/bin/sh /opt/steamcannon/bin/appliance_initialization.sh' >> /etc/rc.local"
-    - "echo -e 'rm -rf /opt/jboss-as/server/default/deploy/ROOT.war' >> /etc/rc.local"
+    - "echo -e 'rm -rf /opt/jboss-as/server/all/deploy/ROOT.war' >> /etc/rc.local"
+    - "echo -e 'chown -R jboss-as /opt/steamcannon/log' >> /etc/rc.local"
+    - "echo -e 'chown -R jboss-as /opt/steamcannon/public/stylesheets/compiled' >> /etc/rc.local"
     - "echo -e '/etc/init.d/jboss-as start' >> /etc/rc.local"
 
 repos:
