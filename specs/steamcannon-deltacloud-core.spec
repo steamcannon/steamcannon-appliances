@@ -37,8 +37,6 @@ cd %{_topdir}/BUILD
 install -d -m 755 %{buildroot}%{gemdir}/gems
 install -d -m 755 %{buildroot}/opt/jboss-as/server/all/deploy
 
-# TODO - Need sinatra dependency
-
 # install required gems 
 %{gemcommand} install --install-dir=%{buildroot}%{gemdir} --ignore-dependencies --force --no-ri --no-rdoc %{gemname} -v %{deltacloud_version}
 %{gemcommand} install --install-dir=%{buildroot}%{gemdir} --ignore-dependencies --force --no-ri --no-rdoc sinatra -v 1.0
