@@ -47,6 +47,7 @@ install -d -m 755 $RPM_BUILD_ROOT/etc/sysconfig
 
 echo "JBOSS_VERSION=%{version}"              > $RPM_BUILD_ROOT/etc/sysconfig/%{name}
 echo "JBOSS_HOME=/opt/%{name}"              >> $RPM_BUILD_ROOT/etc/sysconfig/%{name}
+echo "JBOSS_IP=0.0.0.0"                     >> $RPM_BUILD_ROOT/etc/sysconfig/%{name}
 
 chmod 600 $RPM_BUILD_ROOT/etc/sysconfig/%{name} 
 

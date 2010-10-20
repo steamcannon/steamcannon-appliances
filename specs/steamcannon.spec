@@ -1,5 +1,5 @@
 %define jruby_version 1.8
-%define steamcannon_version 813c49d
+%define steamcannon_version 504f71a
 %define jruby_path $RPM_BUILD_ROOT/opt/jruby
 %define jruby_gems %{jruby_path}/lib/ruby/gems/%{jruby_version}
 %define jruby_cmd /opt/jruby/bin/jruby
@@ -35,7 +35,7 @@ cp -R steamcannon-steamcannon-%{steamcannon_version} $RPM_BUILD_ROOT/opt/steamca
 
 # install required gems 
 %{jruby_cmd} -S gem install --install-dir=%{jruby_gems} --force --ignore-dependencies --no-ri --no-rdoc --platform java authlogic -v 2.1.5
-%{jruby_cmd} -S gem install --install-dir=%{jruby_gems} --force --ignore-dependencies --no-ri --no-rdoc --platform java aws 
+%{jruby_cmd} -S gem install --install-dir=%{jruby_gems} --force --ignore-dependencies --no-ri --no-rdoc --platform java aws  -v 2.3.21
 %{jruby_cmd} -S gem install --install-dir=%{jruby_gems} --force --ignore-dependencies --no-ri --no-rdoc --platform java s3 -v 0.3.4
 %{jruby_cmd} -S gem install --install-dir=%{jruby_gems} --force --ignore-dependencies --no-ri --no-rdoc --platform java haml -v 3.0.15
 %{jruby_cmd} -S gem install --install-dir=%{jruby_gems} --force --ignore-dependencies --no-ri --no-rdoc --platform java compass -v 0.10.5
@@ -54,6 +54,7 @@ cp -R steamcannon-steamcannon-%{steamcannon_version} $RPM_BUILD_ROOT/opt/steamca
 
 
 rm -Rf $RPM_BUILD_ROOT/opt/jruby/lib/ruby/gems/%{jruby_version}/cache
+touch $RPM_BUILD_ROOT/opt/steamcannon/log/production.log
 
 %clean
 rm -rf $RPM_BUILD_ROOT
