@@ -1,5 +1,5 @@
 %define jruby_version 1.8
-%define steamcannon_version 504f71a
+%define steamcannon_version 306250d
 %define jruby_path $RPM_BUILD_ROOT/opt/jruby
 %define jruby_gems %{jruby_path}/lib/ruby/gems/%{jruby_version}
 %define jruby_cmd /opt/jruby/bin/jruby
@@ -8,7 +8,7 @@
 %global _binaries_in_noarch_packages_terminate_build 0
 
 Summary:        SteamCannon Rails App
-Name:           steamcannon-ui
+Name:           steamcannon
 Version:        %{steamcannon_version}
 Release:        1%{?dist}
 License:        LGPL
@@ -18,7 +18,7 @@ BuildArch:      noarch
 Group:          Applications/System
 Source0:        http://github.com/steamcannon/steamcannon/tarball/%{steamcannon_version}
 BuildRoot:      %{_tmppath}/steamcannon-%{version}-%{release}-root-%(%{__id_u} -n)
-Requires:       steamcannon = 0.0.1
+Requires:       steamcannon-dependencies = %{steamcannon_version}
 
 %description
 SteamCannon Rails App for shooting your apps to the clouds

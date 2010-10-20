@@ -19,7 +19,7 @@ appliances:
 
 packages:
   includes:
-    - steamcannon-ui
+    - steamcannon
     - postgresql-server
     - steamcannon-deltacloud-core-deployment
 
@@ -33,12 +33,8 @@ post:
     - "echo -e 'rm -rf /opt/jboss-as/server/all/deploy/ROOT.war' >> /etc/rc.local"
     - "echo -e 'chown -R jboss-as /opt/steamcannon/log' >> /etc/rc.local"
     - "echo -e 'chown -R jboss-as /opt/steamcannon/public/stylesheets/compiled' >> /etc/rc.local"
-#    - "echo -e 'export JBOSS_IP=0.0.0.0 && /etc/init.d/jboss-as start' >> /etc/rc.local"
 
 repos:
-  - name: "steamcannon-local"
-    baseurl: "file:///mnt/boxgrinder/steamcannon-appliances/build/topdir/fedora/13/RPMS/noarch"
-    ephemeral: true
   - name: "steamcannon-rpm-local"
     baseurl: "file:///mnt/boxgrinder/steamcannon-rpm/build/topdir/fedora/13/RPMS/noarch"
     ephemeral: true
