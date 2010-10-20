@@ -1,0 +1,39 @@
+name: steamcannon-torquebox
+version: 1
+release: 27
+
+summary: Appliance with Torquebox and JBoss AS 6
+
+os:
+  name: fedora
+  version: 13
+
+hardware:
+  memory: 2048
+  partitions:
+    "/":
+      size: 2
+
+packages:
+  includes:
+    - bash
+    - yum 
+    - wget
+    - which
+    - vim-minimal
+    - openssh-server
+    - openssh-clients
+    - jboss-as6
+    - torquebox-deployers
+
+post:
+  base:
+    - "echo -e 'rm -rf /opt/jboss-as/server/all/deploy/ROOT.war' >> /etc/rc.local"
+
+repos:
+  - name: "torquebox-local"
+    baseurl: "file:///mnt/boxgrinder/torquebox-rpm/build/topdir/fedora/13/RPMS/noarch"
+    ephemeral: true
+  - name: "steamcannon-local"
+    baseurl: "file:///mnt/boxgrinder/steamcannon-appliances/build/topdir/fedora/13/RPMS/noarch"
+    ephemeral: true
