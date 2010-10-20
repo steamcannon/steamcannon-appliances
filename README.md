@@ -43,6 +43,11 @@ a couple of libraries to the machine.  From the command line type:
 
     # yum install sqlite-devel openssl-devel libxml2 libxml2-devel libxslt libxslt-devel
     
+You'll also need to install a couple of gems in order to build the RPM files.
+
+    # gem install net-ssh
+    # gem install net-sftp
+    
 If you want to create an EBS-backed AMI, you'll need the boxgrinder-build-ebs-delivery-plugin.  To install this,
 type on the command line:
 
