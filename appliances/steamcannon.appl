@@ -14,19 +14,13 @@ hardware:
     "/":
       size: 2
 
+appliances:
+  - steamcannon-torquebox
+
 packages:
   includes:
-    - bash
-    - yum 
-    - wget
-    - which
-    - vim-minimal
-    - openssh-server
-    - openssh-clients
-    - jboss-as6
     - steamcannon-ui
     - postgresql-server
-    - torquebox-deployers
     - steamcannon-deltacloud-core-deployment
 
 post:
@@ -44,4 +38,7 @@ post:
 repos:
   - name: "steamcannon-local"
     baseurl: "file:///mnt/boxgrinder/steamcannon-appliances/build/topdir/fedora/13/RPMS/noarch"
+    ephemeral: true
+  - name: "steamcannon-rpm-local"
+    baseurl: "file:///mnt/boxgrinder/steamcannon-rpm/build/topdir/fedora/13/RPMS/noarch"
     ephemeral: true
