@@ -11,8 +11,12 @@ Release:        1
 License:        LGPL
 BuildArch:      noarch
 Group:          Applications/System
+<<<<<<< HEAD
 #Source0:        http://repository.torquebox.org/maven2/releases/org/torquebox/torquebox-dist/1.0.0.Beta22/torquebox-dist-%{torquebox_version}-bin.zip
 Source:         http://ci.stormgrind.org/repository/download/bt7/%{torquebox_build_number}:id/torquebox-dist-bin.zip?guest=1
+=======
+Source0:        http://repository.torquebox.org/maven2/releases/org/torquebox/torquebox-dist/%{torquebox_version}/torquebox-dist-%{torquebox_version}-bin.zip
+>>>>>>> Make SC AMI an EBS backed image
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 %description
