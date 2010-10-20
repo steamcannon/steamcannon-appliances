@@ -26,3 +26,7 @@ to build cirras-rpm:
     (cirras-management)
     libxml2-devel
     libxslt-devel
+
+    (steamcannon-agent)
+    sqlite-devel
+    openssl-devel
