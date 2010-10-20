@@ -1,15 +1,18 @@
-%define torquebox_version 1.0.0.Beta22
+%define torquebox_build_number 795
+%define torquebox_version 1.0.0.Beta23-SNAPSHOT
+%define torquebox_rpm_version 1.0.0.Beta23.SNAPSHOT
 
 %define jboss_name jboss-as6
 
 Summary:        TorqueBox Cloud Profile Deployers
 Name:           torquebox-cloud-profile-deployers
-Version:        %{torquebox_version}
+Version:        %{torquebox_rpm_version}
 Release:        1
 License:        LGPL
 BuildArch:      noarch
 Group:          Applications/System
-Source0:        http://repository.torquebox.org/maven2/releases/org/torquebox/torquebox-dist/1.0.0.Beta22/torquebox-dist-%{torquebox_version}-bin.zip
+#Source0:        http://repository.torquebox.org/maven2/releases/org/torquebox/torquebox-dist/1.0.0.Beta22/torquebox-dist-%{torquebox_version}-bin.zip
+Source:         http://ci.stormgrind.org/repository/download/bt7/%{torquebox_build_number}:id/torquebox-dist-bin.zip?guest=1
 Requires:       %{jboss_name}-cloud-profiles
 Requires:       torquebox-jruby
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
