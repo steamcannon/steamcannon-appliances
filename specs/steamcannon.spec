@@ -45,11 +45,12 @@ cp -R steamcannon-steamcannon-%{steamcannon_version} $RPM_BUILD_ROOT/opt/steamca
 %{jruby_cmd} -S gem install --install-dir=%{jruby_gems} --force --ignore-dependencies --no-ri --no-rdoc --platform java paperclip -v 2.3.3
 %{jruby_cmd} -S gem install --install-dir=%{jruby_gems} --force --ignore-dependencies --no-ri --no-rdoc --platform java simple-navigation -v 2.6.0
 %{jruby_cmd} -S gem install --install-dir=%{jruby_gems} --force --ignore-dependencies --no-ri --no-rdoc --platform java aasm -v 2.1.5
-%{jruby_cmd} -S gem install --install-dir=%{jruby_gems} --force --ignore-dependencies --no-ri --no-rdoc --platform java rest-client -v 1.6.1
+%{jruby_cmd} -S gem install --install-dir=%{jruby_gems} --force --ignore-dependencies --no-ri --no-rdoc --platform java rest-client -v 1.6.0
 %{jruby_cmd} -S gem install --install-dir=%{jruby_gems} --force --ignore-dependencies --no-ri --no-rdoc --platform java json -v 1.4.6
 %{jruby_cmd} -S gem install --install-dir=%{jruby_gems} --force --ignore-dependencies --no-ri --no-rdoc --platform java nokogiri -v 1.5.0.beta.2
 %{jruby_cmd} -S gem install --install-dir=%{jruby_gems} --force --ignore-dependencies --no-ri --no-rdoc --platform java bouncy-castle-java -v 1.5.0145.2
 %{jruby_cmd} -S gem install --install-dir=%{jruby_gems} --force --ignore-dependencies --no-ri --no-rdoc --platform java jruby-openssl -v 0.7.1
+%{jruby_cmd} -S gem install --install-dir=%{jruby_gems} --force --ignore-dependencies --no-ri --no-rdoc --platform java bundler -v 1.0.3
 %{jruby_cmd} -S gem install --install-dir=%{jruby_gems} --force --ignore-dependencies --no-ri --no-rdoc --platform java http_connection proxies uuidtools xml-simple
 
 
