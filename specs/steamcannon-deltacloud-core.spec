@@ -6,7 +6,7 @@
 %define gemcommand /opt/jruby/bin/jruby -S gem
 
 Summary: Deltacloud REST API
-Name: %{gemname}-deployment
+Name: %{gemname}
 Version: %{deltacloud_version}
 Release: 1%{?dist}
 Group: Development/Languages
@@ -17,7 +17,9 @@ BuildRoot: %{_tmppath}/%{name}-%{deltacloud_version}-%{release}-root-%(%{__id_u}
 BuildRequires: rubygems
 BuildArch: noarch
 Provides: rubygem(%{gemname}) = %{deltacloud_version}
-Requires: torquebox-deployers
+#Requires: torquebox-deployers
+Requires: torquebox-jruby
+Requires: server-dependencies
 
 %description
 The Deltacloud API is built as a service-based REST API.
@@ -39,10 +41,6 @@ install -d -m 755 %{buildroot}/opt/jboss-as/server/all/deploy
 
 # install required gems 
 %{gemcommand} install --install-dir=%{buildroot}%{gemdir} --ignore-dependencies --force --no-ri --no-rdoc %{gemname} -v %{deltacloud_version}
-%{gemcommand} install --install-dir=%{buildroot}%{gemdir} --ignore-dependencies --force --no-ri --no-rdoc sinatra -v 1.0
-%{gemcommand} install --install-dir=%{buildroot}%{gemdir} --ignore-dependencies --force --no-ri --no-rdoc eventmachine -v 0.12.10
-%{gemcommand} install --install-dir=%{buildroot}%{gemdir} --ignore-dependencies --force --no-ri --no-rdoc rack-accept -v 0.4.3
-%{gemcommand} install --install-dir=%{buildroot}%{gemdir} --ignore-dependencies --force --no-ri --no-rdoc amazon-ec2 -v 0.9.15
 
 # Write deltacloud-rack.yml file 
 printf "application:\n    RACK_ROOT: %{geminstdir}-java\n    RACK_ENV: production\nweb:\\n    context: /deltacloud\nenvironment:\n    API_DRIVER: ec2" > %{buildroot}/opt/jboss-as/server/all/deploy/deltacloud-rack.yml

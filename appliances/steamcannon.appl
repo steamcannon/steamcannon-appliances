@@ -27,7 +27,8 @@ packages:
     - torquebox-deployers
     - steamcannon
     - postgresql-server
-    - steamcannon-deltacloud-core-deployment
+    - steamcannon-deltacloud-core
+    - server-dependencies
 
 post:
   base:
@@ -50,4 +51,7 @@ repos:
     ephemeral: true
   - name: "torquebox-local"
     baseurl: "file:///mnt/boxgrinder/torquebox-rpm/build/topdir/fedora/13/RPMS/noarch"
+    ephemeral: true
+  - name: "deltacloud-local"
+    baseurl: "file:///mnt/boxgrinder/deltacloud-rpm/build/topdir/fedora/13/RPMS/noarch"
     ephemeral: true
