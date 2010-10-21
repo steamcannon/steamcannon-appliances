@@ -7,7 +7,7 @@ Cantiere::RakeHelper.new
 namespace :steamcannon do
   desc "Build the Steamcannon AMI"
   task :build_ami => [:clean, :dependencies, :rpm_install, :create_repo] do
-    sh 'boxgrinder-build -W appliances/steamcannon.appl -p ec2 -d ami'
+    sh 'boxgrinder-build -W appliances/steamcannon.appl -p ec2 -d ebs'
   end
 
   desc "Clean the appliance and RPM build directories"

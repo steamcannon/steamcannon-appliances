@@ -1,6 +1,6 @@
 name: steamcannon
 version: 1
-release: 27
+release: 32
 
 summary: Appliance for SteamCannon management console with Torquebox and JBoss AS 6
 
