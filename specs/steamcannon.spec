@@ -1,5 +1,5 @@
 %define jruby_version 1.8
-%define steamcannon_version 19253c7
+%define steamcannon_version a75ee76
 %define jruby_path $RPM_BUILD_ROOT/opt/jruby
 %define jruby_gems %{jruby_path}/lib/ruby/gems/%{jruby_version}
 %define jruby_cmd /opt/jruby/bin/jruby
@@ -33,7 +33,6 @@ cd %{_topdir}/BUILD
 install -d -m 755 $RPM_BUILD_ROOT/opt/jruby/lib/ruby/gems/%{jruby_version}/gems
 
 cp -R steamcannon-steamcannon-%{steamcannon_version} $RPM_BUILD_ROOT/opt/steamcannon
-rm $RPM_BUILD_ROOT/opt/steamcannon/Gemfile.lock
 
 rm -Rf $RPM_BUILD_ROOT/opt/jruby/lib/ruby/gems/%{jruby_version}/cache
 touch $RPM_BUILD_ROOT/opt/steamcannon/log/production.log

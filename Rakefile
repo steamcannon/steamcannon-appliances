@@ -36,3 +36,13 @@ namespace :steamcannon do
   end
 end
 
+
+desc "Build all RPMs necessary for the steamcannon.appl"
+task 'rpm:steamcannon:all' => [ 
+  'rpm:jboss-as6', 
+  'rpm:torquebox-deployers', 
+  'rpm:steamcannon-deltacloud-core', 
+  'rpm:steamcannon',
+] do 
+  Rake::Task['rpm:repodata:force'].invoke
+end
