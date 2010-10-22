@@ -149,14 +149,14 @@ namespace :steamcannon do
     end
 
     task 'rpm-deltacloud' do
-      Dir.chdir( '../torquebox-rpm' ) do
+      Dir.chdir( '../deltacloud-rpm' ) do
         sh 'rake rpm:all'
         sh 'rake rpm:repodata:force'
       end
     end
 
     task 'rpm-steamcannon' do
-      Dir.chdir( '../torquebox-rpm' ) do
+      Dir.chdir( '../steamcannon-rpm' ) do
         sh 'rake rpm:all'
         sh 'rake rpm:repodata:force'
       end
