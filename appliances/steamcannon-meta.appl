@@ -1,0 +1,94 @@
+name: steamcannon-meta
+version: 1
+release: 0
+
+summary: Meta Appliance for building SteamCannon appliances
+
+os:
+  name: fedora
+  version: 13
+
+hardware:
+  memory: 1024
+  partitions:
+    "/":
+      size: 20
+
+packages:
+  includes:
+    # Base packages
+    - bash
+    - kernel
+    - grub
+    - e2fsprogs
+    - passwd
+    - policycoreutils
+    - chkconfig
+    - rootfiles
+    - acpid
+    - dhclient
+    - iputils
+    - generic-logos
+    - sudo
+    - yum 
+    - wget
+    - which
+    - make
+    - gcc-c++
+    - ruby-devel
+    - vim-minimal
+    - openssh-server
+    - openssh-clients
+    
+    # Tools required to build AMIs
+    - rubygems
+    - git
+    - parted
+    - rpmdevtools
+    - appliance-tools
+    - sudo
+    - libguestfs
+    - ruby-libguestfs
+    - guestfish
+    - yum-utils
+    - boxgrinder-environment
+    - ec2-ami-tools
+    
+    # Tools required to build SteamCannon
+    - repotools
+    - sqlite-devel
+    - openssl-devel
+    - libxml2
+    - libxml2-devel
+    - libxslt
+
+post:
+  base:
+    # Box-grinder gems
+    - "/bin/echo 'gem install boxgrinder-build boxgrinder-build-fedora-os-plugin boxgrinder-build-rhel-os-plugin boxgrinder-build-centos-os-plugin boxgrinder-build-ec2-platform-plugin boxgrinder-build-vmware-platform-plugin boxgrinder-build-s3-delivery-plugin boxgrinder-build-sftp-delivery-plugin boxgrinder-build-local-delivery-plugin boxgrinder-build-ebs-delivery-plugin' >> /etc/rc.local"
+    
+    # Gems for SteamCannon build and it's dependencies
+    - "/bin/echo 'gem install rake bundler net-ssh net-sftp' >> /etc/rc.local"
+    
+    # Setup build repos
+    - "/bin/echo 'mkdir /mnt/boxgrinder' >> /etc/rc.local"
+    - "/bin/echo 'cd /mnt/boxgrinder && git clone git@github.com:steamcannon/steamcannon.git' >> /etc/rc.local"
+    - "/bin/echo 'cd /mnt/boxgrinder && git clone git@github.com:steamcannon/steamcannon-appliances.git' >> /etc/rc.local"
+    - "/bin/echo 'cd /mnt/boxgrinder && git clone git@github.com:steamcannon/steamcannon-rpm.git' >> /etc/rc.local"
+    - "/bin/echo 'cd /mnt/boxgrinder && git clone git@github.com:steamcannon/deltacloud-rpm.git' >> /etc/rc.local"
+    - "/bin/echo 'cd /mnt/boxgrinder && git clone git@github.com:torquebox/torquebox-rpm.git' >> /etc/rc.local"
+    
+    # Initialize git submodules
+    - "/bin/echo 'cd /mnt/boxgrinder/torquebox-rpm && git submodule init' >> /etc/rc.local"
+    - "/bin/echo 'cd /mnt/boxgrinder/torquebox-rpm && git submodule update' >> /etc/rc.local"
+    - "/bin/echo 'cd /mnt/boxgrinder/steamcannon-rpm && git submodule init' >> /etc/rc.local"
+    - "/bin/echo 'cd /mnt/boxgrinder/steamcannon-rpm && git submodule update' >> /etc/rc.local"
+    - "/bin/echo 'cd /mnt/boxgrinder/deltacloud-rpm && git submodule init' >> /etc/rc.local"
+    - "/bin/echo 'cd /mnt/boxgrinder/deltacloud-rpm && git submodule update' >> /etc/rc.local"
+
+
+repos:
+  - name: "boxgrinder-#BASE_ARCH#"
+    baseurl: "http://repo.boxgrinder.org/boxgrinder/packages/#OS_NAME#/#OS_VERSION#/RPMS/#BASE_ARCH#"
+  - name: "boxgrinder-noarch"
+    baseurl: "http://repo.boxgrinder.org/boxgrinder/packages/#OS_NAME#/#OS_VERSION#/RPMS/noarch"
