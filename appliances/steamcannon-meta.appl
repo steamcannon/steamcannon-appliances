@@ -66,7 +66,7 @@ packages:
 post:
   base:
     # Box-grinder gems
-    - "/bin/echo 'gem install boxgrinder-build boxgrinder-build-fedora-os-plugin boxgrinder-build-rhel-os-plugin boxgrinder-build-centos-os-plugin boxgrinder-build-ec2-platform-plugin boxgrinder-build-vmware-platform-plugin boxgrinder-build-s3-delivery-plugin boxgrinder-build-sftp-delivery-plugin boxgrinder-build-local-delivery-plugin boxgrinder-build-ebs-delivery-plugin' >> /etc/rc.local"
+    - "/bin/echo 'gem install boxgrinder-build boxgrinder-build-fedora-os-plugin boxgrinder-build-rhel-os-plugin boxgrinder-build-centos-os-plugin boxgrinder-build-ec2-platform-plugin boxgrinder-build-vmware-platform-plugin boxgrinder-build-s3-delivery-plugin boxgrinder-build-sftp-delivery-plugin boxgrinder-build-local-delivery-plugin boxgrinder-build-ebs-delivery-plugin --no-ri --no-rdoc' >> /etc/rc.local"
 
     # Gems for SteamCannon build and it's dependencies
     - "/bin/echo 'gem install rake bundler net-ssh net-sftp' >> /etc/rc.local"

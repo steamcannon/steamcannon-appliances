@@ -27,8 +27,7 @@ packages:
     - torquebox-deployers
     - steamcannon
     - postgresql-server
-    - steamcannon-deltacloud-core
-    - server-dependencies
+    - steamcannon-deltacloud-core-deployment
 
 post:
   base:
