@@ -1,4 +1,4 @@
-%define torquebox_build_number 838
+%define torquebox_build_number 840
 %define torquebox_version 1.0.0.Beta23-SNAPSHOT
 %define torquebox_rpm_version 1.0.0.Beta23.SNAPSHOT
 
@@ -15,6 +15,10 @@ Group:          Applications/System
 Source:         http://ci.stormgrind.org/repository/download/bt7/%{torquebox_build_number}:id/torquebox-dist-bin.zip?guest=1%{torquebox_build_number}
 Requires:       %{jboss_name}-cloud-profiles
 Requires:       torquebox-jruby
+Requires:       torquebox-rubygems
+Requires:       torquebox-rubygems-dependencies
+Requires:       rubyabi(1.8-java)
+
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 %description

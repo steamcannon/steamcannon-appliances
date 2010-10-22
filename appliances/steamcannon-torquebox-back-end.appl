@@ -6,5 +6,11 @@ appliances:
   - steamcannon-back-end
 packages:
   includes:
+    - torquebox-jruby
     - torquebox-deployers
     - torquebox-cloud-profile-deployers
+
+repos:
+  - name: "torquebox-local"
+    baseurl: "file:///mnt/boxgrinder/torquebox-rpm/build/topdir/fedora/13/RPMS/noarch"
+    ephemeral: true

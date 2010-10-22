@@ -66,6 +66,9 @@ ln -s /opt/%{name} /opt/jboss-as
 ln -s /etc/init.d/%{name} /etc/init.d/jboss-as
 ln -s /etc/init.d/%{name} /etc/init.d/jboss_as
 
+echo "jboss-as6 soft nofile 4096"           >> /etc/security/limits.conf
+echo "jboss-as6 hard nofile 4096"           >> /etc/security/limits.conf
+
 %files
 %defattr(-,%{name},%{name})
 /

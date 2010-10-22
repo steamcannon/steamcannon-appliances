@@ -9,39 +9,49 @@ os:
   version: 13
 
 hardware:
-  memory: 512
+  memory: 2048
   partitions:
     "/":
-      size: 2
+      size: 3
 
 packages:
   includes:
     - bash
-    - yum 
+    - yum
     - wget
     - which
     - vim-minimal
     - openssh-server
     - openssh-clients
     - jboss-as6
-    - steamcannon-ui
-    - postgresql-server
     - torquebox-deployers
-    - steamcannon-deltacloud-core-deployment
+    - steamcannon
+    - postgresql-server
+    - steamcannon-deltacloud-core
+    - server-dependencies
 
 post:
   base:
+    - "echo -e 'rm -rf /opt/jboss-as/server/all/deploy/ROOT.war' >> /etc/rc.local"
     - "/sbin/chkconfig postgresql on"
     - "/sbin/service postgresql initdb"
     - "/bin/sed -i s/'^host'/'# host'/g /var/lib/pgsql/data/pg_hba.conf"
     - "/bin/echo 'host    all         all         0.0.0.0/0          md5' >> /var/lib/pgsql/data/pg_hba.conf"
     - "echo -e '/bin/sh /opt/steamcannon/bin/appliance_initialization.sh' >> /etc/rc.local"
     - "echo -e 'rm -rf /opt/jboss-as/server/all/deploy/ROOT.war' >> /etc/rc.local"
-    - "echo -e 'chown -R jboss-as /opt/steamcannon/log' >> /etc/rc.local"
-    - "echo -e 'chown -R jboss-as /opt/steamcannon/public/stylesheets/compiled' >> /etc/rc.local"
-#    - "echo -e 'export JBOSS_IP=0.0.0.0 && /etc/init.d/jboss-as start' >> /etc/rc.local"
+    - "echo -e 'chown -R jboss-as6 /opt/steamcannon/log' >> /etc/rc.local"
+    - "echo -e 'chown -R jboss-as6 /opt/steamcannon/public/stylesheets/compiled' >> /etc/rc.local"
 
 repos:
+  - name: "steamcannon-rpm-local"
+    baseurl: "file:///mnt/boxgrinder/steamcannon-rpm/build/topdir/fedora/13/RPMS/noarch"
+    ephemeral: true
   - name: "steamcannon-local"
     baseurl: "file:///mnt/boxgrinder/steamcannon-appliances/build/topdir/fedora/13/RPMS/noarch"
+    ephemeral: true
+  - name: "torquebox-local"
+    baseurl: "file:///mnt/boxgrinder/torquebox-rpm/build/topdir/fedora/13/RPMS/noarch"
+    ephemeral: true
+  - name: "deltacloud-local"
+    baseurl: "file:///mnt/boxgrinder/deltacloud-rpm/build/topdir/fedora/13/RPMS/noarch"
     ephemeral: true
