@@ -39,7 +39,18 @@ cp -R jboss-%{jboss_version_full}/* $RPM_BUILD_ROOT/opt/%{name}
 rm -rf $RPM_BUILD_ROOT/opt/%{name}/bin/jboss_init_solaris.sh
 
 # Remove ROOT.war files
-find $RPM_BUILD_ROOT/opt/%{name}/server/ -name "ROOT.war" | xargs rm -r
+find $RPM_BUILD_ROOT/opt/%{name}/server/ -name "ROOT.war" | xargs rm -rf
+
+# Remove gratuitous services and consoles
+find $RPM_BUILD_ROOT/opt/%{name}/server/ -name "httpha-invoker.sar" | xargs rm -rf
+find $RPM_BUILD_ROOT/opt/%{name}/server/ -name "juddi-service.sar" | xargs rm -rf
+
+find $RPM_BUILD_ROOT/opt/%{name}/server/ -name "jbossws.war" | xargs rm -rf
+find $RPM_BUILD_ROOT/opt/%{name}/server/ -name "jbossws-console-activator-jboss-beans.xml" | xargs rm -rf
+find $RPM_BUILD_ROOT/opt/%{name}/common/ -name "jbossws-console.war" | xargs rm -rf
+
+find $RPM_BUILD_ROOT/opt/%{name}/common/ -name "admin-console.war" | xargs rm -rf
+find $RPM_BUILD_ROOT/opt/%{name}/common/ -name "jmx-console.war" | xargs rm -rf
 
 # Open the HTTPS Connector
 
