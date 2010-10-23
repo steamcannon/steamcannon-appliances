@@ -41,6 +41,14 @@ namespace :steamcannon do
 
   namespace :appliance do 
 
+    task 'vmware' => 'steamcannon:appliance:rpm' do
+      sh "sudo boxgrinder-build -W ./appliances/steamcannon.appl -p vmware"
+    end
+
+    task 'vmware:clean' do
+      sh "sudo rm -Rf ./build/appliances/i686/fedora/13/steamcannon/vmware-plugin"
+    end
+
     task 'sanity-check'=>[ 'sanity-check-dirs', 'sanity-check-versions' ] 
 
     task 'sanity-check-dirs' do
@@ -101,6 +109,7 @@ namespace :steamcannon do
 
       sh 'rm -Rf ../deltacloud-rpm/specs/*'
       sh 'rm -Rf ../deltacloud-rpm/build/*'
+
     end
 
     task 'rumpler'=>[ 'rumpler-torquebox', 'rumpler-deltacloud', 'rumpler-steamcannon' ]

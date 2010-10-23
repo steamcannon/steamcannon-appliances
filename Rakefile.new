@@ -1,0 +1,12 @@
+$: << 'lib/cantiere/lib'
+$: << 'lib'
+
+require 'cantiere/helpers/rake-helper'
+ 
+namespace :core do
+  Cantiere::RakeHelper.new
+end
+
+require 'rake_support'
+load 'dist.rake'
+

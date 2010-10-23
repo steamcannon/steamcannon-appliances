@@ -17,8 +17,7 @@ Group:          Applications/System
 BuildRoot:      %{_tmppath}/steamcannon-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires:       steamcannon-dependencies = %{steamcannon_version}
 
-# TODO: This is the steamcannon-deltacloud-core dep - should be renamed
-Requires:       steamcannon-deltacloud-core = %{deltacloud_version}
+Requires:       steamcannon-deltacloud-core-deployment = %{deltacloud_version}
 
 %description
 SteamCannon Rails App for shooting your apps to the clouds
