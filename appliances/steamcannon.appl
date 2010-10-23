@@ -31,13 +31,11 @@ packages:
 
 post:
   base:
-    - "echo -e 'rm -rf /opt/jboss-as/server/all/deploy/ROOT.war' >> /etc/rc.local"
     - "/sbin/chkconfig postgresql on"
     - "/sbin/service postgresql initdb"
     - "/bin/sed -i s/'^host'/'# host'/g /var/lib/pgsql/data/pg_hba.conf"
     - "/bin/echo 'host    all         all         0.0.0.0/0          md5' >> /var/lib/pgsql/data/pg_hba.conf"
     - "echo -e '/bin/sh /opt/steamcannon/bin/appliance_initialization.sh' >> /etc/rc.local"
-    - "echo -e 'rm -rf /opt/jboss-as/server/all/deploy/ROOT.war' >> /etc/rc.local"
     - "echo -e 'chown -R jboss-as6 /opt/steamcannon/log' >> /etc/rc.local"
     - "echo -e 'chown -R jboss-as6 /opt/steamcannon/public/stylesheets/compiled' >> /etc/rc.local"
 
