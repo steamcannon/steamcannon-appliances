@@ -9,6 +9,7 @@ BuildArch:      noarch
 Group:          Applications/System
 Source0:        http://cdnetworks-us-1.dl.sourceforge.net/project/jboss/JBoss/JBoss-6.0.0.M5/jboss-as-distribution-%{jboss_version_full}.zip
 Source1:        %{name}.init
+Source2:        jboss-as6-https-connector.patch
 Requires:       shadow-utils
 Requires:       coreutils
 Requires:       java-1.6.0-openjdk
@@ -39,6 +40,14 @@ rm -rf $RPM_BUILD_ROOT/opt/%{name}/bin/jboss_init_solaris.sh
 
 # Remove ROOT.war files
 find $RPM_BUILD_ROOT/opt/%{name}/server/ -name "ROOT.war" | xargs rm -r
+
+# Open the HTTPS Connector
+
+cd $RPM_BUILD_ROOT/opt/%{name}/server/all/deploy/jbossweb.sar && patch -i %{SOURCE2}
+cd $RPM_BUILD_ROOT/opt/%{name}/server/default/deploy/jbossweb.sar && patch -i %{SOURCE2}
+cd $RPM_BUILD_ROOT/opt/%{name}/server/jbossweb-standalone/deploy/jbossweb.sar && patch -i %{SOURCE2}
+cd $RPM_BUILD_ROOT/opt/%{name}/server/osgi/deploy/jbossweb.sar && patch -i %{SOURCE2}
+cd $RPM_BUILD_ROOT/opt/%{name}/server/standard/deploy/jbossweb.sar && patch -i %{SOURCE2}
 
 install -d -m 755 $RPM_BUILD_ROOT%{_initrddir}
 install -m 755 %{SOURCE1} $RPM_BUILD_ROOT%{_initrddir}/%{name}
