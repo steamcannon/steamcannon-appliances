@@ -33,6 +33,7 @@ rm -Rf $RPM_BUILD_ROOT
 
 cd %{_topdir}/BUILD
 
+install -d -m 755 $RPM_BUILD_ROOT/opt
 cp -R steamcannon-steamcannon-%{steamcannon_version} $RPM_BUILD_ROOT/opt/steamcannon
 
 mkdir $RPM_BUILD_ROOT/opt/steamcannon/log
