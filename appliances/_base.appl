@@ -1,0 +1,25 @@
+name: _base
+summary: Base appliance for SteamCannon platform appliances
+os:
+  name: fedora
+  version: 13
+hardware:
+  memory: 256
+  partitions:
+    "/":
+      size: 1
+packages:
+  includes:
+    - bash
+    - grub
+    - yum
+    - vim-minimal
+    - openssh-server
+    - openssh-clients
+    - which
+    - wget
+repos:
+  - name: "steamcannon-#BASE_ARCH#"
+    baseurl: "http://repo.steamcannon.org/packages/#OS_NAME#/#OS_VERSION#/RPMS/#BASE_ARCH#"
+  - name: "steamcannon-noarch"
+    baseurl: "http://repo.steamcannon.org/packages/#OS_NAME#/#OS_VERSION#/RPMS/noarch"

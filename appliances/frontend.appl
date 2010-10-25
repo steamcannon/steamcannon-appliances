@@ -1,9 +1,10 @@
-name: steamcannon-front-end
+name: frontend
 summary: SteamCannon front-end appliance with HTTPD and mod_cluster
 version: 1
 release: 1
 appliances:
-  - steamcannon-base
+  - _base
+  - _agent
 packages:
   includes:
     - mod_cluster

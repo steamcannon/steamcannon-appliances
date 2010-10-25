@@ -1,14 +1,25 @@
-name: steamcannon-torquebox-back-end
+name: appserver
 version: 1
 release: 5
 summary: SteamCannon back-end appliance with JBoss AS 6 and TorqueBox
+hardware:
+  memory: 2048
+  partitions:
+    "/":
+      size: 4
 appliances:
-  - steamcannon-back-end
+  - _base
+  - _agent
 packages:
   includes:
+    - jboss-as6
+    - jboss-as6-cloud-profiles
     - torquebox-jruby
     - torquebox-deployers
     - torquebox-cloud-profile-deployers
+post:
+  base:
+    - "echo -e '\n  - JBossAS' >> /etc/sysconfig/steamcannon-agent"
 
 repos:
   - name: "torquebox-local"

@@ -1,0 +1,12 @@
+name: developer-standalone
+version: 1
+release: 0
+summary: Standalone Developer sandbox with JBoss AS and PostgreSQL for SteamCannon
+hardware:
+  memory: 2048
+  partitions:
+    "/":
+      size: 5
+appliances:
+  - appserver
+  - postgresql
