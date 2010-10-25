@@ -1,5 +1,5 @@
 %define jruby_version 1.8
-%define steamcannon_version a75ee76
+%define steamcannon_version 4f46541
 %define deltacloud_version 0.0.8.1
 
 # Don't complain about arch-specific packages in noarch build
@@ -10,13 +10,16 @@ Name:           steamcannon
 Version:        %{steamcannon_version}
 Release:        1%{?dist}
 License:        LGPL
-Requires:       torquebox-deployers
-BuildRequires:       libxml2 libxml2-devel libxslt libxslt-devel 
+
 BuildArch:      noarch
 Group:          Applications/System
+BuildRequires:  libxml2 libxml2-devel libxslt libxslt-devel 
 BuildRoot:      %{_tmppath}/steamcannon-%{version}-%{release}-root-%(%{__id_u} -n)
-Requires:       steamcannon-dependencies = %{steamcannon_version}
+Source0:        http://github.com/steamcannon/steamcannon/tarball/%{steamcannon_version}
 
+
+Requires:       torquebox-deployers
+Requires:       steamcannon-dependencies = %{steamcannon_version}
 Requires:       steamcannon-deltacloud-core-deployment = %{deltacloud_version}
 
 %description
@@ -29,7 +32,7 @@ SteamCannon Rails App for shooting your apps to the clouds
 rm -Rf $RPM_BUILD_ROOT
 
 cd %{_topdir}/BUILD
-install -d -m 755 $RPM_BUILD_ROOT/opt/jruby/lib/ruby/gems/%{jruby_version}/gems
+install -d -m 755 $RPM_BUILD_ROOT/opt/steamcannon/log
 
 cp -R steamcannon-steamcannon-%{steamcannon_version} $RPM_BUILD_ROOT/opt/steamcannon
 
