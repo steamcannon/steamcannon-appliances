@@ -51,11 +51,10 @@ packages:
     - ruby-libguestfs
     - guestfish
     - yum-utils
-    - boxgrinder-environment
     - ec2-ami-tools
     
     # Tools required to build SteamCannon
-    - repotools
+    - createrepo
     - sqlite-devel
     - openssl-devel
     - libxml2
