@@ -9,19 +9,8 @@ hardware:
       size: 4
 appliances:
   - _base
-  - _agent
-packages:
-  includes:
-    - jboss-as6
-    - jboss-as6-cloud-profiles
-    - torquebox-jruby
-    - torquebox-deployers
-    - torquebox-cloud-profile-deployers
+  - _appserver
 post:
   base:
     - "echo -e '\n  - JBossAS' >> /etc/sysconfig/steamcannon-agent"
 
-repos:
-  - name: "torquebox-local"
-    baseurl: "file:///mnt/boxgrinder/torquebox-rpm/build/topdir/fedora/13/RPMS/noarch"
-    ephemeral: true

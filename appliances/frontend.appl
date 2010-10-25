@@ -4,7 +4,6 @@ version: 1
 release: 1
 appliances:
   - _base
-  - _agent
 packages:
   includes:
     - mod_cluster

@@ -1,0 +1,7 @@
+name: _postgresql
+summary: PostgreSQL mixin
+version: 1
+release: 0
+packages:
+  includes:
+    - postgresql-server

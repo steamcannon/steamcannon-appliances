@@ -8,8 +8,10 @@ hardware:
   partitions:
     "/":
       size: 1
+appliances:
 packages:
   includes:
+    - steamcannon-agent
     - bash
     - grub
     - yum
@@ -18,6 +20,14 @@ packages:
     - openssh-clients
     - which
     - wget
+post:
+  base:
+    - "echo -e 'log_level: trace\nservices:' > /etc/sysconfig/steamcannon-agent" 
+    - "echo 'cd /usr/share/steamcannon-agent && git pull' >> /etc/rc.local"
+    - "echo 'cp /usr/share/steamcannon-agent/appliance/src/steamcannon-agent.init /etc/init.d/steamcannon-agent' >> /etc/rc.local"
+    - "echo 'chmod +x /etc/init.d/steamcannon-agent' >> /etc/rc.local"
+    - "echo '/etc/init.d/steamcannon-agent restart' >> /etc/rc.local"
+    - "chkconfig steamcannon-agent off"
 repos:
   - name: "steamcannon-#BASE_ARCH#"
     baseurl: "http://repo.steamcannon.org/packages/#OS_NAME#/#OS_VERSION#/RPMS/#BASE_ARCH#"

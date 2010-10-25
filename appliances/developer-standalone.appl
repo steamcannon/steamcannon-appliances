@@ -8,5 +8,10 @@ hardware:
     "/":
       size: 5
 appliances:
-  - appserver
-  - postgresql
+  - _base
+  - _appserver
+  - _postgresql
+post:
+  base:
+    - "echo -e '\n  - JBossAS'    >> /etc/sysconfig/steamcannon-agent"
+    - "echo -e '\n  - PostgreSQL' >> /etc/sysconfig/steamcannon-agent"

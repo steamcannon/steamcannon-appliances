@@ -4,10 +4,7 @@ version: 1
 release: 0
 appliances:
   - _base
-  - _agent
-packages:
-  includes:
-    - postgresql-server
+  - _postgresql
 post:
   base:
     - "echo -e '\n  - PostgreSQL' >> /etc/sysconfig/steamcannon-agent"
