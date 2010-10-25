@@ -1,7 +1,8 @@
 
-steamcannon_version = nil
-torquebox_version   = nil
-deltacloud_version  = '0.0.8.1'
+steamcannon_version   = nil
+torquebox_version     = nil
+deltacloud_version    = '0.0.8.1'
+torquebox_rpm_version = '1.0.0.Beta23.SNAPSHOT'
 
 ##
 ## Appliances
@@ -13,6 +14,11 @@ end
 
 task 'dist:appliance:vmware:only' do
   sh "sudo boxgrinder-build -W ./appliances/steamcannon.appl -p vmware"
+end
+
+task 'dist:appliance:clean' => [ 'dist:rpm:clean', 'dist:rumpler:clean' ] do
+  sh "rm -Rf build/topdir"
+  sh "sudo rm -Rf build/appliances"
 end
 
 ###
@@ -33,9 +39,11 @@ task 'dist:rpm'=>[
 ]
 
 task 'dist:rpm:core' => [
-  'core:rpm:jboss-as6',
-  'core:rpm:torquebox-deployers',
-  'core:rpm:steamcannon-deltacloud-core-deployment',
+  'rpm:jboss-as6',
+  'rpm:torquebox-deployers',
+  'rpm:steamcannon-deltacloud-core-deployment',
+  'rpm:steamcannon',
+  'rpm:repodata:force',
 ]
 
 task 'dist:rpm:torquebox' => 'dist:rumpler:torquebox' do
@@ -60,15 +68,15 @@ task 'dist:rpm:steamcannon' => 'dist:rumpler:steamcannon' do
 end
 
 task 'dist:rpm:torquebox:clean' do
-  FileUtils.rm_rf( '../torquebox-rpm/build/topdir' )
+  sh 'rm -Rf ../torquebox-rpm/build/topdir' 
 end
 
-task 'dist:rpm:deltacloud' => 'dist:rumpler:deltacloud' do
-  FileUtils.rm_rf( '../deltacloud-rpm/build/topdir' )
+task 'dist:rpm:deltacloud:clean' do
+  sh 'rm -Rf ../deltacloud-rpm/build/topdir'
 end
 
-task 'dist:rpm:steamcannon' => 'dist:rumpler:steamcannon' do
-  FileUtils.rm_rf( '../steamcannon-rpm/build/topdir' )
+task 'dist:rpm:steamcannon:clean' do
+  sh 'rm -Rf ../steamcannon-rpm/build/topdir' 
 end
 
 
@@ -88,7 +96,7 @@ task 'dist:rumpler:clean'=> [
   'dist:rumpler:steamcannon:clean' 
 ]
 
-task 'dist:rumpler:torquebox' => [ 'verify-versions' ] do
+task 'dist:rumpler:torquebox' => [ 'dist:sanity:versions:verify' ] do
   puts "rumpling torquebox-rpm"
   Dir.chdir( "../torquebox-rpm" ) do
     FileUtils.mkdir_p( 'specs/gems' )
@@ -100,7 +108,7 @@ task 'dist:rumpler:torquebox' => [ 'verify-versions' ] do
   end
 end
 
-task 'dist:rumpler:deltacloud' => [ 'verify-versions' ] do
+task 'dist:rumpler:deltacloud' => [ 'dist:sanity:versions:verify' ] do
   puts "rumpling deltacloud-rpm"
   Dir.chdir( "../deltacloud-rpm" ) do
     FileUtils.mkdir_p( 'specs' )
@@ -112,7 +120,7 @@ task 'dist:rumpler:deltacloud' => [ 'verify-versions' ] do
   end
 end
 
-task 'dist:rumpler:steamcannon' => [ 'verify-versions' ] do
+task 'dist:rumpler:steamcannon' => [ 'dist:sanity:versions:verify' ] do
   puts "rumpling steamcannon-rpm"
   Dir.chdir( "../steamcannon" ) do
     sh "git fetch origin"
@@ -127,15 +135,15 @@ task 'dist:rumpler:steamcannon' => [ 'verify-versions' ] do
 end
 
 task 'dist:rumpler:torquebox:clean' do
-  FileUtils.rm_rf( '../torquebox-rpm/specs/gems' )
+  sh 'rm -Rf ../torquebox-rpm/specs/gems' 
 end
 
-task 'dist:rumpler:deltacloud' => 'dist:rumpler:deltacloud' do
-  FileUtils.rm_rf( '../deltacloud-rpm/specs' )
+task 'dist:rumpler:deltacloud:clean' do
+  sh 'rm -Rf ../deltacloud-rpm/specs' 
 end
 
-task 'dist:rumpler:steamcannon' => 'dist:rumpler:steamcannon' do
-  FileUtils.rm_rf( '../steamcannon-rpm/specs' )
+task 'dist:rumpler:steamcannon:clean' do 
+  sh 'rm -Rf ../steamcannon-rpm/specs' 
 end
 
 
