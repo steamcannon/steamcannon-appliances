@@ -49,6 +49,9 @@ cp -R jboss-%{jboss_version_full}/server/default/* $RPM_BUILD_ROOT/opt/%{jboss_n
 cp -R jboss-%{jboss_version_full}/server/all/* $RPM_BUILD_ROOT/opt/%{jboss_name}/server/cluster/
 cp -R jboss-%{jboss_version_full}/server/all/* $RPM_BUILD_ROOT/opt/%{jboss_name}/server/cluster-ec2/
 
+# Remove ROOT.war files
+find $RPM_BUILD_ROOT/opt/%{jboss_name}/server/ -name "ROOT.war" | xargs rm -r
+
 # JGroups update
 cp JGroups-%{jgroups_version_target}.bin/jgroups-%{jgroups_version_target}.jar $RPM_BUILD_ROOT/opt/%{jboss_name}/server/cluster-ec2/lib/jgroups.jar
 cp JGroups-%{jgroups_version_target}.bin/jgroups-%{jgroups_version_target}.jar $RPM_BUILD_ROOT/opt/%{jboss_name}/server/cluster/lib/jgroups.jar
