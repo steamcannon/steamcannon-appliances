@@ -32,10 +32,10 @@ SteamCannon Rails App for shooting your apps to the clouds
 rm -Rf $RPM_BUILD_ROOT
 
 cd %{_topdir}/BUILD
-install -d -m 755 $RPM_BUILD_ROOT/opt/steamcannon/log
 
 cp -R steamcannon-steamcannon-%{steamcannon_version} $RPM_BUILD_ROOT/opt/steamcannon
 
+install -d -m 755 $RPM_BUILD_ROOT/opt/steamcannon/log
 touch $RPM_BUILD_ROOT/opt/steamcannon/log/production.log
 
 %clean
