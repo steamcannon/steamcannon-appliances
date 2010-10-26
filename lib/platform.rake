@@ -69,12 +69,13 @@ end
 ### RPM
 ###
 
-
+desc 'Build all RPMs for the front-end appliance'
 task 'platform:frontend:rpm' => [
   'rpm:steamcannon-agent',
   'rpm:mod_cluster',
 ]
 
+desc 'Build all PRMs for the appserver appliance'
 task 'platform:appserver:rpm' => [
   'rpm:steamcannon-agent',
   'rpm:jboss-as6',
@@ -84,15 +85,18 @@ task 'platform:appserver:rpm' => [
   'platform:deps:torquebox:rpm',
 ] 
 
+desc 'Build all RPMs for the postgresql appliance'
 task 'platform:postgresql:rpm' => [
   'rpm:steamcannon-agent',
 ]
 
+desc 'Build all RPMs for the developer standalone appliance'
 task 'platform:developer-standalone:rpm' => [
   'platform:appserver:rpm',
   'platform:postgresql:rpm',
 ]
 
+desc 'Build all RPMs for torquebox. Requires git://github.com/torquebox/torquebox-rpm.git in the parent directory.'
 task 'platform:deps:torquebox:rpm' do
   Dir.chdir( '../torquebox-rpm' ) do
     sh 'rake rpm:all'
