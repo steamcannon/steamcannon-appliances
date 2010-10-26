@@ -30,22 +30,22 @@ end
 
 task 'platform:frontend:ec2' => [ 'platform:frontend:rpm', 'platform:frontend:ec2:grind' ]
 task 'platform:frontend:ec2:grind' do
-  sh "sudo boxgrinder-build -W ./appliances/postgresql.appl -p ec2 -d ami"
+  sh "boxgrinder-build -W ./appliances/postgresql.appl -p ec2 -d ami"
 end
 
 task 'platform:appserver:ec2' => [ 'platform:appserver:rpm', 'platform:appserver:ec2:grind' ] 
 task 'platform:appserver:ec2:grind' do
-  sh "sudo boxgrinder-build -W ./appliances/appserver.appl -p ec2 -d ami"
+  sh "boxgrinder-build -W ./appliances/appserver.appl -p ec2 -d ami"
 end
 
 task 'platform:postgresql:ec2' => [ 'platform:postgresql:rpm', 'platform:postgresql:ec2:grind' ]
 task 'platform:postgresql:ec2:grind' do
-  sh "sudo boxgrinder-build -W ./appliances/postgresql.appl -p ec2 -d ami"
+  sh "boxgrinder-build -W ./appliances/postgresql.appl -p ec2 -d ami"
 end
 
 task 'platform:developer-standalone:ec2' => [ 'platform:developer-standalone:rpm', 'platform:developer-standalone:ec2:grind' ]
 task 'platform:developer-standalone:ec2:grind' do
-  sh "sudo boxgrinder-build -W ./appliances/developer-standalone.appl -p ec2 -d ami"
+  sh "boxgrinder-build -W ./appliances/developer-standalone.appl -p ec2 -d ami"
 end
 
 
