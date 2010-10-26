@@ -94,6 +94,8 @@ desc 'Build all RPMs for the developer standalone appliance'
 task 'platform:developer-standalone:rpm' => [
   'platform:appserver:rpm',
   'platform:postgresql:rpm',
+  'rpm:jboss-as6-developer',
+  'rpm:jboss-as6-cloud-profiles-developer',
 ]
 
 desc 'Build all RPMs for torquebox. Requires git://github.com/torquebox/torquebox-rpm.git in the parent directory.'
