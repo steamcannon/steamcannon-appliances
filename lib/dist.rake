@@ -24,6 +24,24 @@ task 'dist:appliance:ec2:only' do
   sh 'sudo boxgrinder-build -W ./appliances/steamcannon.appl -p ec2 -d ebs'
 end
 
+task 'dist:appliance:ami' => 'dist:rpm' do
+  begin
+    scribble_s3
+    sh 'sudo boxgrinder-build -W ./appliances/steamcannon.appl -p ec2 -d ami'
+  ensure
+    restore_s3
+  end
+end
+
+task 'dist:appliance:ami:only' do
+  begin
+    scribble_s3
+    sh 'sudo boxgrinder-build -W ./appliances/steamcannon.appl -p ec2 -d ami'
+  ensure
+    restore_s3
+  end
+end
+
 task 'dist:appliance:clean' => [ 'dist:rpm:clean', 'dist:rumpler:clean' ] do
   sh "rm -Rf build/topdir"
   sh "sudo rm -Rf build/appliances"
