@@ -8,7 +8,7 @@ packages:
     - jboss-as6-cloud-profiles
     - torquebox-jruby
     - torquebox-deployers
-    - torquebox-cloud-profile-deployers
+    - torquebox-cloud-profiles-deployers
 repos:
   - name: "torquebox-local"
     baseurl: "file:///mnt/boxgrinder/torquebox-rpm/build/topdir/fedora/13/RPMS/noarch"

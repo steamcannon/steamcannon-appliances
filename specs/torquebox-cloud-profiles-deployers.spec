@@ -4,8 +4,8 @@
 
 %define jboss_name jboss-as6
 
-Summary:        TorqueBox Cloud Profile Deployers
-Name:           torquebox-cloud-profile-deployers
+Summary:        TorqueBox Cloud Profiles Deployers
+Name:           torquebox-cloud-profiles-deployers
 Version:        %{torquebox_rpm_version}
 Release:        1
 License:        LGPL

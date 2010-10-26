@@ -68,12 +68,8 @@ task 'platform:appserver:rpm' => [
   'rpm:torquebox-deployers',
   'rpm:torquebox-cloud-profiles-deployers',
   'rpm:repodata:force',
-] do 
-  Dir.chdir( '../torquebox-rpm' ) do
-    sh 'rake rpm:all'
-    sh 'rake rpm:repodata:force'
-  end
-end
+  'platform:deps:torquebox:rpm',
+] 
 
 task 'platform:postgresql:rpm' => [
   'rpm:steamcannon-agent',
@@ -84,3 +80,10 @@ task 'platform:developer-standalone:rpm' => [
   'platform:appserver:rpm',
   'platform:postgresql:rpm',
 ]
+
+task 'platform:deps:torquebox:rpm' do
+  Dir.chdir( '../torquebox-rpm' ) do
+    sh 'rake rpm:all'
+    sh 'rake rpm:repodata:force'
+  end
+end
