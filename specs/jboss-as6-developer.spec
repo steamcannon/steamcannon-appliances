@@ -14,6 +14,7 @@ BuildArch:      noarch
 Group:          Applications/System
 #Source0:        http://internap.dl.sourceforge.net/sourceforge/jboss/jboss-as-distribution-%{jboss_version_full}.zip
 Source0:        http://cdnetworks-us-1.dl.sourceforge.net/project/jboss/JBoss/JBoss-%{jboss_version}/jboss-as-distribution-%{jboss_version_full}.zip
+Source1:        debug-run-conf.patch
 Requires:       %{jboss_name}
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -66,6 +67,14 @@ cp -R jboss-%{jboss_version_full}/server/all/deploy/jmx-console-activator-jboss-
 cp -R jboss-%{jboss_version_full}/server/all/deploy/jmx-console-activator-jboss-beans.xml $RPM_BUILD_ROOT/opt/%{jboss_name}/server/jbossweb-standalone/deploy/
 cp -R jboss-%{jboss_version_full}/server/all/deploy/jmx-console-activator-jboss-beans.xml $RPM_BUILD_ROOT/opt/%{jboss_name}/server/default/deploy/
 cp -R jboss-%{jboss_version_full}/server/all/deploy/jmx-console-activator-jboss-beans.xml $RPM_BUILD_ROOT/opt/%{jboss_name}/server/standard/deploy/
+
+install -d m 755 $RPM_BUILD_ROOT/opt/%{jboss_name}/developer-patches
+cp %{SOURCE1} $RPM_BUILD_ROOT/opt/%{jboss_name}/developer-patches/
+
+%post
+
+cd /opt/%{jboss_name}/bin
+patch < ../developer-patches/debug-run-conf.patch
 
 %clean
 rm -Rf $RPM_BUILD_ROOT
