@@ -26,6 +26,8 @@ end
 
 task 'dist:appliance:ami' => 'dist:rpm' do
   begin
+    interrupt_handler = proc{ restore_s3 }
+    trap "SIGINT", interrupt_handler
     scribble_s3
     sh 'sudo boxgrinder-build -W ./appliances/steamcannon.appl -p ec2 -d ami'
   ensure
@@ -35,6 +37,8 @@ end
 
 task 'dist:appliance:ami:only' do
   begin
+    interrupt_handler = proc{ restore_s3 }
+    trap "SIGINT", interrupt_handler
     scribble_s3
     sh 'sudo boxgrinder-build -W ./appliances/steamcannon.appl -p ec2 -d ami'
   ensure
