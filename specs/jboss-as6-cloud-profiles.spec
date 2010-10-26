@@ -56,11 +56,13 @@ find $RPM_BUILD_ROOT/opt/%{jboss_name}/server/ -name "ROOT.war" | xargs rm -rf
 find $RPM_BUILD_ROOT/opt/%{jboss_name}/server/ -name "httpha-invoker.sar" | xargs rm -rf
 find $RPM_BUILD_ROOT/opt/%{jboss_name}/server/ -name "juddi-service.sar" | xargs rm -rf
 
+find $RPM_BUILD_ROOT/opt/%{jboss_name}/common/ -name "jbossws-console.war" | xargs rm -rf
 find $RPM_BUILD_ROOT/opt/%{jboss_name}/server/ -name "jbossws.war" | xargs rm -rf
 find $RPM_BUILD_ROOT/opt/%{jboss_name}/server/ -name "jbossws-console-activator-jboss-beans.xml" | xargs rm -rf
-find $RPM_BUILD_ROOT/opt/%{jboss_name}/common/ -name "jbossws-console.war" | xargs rm -rf
 
 find $RPM_BUILD_ROOT/opt/%{jboss_name}/common/ -name "admin-console.war" | xargs rm -rf
+find $RPM_BUILD_ROOT/opt/%{jboss_name}/server/ -name "admin-console-activator-jboss-beans.xml" | xargs rm -f
+
 find $RPM_BUILD_ROOT/opt/%{jboss_name}/common/ -name "jmx-console.war" | xargs rm -rf
 find $RPM_BUILD_ROOT/opt/%{jboss_name}/server/ -name "jmx-console-activator-jboss-beans.xml" | xargs rm -f
 
