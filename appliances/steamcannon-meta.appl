@@ -1,6 +1,6 @@
 name: steamcannon-meta
 version: 1
-release: 2
+release: 3
 
 summary: Meta Appliance for building SteamCannon appliances
 
@@ -52,6 +52,7 @@ packages:
     - guestfish
     - yum-utils
     - ec2-ami-tools
+    - rubygem-amazon-ec2
     
     # Tools required to build SteamCannon
     - createrepo
