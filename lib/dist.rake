@@ -16,7 +16,11 @@ task 'dist:appliance:vmware:only' do
   sh "sudo boxgrinder-build -W ./appliances/steamcannon.appl -p vmware"
 end
 
-task 'dist:appliance:ec2' do
+task 'dist:appliance:ec2' => 'dist:rpm' do
+  sh 'sudo boxgrinder-build -W ./appliances/steamcannon.appl -p ec2 -d ebs'
+end
+
+task 'dist:appliance:ec2:only' do
   sh 'sudo boxgrinder-build -W ./appliances/steamcannon.appl -p ec2 -d ebs'
 end
 
