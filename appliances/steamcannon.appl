@@ -12,7 +12,7 @@ hardware:
   memory: 2048
   partitions:
     "/":
-      size: 3
+      size: 5
 
 packages:
   includes:
