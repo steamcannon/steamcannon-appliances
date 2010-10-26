@@ -50,7 +50,9 @@ find $RPM_BUILD_ROOT/opt/%{name}/server/ -name "jbossws-console-activator-jboss-
 find $RPM_BUILD_ROOT/opt/%{name}/common/ -name "jbossws-console.war" | xargs rm -rf
 
 find $RPM_BUILD_ROOT/opt/%{name}/common/ -name "admin-console.war" | xargs rm -rf
+
 find $RPM_BUILD_ROOT/opt/%{name}/common/ -name "jmx-console.war" | xargs rm -rf
+find $RPM_BUILD_ROOT/opt/%{name}/server/ -name "jmx-console-activator-jboss-beans.xml" | xargs rm -f
 
 # Open the HTTPS Connector
 
