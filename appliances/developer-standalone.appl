@@ -11,6 +11,8 @@ appliances:
   - _base
   - _appserver
   - _postgresql
+packages:
+  includes:
   - jboss-as6-developer
   - jboss-as6-cloud-profiles-developer
 post:
