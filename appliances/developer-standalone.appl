@@ -11,6 +11,8 @@ appliances:
   - _base
   - _appserver
   - _postgresql
+  - jboss-as6-developer
+  - jboss-as6-cloud-profiles-developer
 post:
   base:
     - "echo -e '\n  - JBossAS'    >> /etc/sysconfig/steamcannon-agent"
