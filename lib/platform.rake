@@ -6,22 +6,22 @@
 # -- VMware
 
 task 'platform:frontend:vmware' => [ 'platform:frontend:rpm', 'platform:frontend:vmware:grind' ]
-task 'platform:frontend:vmware:grind' do
+task 'platform:frontend:vmware:grind' => 'rpm:repodata:force' do
   sh "sudo boxgrinder-build -W ./appliances/postgresql.appl -p vmware"
 end
 
 task 'platform:appserver:vmware' => [ 'platform:appserver:rpm', 'platform:appserver:vmware:grind' ] 
-task 'platform:appserver:vmware:grind' do
+task 'platform:appserver:vmware:grind' => 'rpm:repodata:force' do
   sh "sudo boxgrinder-build -W ./appliances/appserver.appl -p vmware"
 end
 
 task 'platform:postgresql:vmware' => [ 'platform:postgresql:rpm', 'platform:postgresql:vmware:grind' ]
-task 'platform:postgresql:vmware:grind' do
+task 'platform:postgresql:vmware:grind' => 'rpm:repodata:force' do
   sh "sudo boxgrinder-build -W ./appliances/postgresql.appl -p vmware"
 end
 
 task 'platform:developer-standalone:vmware' => [ 'platform:developer-standalone:rpm', 'platform:developer-standalone:vmware:grind' ]
-task 'platform:developer-standalone:vmware:grind' do
+task 'platform:developer-standalone:vmware:grind' => 'rpm:repodata:force' do
   sh "sudo boxgrinder-build -W ./appliances/developer-standalone.appl -p vmware"
 end
 
@@ -58,7 +58,6 @@ end
 task 'platform:frontend:rpm' => [
   'rpm:steamcannon-agent',
   'rpm:mod_cluster',
-  'rpm:repodata:force',
 ]
 
 task 'platform:appserver:rpm' => [
@@ -67,13 +66,11 @@ task 'platform:appserver:rpm' => [
   'rpm:jboss-as6-cloud-profiles',
   'rpm:torquebox-deployers',
   'rpm:torquebox-cloud-profiles-deployers',
-  'rpm:repodata:force',
   'platform:deps:torquebox:rpm',
 ] 
 
 task 'platform:postgresql:rpm' => [
   'rpm:steamcannon-agent',
-  'rpm:repodata:force',
 ]
 
 task 'platform:developer-standalone:rpm' => [
