@@ -30,7 +30,7 @@ end
 
 task 'platform:frontend:ec2' => [ 'platform:frontend:rpm', 'platform:frontend:ec2:grind' ]
 task 'platform:frontend:ec2:grind' do
-  sh "boxgrinder-build -W ./appliances/postgresql.appl -p ec2 -d ami"
+  sh "boxgrinder-build -W ./appliances/frontend.appl -p ec2 -d ami"
 end
 
 task 'platform:appserver:ec2' => [ 'platform:appserver:rpm', 'platform:appserver:ec2:grind' ] 
