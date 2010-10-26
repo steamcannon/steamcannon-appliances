@@ -29,7 +29,9 @@ post:
     - "echo '/etc/init.d/steamcannon-agent restart' >> /etc/rc.local"
     - "chkconfig steamcannon-agent off"
 repos:
-  - name: "steamcannon-#BASE_ARCH#"
-    baseurl: "http://repo.steamcannon.org/packages/#OS_NAME#/#OS_VERSION#/RPMS/#BASE_ARCH#"
-  - name: "steamcannon-noarch"
-    baseurl: "http://repo.steamcannon.org/packages/#OS_NAME#/#OS_VERSION#/RPMS/noarch"
+  - name: "steamcannon-local-#BASE_ARCH#
+    baseurl: "file:///mnt/boxgrinder/steamcannon-appliances/build/topdir/#OS_NAME#/#OS_VERSION#/RPMS/#BASE_ARCH#"
+    ephemeral: true
+  - name: "steamcannon-local-noarch"
+    baseurl: "file:///mnt/boxgrinder/steamcannon-appliances/build/topdir/#OS_NAME#/#OS_VERSION#/RPMS/noarch"
+    ephemeral: true
