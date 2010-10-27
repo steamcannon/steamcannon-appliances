@@ -145,10 +145,10 @@ if [ -f $JBOSS_HOME/server/$JBOSSCONF/run.conf ]; then
    RUN_CONF=$JBOSS_HOME/server/$JBOSSCONF/run.conf
 fi
 
-# Read in run.conf and use them
-if [ -f ${RUN_CONF} ]; then
-   . ${RUN_CONF}
-fi
+# Read in run.conf and use them, but not really, since it's a no-op and run.sh will read it anyhow.
+#if [ -f ${RUN_CONF} ]; then
+#   . ${RUN_CONF}
+#fi
 
 # Set other parameters to the VM
 [ "x$JBOSS_UDP_GROUP" != "x" ] && \
