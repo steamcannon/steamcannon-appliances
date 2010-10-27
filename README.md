@@ -29,55 +29,50 @@ to build cirras-rpm:
 
 # How to Launch the SteamCannon AMI
 
-As of this writing, the current AMI ID is ami-5eee1a37.  You can always find the most recent
-AMI on the [BoxGrinder meta-appliance page](http://www.jboss.org/boxgrinder/downloads/build/meta-appliance.html).
+The easiest way to get an instance of SteamCannon up and running is to launch a SteamCannon appliance.
+The current stable SteamCannon appliance ID is ami-a66f9bcf. Launch an instance of this with your choice
+of Amazon tools and enjoy SteamCannon immediately.
 
 # How to Build the SteamCannon AMI From Scratch
 
-Building the SteamCannon AMI is done using the 32-bit meta-appliance AMI provided by BoxGrinder.
+Building the SteamCannon AMI is done using the SteamCannon meta-appliance. This is a Fedora 13 machine image
+that comes pre-rolled with everything you need to create and customize your own SteamCannon AMI to your liking.
+The meta-appliance can be launched as an EBS-backed instance on EC2 using the ID ami-ae6296c7.  Or you can [Download](http://github.com/steamcannon/steamcannon-appliances/downloads) the latest VMware image from GitHub.
 
-Open up your Amazon AWS tool of choice, provide it with the AMI ID, and launch an instance.
-You will use this instance to build the SteamCannon AMI.  Once it has launched, obtain the public DNS name
-and SSH to the machine (TODO: what are creds?).  In order to build the SteamCannon AMI, we'll need to add
-a couple of libraries to the machine.  From the command line type:
+Open up your Amazon AWS tool of choice, provide it with the AMI ID, and launch an instance.  Or, alternatively,
+fire up VMware and load the image you downloaded.  SSH to the instance as root using 'boxgrinder' as your password.
+It's a good idea to change the password once you login.  
 
-    # yum install sqlite-devel openssl-devel libxml2 libxml2-devel libxslt libxslt-devel
-    
-You'll also need to install a couple of gems in order to build the RPM files.
+We'll refer to this machine as SC-meta.  You will use it to build the SteamCannon AMI.  
 
-    # gem install net-ssh
-    # gem install net-sftp
-    
-If you want to create an EBS-backed AMI, you'll need the boxgrinder-build-ebs-delivery-plugin.  To install this,
-type on the command line:
-
-    # gem install boxgrinder-build-ebs-delivery-plugin
-    
 When building the SteamCannon AMI, boxgrinder will attempt to register it with Amazon AWS and provide you with an
-AMI ID when it's complete.  In order to do this, you'll need to have some configuration files in place.  For EBS-backed
-images, please see the configuration requirements here: http://community.jboss.org/wiki/BoxGrinderBuildPluginsDeliveryEBS
-and for S3-backed images, see http://community.jboss.org/wiki/BoxGrinderBuildPluginsDeliveryS3.  For documentation
-on all of the boxgrinder plugins, see http://community.jboss.org/wiki/BoxGrinderBuildPlugins.
+AMI ID when it's complete.  In order to do this, you'll need to have some configuration files in place.  Read
+more about these options on the [BoxGrinder Plugins](http://community.jboss.org/wiki/BoxGrinderBuildPlugins) page.
 
-That should take care of the build dependencies.  Building the SteamCannon appliance involves downloading a number of 
-repositories, and generating RPMs, and machine image files. You could end up using a decent amount of disk space.  
-The meta-appliance AMI has 2 partitions defined.  The root partition at / has 10GB of disk space which isn't quite enough, 
-so when building be sure to use the 335GB partition.
+Building the SteamCannon appliance involves downloading a number of repositories, and generating RPMs, and machine image files. 
+BoxGrinder, Rake and [Rumpler](http://github.com/torquebox/rumpler) together make this possible.  Building the appliance
+is just a couple of command lines.
 
-    # cd /mnt/boxgrinder
+    # cd /mnt/boxgrinder/steamcannon-appliances
     
-Now you'll need to grab the latest appliance specs from github.  
+If you want to build an EC2 EBS-backed image, issue the following command.
 
-    # git clone git@github.com:steamcannon/steamcannon-appliances.git
+    # rake dist:appliance:ec2
     
-Once you've downloaded the git repo, all you have to do to build it is run the steamcannon:build_ami rake task.
+If you want to build an EC2 AMI stored in S3, issue the following command.
 
-    # cd steamcannon-appliances
-    # rake steamcannon:build_ami
+    # rake dist:appliance:ami
     
-This will build a number of custom RPMs, create the machine image file, install all required RPMs, gems and other
-dependencies, setup the SteamCannon database, and configure JBoss to start on boot.  Once the machine image has
-been setup as above, and it will be uploaded to Amazon S3.  The last line of the rake task looks something like this:
+If you want to build a machine image for VMware, issue the following command.
+
+    # rake dist:appliance:vmware
+    
+This will build a number of RPMs and create the machine image file. The image will have all required RPMs, gems and other
+dependencies. The SteamCannon database will be setup and seeded with in iniitial data, and JBoss will be configured and set 
+to start on boot.  If you are creating an AMI for Amazon (whether EBS-backed or not), the image will be uploaded to Amazon
+and registered as a new AMI.
+
+The last line of the rake task looks something like this:
 
     # I, [2010-10-20T14:43:59.519772 #9500]  INFO -- : Image successfully registered under id: ami-561aee3f.
 
