@@ -29,6 +29,7 @@ packages:
     - postgresql-server
     - steamcannon-deltacloud-core-deployment
     - selinux-policy-targeted
+    - dhclient
 
 post:
   base:

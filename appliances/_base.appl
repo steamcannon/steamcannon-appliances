@@ -21,6 +21,7 @@ packages:
     - which
     - wget
     - selinux-policy-targeted
+    - dhclient
 post:
   base:
     - "echo -e 'log_level: trace\nservices:' > /etc/sysconfig/steamcannon-agent" 
