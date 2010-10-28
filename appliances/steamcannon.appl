@@ -1,6 +1,6 @@
 name: steamcannon
 version: 1
-release: 45
+release: 4.9
 
 summary: Appliance for SteamCannon management console with Torquebox and JBoss AS 6
 
@@ -28,6 +28,7 @@ packages:
     - steamcannon
     - postgresql-server
     - steamcannon-deltacloud-core-deployment
+    - selinux-policy-targeted
 
 post:
   base:
@@ -35,7 +36,9 @@ post:
     - "/sbin/service postgresql initdb"
     - "/bin/sed -i s/'^host'/'# host'/g /var/lib/pgsql/data/pg_hba.conf"
     - "/bin/echo 'host    all         all         0.0.0.0/0          md5' >> /var/lib/pgsql/data/pg_hba.conf"
-    - /bin/echo "listen_addresses = '*' " >> /var/lib/pgsql/data/postgresql.conf
+    - /bin/echo "listen_addresses = '*' " >> /var/lib/pgsql/data/postgresql.conf    
+    - echo "mkswap -f /dev/xvda3" >> /etc/rc.local
+    - echo "swapon /dev/xvda3" >> /etc/rc.local
     - "echo -e '/bin/sh /opt/steamcannon/bin/appliance_initialization.sh' >> /etc/rc.local"
 
 repos:
