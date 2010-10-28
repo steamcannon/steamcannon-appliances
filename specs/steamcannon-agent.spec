@@ -28,7 +28,11 @@ SteamCannon Agent
 %setup %{SOURCE0} -n steamcannon-%{name}-%{commit_hash}
 
 %install
+
 rm -rf $RPM_BUILD_ROOT
+
+install -d -m 755 $RPM_BUILD_ROOT/opt
+cp -R . $RPM_BUILD_ROOT/opt/steamcannon-agent
 
 install -d -m 755 $RPM_BUILD_ROOT%{_initrddir}
 install -m 755 %{SOURCE1} $RPM_BUILD_ROOT%{_initrddir}/%{name}
