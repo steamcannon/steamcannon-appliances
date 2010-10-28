@@ -31,8 +31,8 @@ SteamCannon Agent
 
 rm -rf $RPM_BUILD_ROOT
 
-install -d -m 755 $RPM_BUILD_ROOT/opt
-cp -R . $RPM_BUILD_ROOT/opt/steamcannon-agent
+install -d -m 755 $RPM_BUILD_ROOT/usr/share
+cp -R . $RPM_BUILD_ROOT/usr/share/%{name}
 
 install -d -m 755 $RPM_BUILD_ROOT%{_initrddir}
 install -m 755 %{SOURCE1} $RPM_BUILD_ROOT%{_initrddir}/%{name}
