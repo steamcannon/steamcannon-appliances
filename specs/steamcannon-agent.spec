@@ -10,12 +10,10 @@ Requires:       shadow-utils
 Requires:       ruby git
 Requires:       initscripts
 Requires:       rubygems
-Requires:       rubygem-sinatra rubygem-json rubygem-open4 rubygem-rest-client
-BuildRequires:  ruby-devel gcc-c++ rubygems sqlite-devel openssl-devel wget
+BuildRequires:  ruby-devel gcc-c++ rubygems git sqlite-devel openssl-devel
 Requires(post): /sbin/chkconfig
 Group:          Development/Tools
-Source0:        http://github.com/steamcannon/steamcannon-agent/tarball/%{version}
-Source1:        %{name}.init
+Source0:        %{name}.init
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 # Ugly hack for thin
@@ -24,25 +22,21 @@ Provides:       /usr/local/bin/ruby
 %description
 SteamCannon Agent
 
-%prep
-%setup %{SOURCE0} -n steamcannon-%{name}-%{commit_hash}
-
 %install
-
 rm -rf $RPM_BUILD_ROOT
 
-install -d -m 755 $RPM_BUILD_ROOT/usr/share
-cp -R . $RPM_BUILD_ROOT/usr/share/%{name}
-
 install -d -m 755 $RPM_BUILD_ROOT%{_initrddir}
-install -m 755 %{SOURCE1} $RPM_BUILD_ROOT%{_initrddir}/%{name}
+install -m 755 %{SOURCE0} $RPM_BUILD_ROOT%{_initrddir}/%{name}
 
 install -d -m 755 $RPM_BUILD_ROOT/usr/lib/ruby/gems/%{ruby_version}
 
-# TODO: once gems are pushed to fedora, add it to require
+/usr/bin/git clone git://github.com/steamcannon/steamcannon-agent.git $RPM_BUILD_ROOT/usr/share/%{name}
+cd $RPM_BUILD_ROOT/usr/share/%{name}
+/usr/bin/git checkout -b %{commit_hash} %{commit_hash}
+
 gem install --install-dir=$RPM_BUILD_ROOT/usr/lib/ruby/gems/%{ruby_version} --force --rdoc rack -v 1.2.0
-gem install --install-dir=$RPM_BUILD_ROOT/usr/lib/ruby/gems/%{ruby_version} --force --rdoc gems/thin-1.2.8.gem
-gem install --install-dir=$RPM_BUILD_ROOT/usr/lib/ruby/gems/%{ruby_version} --force --rdoc dm-core dm-sqlite-adapter dm-migrations dm-is-tree
+gem install --install-dir=$RPM_BUILD_ROOT/usr/lib/ruby/gems/%{ruby_version} --force --rdoc $RPM_BUILD_ROOT/usr/share/%{name}/gems/thin-1.2.8.gem
+gem install --install-dir=$RPM_BUILD_ROOT/usr/lib/ruby/gems/%{ruby_version} --force --rdoc sinatra dm-core dm-sqlite-adapter dm-migrations dm-is-tree json open4 rest-client
 
 install -d -m 755 $RPM_BUILD_ROOT/var/log/%{name}
 install -d -m 755 $RPM_BUILD_ROOT/var/lock
