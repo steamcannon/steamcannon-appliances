@@ -16,6 +16,7 @@ Group:          Applications/System
 Source0:        http://cdnetworks-us-1.dl.sourceforge.net/project/jboss/JBoss/JBoss-%{jboss_version}/jboss-as-distribution-%{jboss_version_full}.zip
 Source1:        debug-run-conf.patch
 Requires:       %{jboss_name}
+Requires:       patch
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
@@ -74,7 +75,7 @@ cp %{SOURCE1} $RPM_BUILD_ROOT/opt/%{jboss_name}/developer-patches/
 %post
 
 cd /opt/%{jboss_name}/bin
-patch < ../developer-patches/debug-run-conf.patch
+/usr/bin/patch < ../developer-patches/debug-run-conf.patch
 
 %clean
 rm -Rf $RPM_BUILD_ROOT
