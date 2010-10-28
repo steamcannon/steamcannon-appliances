@@ -31,7 +31,7 @@ SteamCannon Agent
 rm -rf $RPM_BUILD_ROOT
 
 install -d -m 755 $RPM_BUILD_ROOT%{_initrddir}
-install -m 755 %{SOURCE0} $RPM_BUILD_ROOT%{_initrddir}/%{name}
+install -m 755 %{SOURCE1} $RPM_BUILD_ROOT%{_initrddir}/%{name}
 
 install -d -m 755 $RPM_BUILD_ROOT/usr/lib/ruby/gems/%{ruby_version}
 
