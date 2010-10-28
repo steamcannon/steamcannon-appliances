@@ -9,19 +9,19 @@ torquebox_rpm_version = '1.0.0.Beta23.SNAPSHOT'
 ##
 
 task 'dist:appliance:vmware' => 'dist:rpm' do
-  sh "sudo boxgrinder-build -W ./appliances/steamcannon.appl -p vmware"
+  sh "boxgrinder-build -W ./appliances/steamcannon.appl -p vmware"
 end
 
 task 'dist:appliance:vmware:only' do
-  sh "sudo boxgrinder-build -W ./appliances/steamcannon.appl -p vmware"
+  sh "boxgrinder-build -W ./appliances/steamcannon.appl -p vmware"
 end
 
 task 'dist:appliance:ec2' => 'dist:rpm' do
-  sh 'sudo boxgrinder-build -W ./appliances/steamcannon.appl -p ec2 -d ebs'
+  sh 'boxgrinder-build -W ./appliances/steamcannon.appl -p ec2 -d ebs'
 end
 
 task 'dist:appliance:ec2:only' do
-  sh 'sudo boxgrinder-build -W ./appliances/steamcannon.appl -p ec2 -d ebs'
+  sh 'boxgrinder-build -W ./appliances/steamcannon.appl -p ec2 -d ebs'
 end
 
 task 'dist:appliance:ami' => 'dist:rpm' do
@@ -29,7 +29,7 @@ task 'dist:appliance:ami' => 'dist:rpm' do
     interrupt_handler = proc{ restore_s3 }
     trap "SIGINT", interrupt_handler
     scribble_s3
-    sh 'sudo boxgrinder-build -W ./appliances/steamcannon.appl -p ec2 -d ami'
+    sh 'boxgrinder-build -W ./appliances/steamcannon.appl -p ec2 -d ami'
   ensure
     restore_s3
   end
@@ -40,7 +40,7 @@ task 'dist:appliance:ami:only' do
     interrupt_handler = proc{ restore_s3 }
     trap "SIGINT", interrupt_handler
     scribble_s3
-    sh 'sudo boxgrinder-build -W ./appliances/steamcannon.appl -p ec2 -d ami'
+    sh 'boxgrinder-build -W ./appliances/steamcannon.appl -p ec2 -d ami'
   ensure
     restore_s3
   end
@@ -48,7 +48,7 @@ end
 
 task 'dist:appliance:clean' => [ 'dist:rpm:clean', 'dist:rumpler:clean' ] do
   sh "rm -Rf build/topdir"
-  sh "sudo rm -Rf build/appliances"
+  sh "rm -Rf build/appliances"
 end
 
 ###
