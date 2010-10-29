@@ -1,5 +1,5 @@
 %define ruby_version 1.8
-%define commit_hash 7526008
+%define commit_hash 7551497
 
 Summary:        SteamCannon Agent
 Name:           steamcannon-agent
