@@ -1,4 +1,5 @@
 %define ruby_version 1.8
+%define commit_hash 1a2bccd1c92b639220a412891746570df84a5951
 
 Summary:        SteamCannon Agent
 Name:           steamcannon-agent
@@ -30,6 +31,8 @@ install -m 755 %{SOURCE0} $RPM_BUILD_ROOT%{_initrddir}/%{name}
 install -d -m 755 $RPM_BUILD_ROOT/usr/lib/ruby/gems/%{ruby_version}
 
 /usr/bin/git clone git://github.com/steamcannon/steamcannon-agent.git $RPM_BUILD_ROOT/usr/share/%{name}
+cd $RPM_BUILD_ROOT/usr/share/%{name}
+/usr/bin/git checkout -b %{commit_hash} %{commit_hash}
 
 gem install --install-dir=$RPM_BUILD_ROOT/usr/lib/ruby/gems/%{ruby_version} --force --rdoc rack -v 1.2.0
 gem install --install-dir=$RPM_BUILD_ROOT/usr/lib/ruby/gems/%{ruby_version} --force --rdoc $RPM_BUILD_ROOT/usr/share/%{name}/gems/thin-1.2.8.gem
