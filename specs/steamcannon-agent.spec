@@ -1,5 +1,5 @@
 %define ruby_version 1.8
-%define steamcannon_agent_version 7551497
+%define steamcannon_agent_version 7acb3eb
 
 Summary:        SteamCannon Agent
 Name:           steamcannon-agent
