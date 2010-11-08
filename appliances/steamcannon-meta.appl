@@ -75,6 +75,7 @@ post:
     - "/bin/echo 'mkdir /mnt/boxgrinder' >> /etc/rc.local"
     - "/bin/echo 'cd /mnt/boxgrinder && /usr/bin/git clone git://github.com/steamcannon/steamcannon.git' >> /etc/rc.local"
     - "/bin/echo 'cd /mnt/boxgrinder && /usr/bin/git clone git://github.com/steamcannon/steamcannon-appliances.git' >> /etc/rc.local"
+    - "/bin/echo 'cd /mnt/boxgrinder && /usr/bin/git clone git://github.com/steamcannon/steamcannon-agent-rpm.git' >> /etc/rc.local"
     - "/bin/echo 'cd /mnt/boxgrinder && /usr/bin/git clone git://github.com/steamcannon/steamcannon-rpm.git' >> /etc/rc.local"
     - "/bin/echo 'cd /mnt/boxgrinder && /usr/bin/git clone git://github.com/steamcannon/deltacloud-rpm.git' >> /etc/rc.local"
     - "/bin/echo 'cd /mnt/boxgrinder && /usr/bin/git clone git://github.com/torquebox/torquebox-rpm.git' >> /etc/rc.local"
@@ -87,6 +88,8 @@ post:
     - "/bin/echo 'cd /mnt/boxgrinder/torquebox-rpm && /usr/bin/git submodule update' >> /etc/rc.local"
     - "/bin/echo 'cd /mnt/boxgrinder/steamcannon-rpm && /usr/bin/git submodule init' >> /etc/rc.local"
     - "/bin/echo 'cd /mnt/boxgrinder/steamcannon-rpm && /usr/bin/git submodule update' >> /etc/rc.local"
+    - "/bin/echo 'cd /mnt/boxgrinder/steamcannon-agent-rpm && /usr/bin/git submodule init' >> /etc/rc.local"
+    - "/bin/echo 'cd /mnt/boxgrinder/steamcannon-agent-rpm && /usr/bin/git submodule update' >> /etc/rc.local"
     - "/bin/echo 'cd /mnt/boxgrinder/deltacloud-rpm && /usr/bin/git submodule init' >> /etc/rc.local"
     - "/bin/echo 'cd /mnt/boxgrinder/deltacloud-rpm && /usr/bin/git submodule update' >> /etc/rc.local"
 
