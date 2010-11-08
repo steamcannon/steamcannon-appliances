@@ -117,13 +117,15 @@ end
 task 'dist:rumpler'=> [ 
   'dist:rumpler:torquebox', 
   'dist:rumpler:deltacloud', 
-  'dist:rumpler:steamcannon' 
+  'dist:rumpler:steamcannon',
+  'dist:rumpler:steamcannon-agent'
 ]
 
 task 'dist:rumpler:clean'=> [ 
   'dist:rumpler:torquebox:clean', 
   'dist:rumpler:deltacloud:clean', 
-  'dist:rumpler:steamcannon:clean' 
+  'dist:rumpler:steamcannon:clean',
+  'dist:rumpler:steamcannon-agent:clean' 
 ]
 
 task 'dist:rumpler:torquebox' => [ 'dist:sanity:versions:verify' ] do
@@ -164,6 +166,20 @@ task 'dist:rumpler:steamcannon' => [ 'dist:sanity:versions:verify' ] do
   end
 end
 
+task 'dist:rumpler:steamcannon-agent' => [ 'dist:sanity:versions:verify' ] do
+  puts "rumpling steamcannon-agent-rpm"
+  Dir.chdir( "../steamcannon-agent" ) do
+    sh "git fetch origin"
+    sh "git checkout -f #{steamcannon_agent_version}"
+    FileUtils.mkdir_p( '../steamcannon-agent-rpm/specs' )
+    if ( Dir[ '../steamcannon-agent-rpm/specs/*.spec' ].empty? )
+      sh "../rumpler/bin/rumpler -a -v #{steamcannon_agent_version} -o ../steamcannon-agent-rpm/specs -r ../torquebox-rpm/gemfiles/root.yml"
+    else
+      puts "INFO: specs present, not rumpling"
+    end
+  end
+end
+
 task 'dist:rumpler:torquebox:clean' do
   sh 'rm -Rf ../torquebox-rpm/specs/gems' 
 end
@@ -174,6 +190,10 @@ end
 
 task 'dist:rumpler:steamcannon:clean' do 
   sh 'rm -Rf ../steamcannon-rpm/specs' 
+end
+
+task 'dist:rumpler:steamcannon-agent:clean' do 
+  sh 'rm -Rf ../steamcannon-agent-rpm/specs' 
 end
 
 
@@ -188,7 +208,9 @@ task 'dist:sanity:dirs' do
     '../rumpler',
     '../torquebox-rpm',
     '../steamcannon-rpm',
+    '../steamcannon-agent-rpm',
     '../deltacloud-rpm',
+    '../steamcannon-agent',
     '../steamcannon',
   ].each do |dir|
     print "Checking #{dir}...."
@@ -219,11 +241,13 @@ task 'dist:sanity:versions' do
     fail( "TorqueBox build number mismatch" )
   end
   steamcannon_version = determine_value( './specs/steamcannon.spec', 'steamcannon_version' )
+  steamcannon_version = determine_value( './specs/steamcannon-agent.spec', 'steamcannon_agent_version' )
 end
 
 task 'dist:sanity:versions:verify' => [ 'dist:sanity:versions' ] do
   puts "TorqueBox build number...#{torquebox_version}"
   puts "SteamCannon version......#{steamcannon_version}"
+  puts "SteamCannon Agent version......#{steamcannon_agent_version}"
   puts "Deltacloud version.......#{deltacloud_version}"
   print "Type 'y' if these versions are acceptable: "
   c = STDIN.gets.strip
