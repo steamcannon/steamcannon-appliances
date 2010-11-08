@@ -1,8 +1,9 @@
 
-steamcannon_version   = nil
-torquebox_version     = nil
-deltacloud_version    = '0.0.8.1'
-torquebox_rpm_version = '1.0.0.Beta23.SNAPSHOT'
+steamcannon_version       = nil
+steamcannon_agent_version = nil
+torquebox_version         = nil
+deltacloud_version        = '0.0.8.1'
+torquebox_rpm_version     = '1.0.0.Beta23.SNAPSHOT'
 
 ##
 ## Appliances
