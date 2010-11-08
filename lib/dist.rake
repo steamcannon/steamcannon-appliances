@@ -254,7 +254,7 @@ task 'dist:sanity:versions' do
     fail( "TorqueBox build number mismatch" )
   end
   steamcannon_version = determine_value( './specs/steamcannon.spec', 'steamcannon_version' )
-  steamcannon_version = determine_value( './specs/steamcannon-agent.spec', 'steamcannon_agent_version' )
+  steamcannon_agent_version = determine_value( './specs/steamcannon-agent.spec', 'steamcannon_agent_version' )
 end
 
 task 'dist:sanity:versions:verify' => [ 'dist:sanity:versions' ] do
