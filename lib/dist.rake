@@ -59,12 +59,14 @@ task 'dist:rpm:clean'=>[
   'dist:rpm:torquebox:clean', 
   'dist:rpm:deltacloud:clean', 
   'dist:rpm:steamcannon:clean', 
+  'dist:rpm:steamcannon-agent:clean', 
 ]
 
 task 'dist:rpm'=>[ 
   'dist:rpm:torquebox', 
   'dist:rpm:deltacloud', 
   'dist:rpm:steamcannon', 
+  'dist:rpm:steamcannon-agent', 
   'dist:rpm:core',
 ]
 
@@ -97,6 +99,13 @@ task 'dist:rpm:steamcannon' => 'dist:rumpler:steamcannon' do
   end
 end
 
+task 'dist:rpm:steamcannon-agent' => 'dist:rumpler:steamcannon-agent' do
+  Dir.chdir( '../steamcannon-agent-rpm' ) do
+    sh 'rake rpm:all'
+    sh 'rake rpm:repodata:force'
+  end
+end
+
 task 'dist:rpm:torquebox:clean' do
   sh 'rm -Rf ../torquebox-rpm/build/topdir' 
 end
@@ -107,6 +116,10 @@ end
 
 task 'dist:rpm:steamcannon:clean' do
   sh 'rm -Rf ../steamcannon-rpm/build/topdir' 
+end
+
+task 'dist:rpm:steamcannon-agent:clean' do
+  sh 'rm -Rf ../steamcannon-agent-rpm/build/topdir' 
 end
 
 
