@@ -187,7 +187,7 @@ task 'dist:rumpler:steamcannon-agent' => [ 'dist:sanity:versions:verify' ] do
     sh "git checkout -f #{steamcannon_agent_version}"
     FileUtils.mkdir_p( '../steamcannon-agent-rpm/specs' )
     if ( Dir[ '../steamcannon-agent-rpm/specs/*.spec' ].empty? )
-      sh "../rumpler/bin/rumpler -g steamcannon-agent -v #{steamcannon_agent_version} -o ../steamcannon-agent-rpm/specs -r ../torquebox-rpm/gemfiles/root.yml"
+      sh "../rumpler/bin/rumpler -a -v #{steamcannon_agent_version} -o ../steamcannon-agent-rpm/specs -r ../torquebox-rpm/gemfiles/root.yml"
     else
       puts "INFO: specs present, not rumpling"
     end
