@@ -107,14 +107,14 @@ task 'platform:deps:torquebox:rpm' do
 end
 
 desc 'Determines dependencies for steamcannon-agent and writes RPM spec files'
-task 'platform:rumpler:steamcannon-agent' => [ 'dist:sanity:versions:verify' ] do
+task 'platform:rumpler:steamcannon-agent' => [ 'dist:sanity:versions:steamcannon-agent:verify' ] do
   puts "rumpling steamcannon-agent-rpm"
   Dir.chdir( "../steamcannon-agent" ) do
     sh "git fetch origin"
-    sh "git checkout -f #{steamcannon_agent_version}"
+    sh "git checkout -f #{BuildVersion.instance.steamcannon_agent}"
     FileUtils.mkdir_p( '../steamcannon-agent-rpm/specs' )
     if ( Dir[ '../steamcannon-agent-rpm/specs/*.spec' ].empty? )
-      sh "../rumpler/bin/rumpler -a -v #{steamcannon_agent_version} -o ../steamcannon-agent-rpm/specs -r ../torquebox-rpm/gemfiles/root.yml"
+      sh "../rumpler/bin/rumpler -a -v #{BuildVersion.instance.steamcannon_agent} -o ../steamcannon-agent-rpm/specs -r ../torquebox-rpm/gemfiles/root.yml"
     else
       puts "INFO: specs present, not rumpling"
     end

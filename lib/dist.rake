@@ -1,9 +1,4 @@
 
-steamcannon_version       = nil
-steamcannon_agent_version = nil
-torquebox_version         = nil
-deltacloud_version        = '0.0.8.1'
-torquebox_rpm_version     = '1.0.0.Beta23.SNAPSHOT'
 
 ##
 ## Appliances
@@ -132,7 +127,7 @@ task 'dist:rumpler:torquebox' => [ 'dist:sanity:versions:verify' ] do
   Dir.chdir( "../torquebox-rpm" ) do
     FileUtils.mkdir_p( 'specs/gems' )
     if ( Dir[ 'specs/gems/*.spec' ].empty? )
-      sh "../rumpler/bin/rumpler -r gemfiles/root.yml -o ./specs/gems/ -n torquebox-rubygems-dependencies -V #{torquebox_rpm_version}"
+      sh "../rumpler/bin/rumpler -r gemfiles/root.yml -o ./specs/gems/ -n torquebox-rubygems-dependencies -V #{BuildVersion.instance.torquebox_rpm}"
     else
       puts "INFO: specs present, not rumpling"
     end
@@ -144,7 +139,7 @@ task 'dist:rumpler:deltacloud' => [ 'dist:sanity:versions:verify' ] do
   Dir.chdir( "../deltacloud-rpm" ) do
     FileUtils.mkdir_p( 'specs' )
     if ( Dir[ 'specs/*.spec' ].empty? )
-      sh "../rumpler/bin/rumpler -g steamcannon-deltacloud-core -v #{deltacloud_version} -o specs -r ../torquebox-rpm/gemfiles/root.yml"
+      sh "../rumpler/bin/rumpler -g steamcannon-deltacloud-core -v #{BuildVersion.instance.deltacloud} -o specs -r ../torquebox-rpm/gemfiles/root.yml"
     else
       puts "INFO: specs present, not rumpling"
     end
@@ -155,10 +150,10 @@ task 'dist:rumpler:steamcannon' => [ 'dist:sanity:versions:verify' ] do
   puts "rumpling steamcannon-rpm"
   Dir.chdir( "../steamcannon" ) do
     sh "git fetch origin"
-    sh "git checkout -f #{steamcannon_version}"
+    sh "git checkout -f #{BuildVersion.instance.steamcannon}"
     FileUtils.mkdir_p( '../steamcannon-rpm/specs' )
     if ( Dir[ '../steamcannon-rpm/specs/*.spec' ].empty? )
-      sh "../rumpler/bin/rumpler -a -v #{steamcannon_version} -o ../steamcannon-rpm/specs -r ../torquebox-rpm/gemfiles/root.yml"
+      sh "../rumpler/bin/rumpler -a -v #{BuildVersion.instance.steamcannon} -o ../steamcannon-rpm/specs -r ../torquebox-rpm/gemfiles/root.yml"
     else
       puts "INFO: specs present, not rumpling"
     end

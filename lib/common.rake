@@ -24,32 +24,23 @@ task 'dist:sanity:dirs' do
 end
 
 task 'dist:sanity:versions' do
-  torquebox_versions = {}
-  [ 
-    './specs/torquebox-deployers.spec',
-    './specs/torquebox-cloud-profiles-deployers.spec',
-    '../torquebox-rpm/specs/torquebox-rubygems.spec',
-  ].each do |spec|
-    torquebox_versions[spec] = determine_value( spec, 'torquebox_build_number' )
-  end
-  if ( torquebox_versions.values.uniq.size == 1 )
-    torquebox_version = torquebox_versions.values.uniq.first
-  else
-    puts "TorqueBox build number mismatch!"
-    torquebox_versions.each do |spec, ver|
-      puts "  #{ver} - #{spec}"
-    end
-    fail( "TorqueBox build number mismatch" )
-  end
-  steamcannon_version = determine_value( './specs/steamcannon.spec', 'steamcannon_version' )
-  steamcannon_agent_version = determine_value( './specs/steamcannon-agent.spec', 'steamcannon_agent_version' )
+  BuildVersion.instance
 end
 
 task 'dist:sanity:versions:verify' => [ 'dist:sanity:versions' ] do
-  puts "TorqueBox build number...#{torquebox_version}"
-  puts "SteamCannon version......#{steamcannon_version}"
-  puts "SteamCannon Agent version......#{steamcannon_agent_version}"
-  puts "Deltacloud version.......#{deltacloud_version}"
+  puts "TorqueBox build number...#{BuildVersion.instance.torquebox}"
+  puts "SteamCannon version......#{BuildVersion.instance.steamcannon}"
+  puts "Deltacloud version.......#{BuildVersion.instance.deltacloud}"
+  print "Type 'y' if these versions are acceptable: "
+  c = STDIN.gets.strip
+  if ( c.downcase != 'y' )
+    fail "You didn't type 'y'"
+  end
+end
+
+task 'dist:sanity:versions:steamcannon-agent:verify' => [ 'dist:sanity:versions' ] do
+  puts "SteamCannon version......#{BuildVersion.instance.steamcannon}"
+  puts "SteamCannon Agent version.......#{BuildVersion.instance.steamcannon_agent}"
   print "Type 'y' if these versions are acceptable: "
   c = STDIN.gets.strip
   if ( c.downcase != 'y' )

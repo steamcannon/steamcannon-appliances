@@ -30,3 +30,39 @@ end
 def s3_config_file_bak
   s3_config_file_name + ".bak"
 end
+
+class BuildVersion
+  include Singleton
+  
+  attr_accessor :steamcannon, :steamcannon_agent, :torquebox, :deltacloud, :torquebox_rpm
+  
+  def initialize()
+    @steamcannon       = nil
+    @steamcannon_agent = nil
+    @torquebox         = nil
+    @deltacloud        = '0.0.8.1'
+    @torquebox_rpm     = '1.0.0.Beta23.SNAPSHOT'  
+
+    torquebox_versions = {}
+    [ 
+      './specs/torquebox-deployers.spec',
+      './specs/torquebox-cloud-profiles-deployers.spec',
+      '../torquebox-rpm/specs/torquebox-rubygems.spec',
+    ].each do |spec|
+      torquebox_versions[spec] = determine_value( spec, 'torquebox_build_number' )
+    end
+    if ( torquebox_versions.values.uniq.size == 1 )
+      @torquebox = torquebox_versions.values.uniq.first
+    else
+      puts "TorqueBox build number mismatch!"
+      torquebox_versions.each do |spec, ver|
+        puts "  #{ver} - #{spec}"
+      end
+      fail( "TorqueBox build number mismatch" )
+    end
+    @steamcannon = determine_value( './specs/steamcannon.spec', 'steamcannon_version' )
+    @steamcannon_agent = determine_value( './specs/steamcannon-agent.spec', 'steamcannon_agent_version' )
+  end
+
+end
+
