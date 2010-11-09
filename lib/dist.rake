@@ -59,15 +59,13 @@ end
 task 'dist:rpm:clean'=>[ 
   'dist:rpm:torquebox:clean', 
   'dist:rpm:deltacloud:clean', 
-  'dist:rpm:steamcannon:clean', 
-  'dist:rpm:steamcannon-agent:clean', 
+  'dist:rpm:steamcannon:clean'
 ]
 
 task 'dist:rpm'=>[ 
   'dist:rpm:torquebox', 
   'dist:rpm:deltacloud', 
   'dist:rpm:steamcannon', 
-  'dist:rpm:steamcannon-agent', 
   'dist:rpm:core',
 ]
 
@@ -100,13 +98,6 @@ task 'dist:rpm:steamcannon' => 'dist:rumpler:steamcannon' do
   end
 end
 
-task 'dist:rpm:steamcannon-agent' => 'dist:rumpler:steamcannon-agent' do
-  Dir.chdir( '../steamcannon-agent-rpm' ) do
-    sh 'rake rpm:all'
-    sh 'rake rpm:repodata:force'
-  end
-end
-
 task 'dist:rpm:torquebox:clean' do
   sh 'rm -Rf ../torquebox-rpm/build/topdir' 
 end
@@ -119,10 +110,6 @@ task 'dist:rpm:steamcannon:clean' do
   sh 'rm -Rf ../steamcannon-rpm/build/topdir' 
 end
 
-task 'dist:rpm:steamcannon-agent:clean' do
-  sh 'rm -Rf ../steamcannon-agent-rpm/build/topdir' 
-end
-
 
 ###
 ### Rumpler
@@ -131,15 +118,13 @@ end
 task 'dist:rumpler'=> [ 
   'dist:rumpler:torquebox', 
   'dist:rumpler:deltacloud', 
-  'dist:rumpler:steamcannon',
-  'dist:rumpler:steamcannon-agent'
+  'dist:rumpler:steamcannon'
 ]
 
 task 'dist:rumpler:clean'=> [ 
   'dist:rumpler:torquebox:clean', 
   'dist:rumpler:deltacloud:clean', 
-  'dist:rumpler:steamcannon:clean',
-  'dist:rumpler:steamcannon-agent:clean' 
+  'dist:rumpler:steamcannon:clean'
 ]
 
 task 'dist:rumpler:torquebox' => [ 'dist:sanity:versions:verify' ] do
@@ -180,20 +165,6 @@ task 'dist:rumpler:steamcannon' => [ 'dist:sanity:versions:verify' ] do
   end
 end
 
-task 'dist:rumpler:steamcannon-agent' => [ 'dist:sanity:versions:verify' ] do
-  puts "rumpling steamcannon-agent-rpm"
-  Dir.chdir( "../steamcannon-agent" ) do
-    sh "git fetch origin"
-    sh "git checkout -f #{steamcannon_agent_version}"
-    FileUtils.mkdir_p( '../steamcannon-agent-rpm/specs' )
-    if ( Dir[ '../steamcannon-agent-rpm/specs/*.spec' ].empty? )
-      sh "../rumpler/bin/rumpler -a -v #{steamcannon_agent_version} -o ../steamcannon-agent-rpm/specs -r ../torquebox-rpm/gemfiles/root.yml"
-    else
-      puts "INFO: specs present, not rumpling"
-    end
-  end
-end
-
 task 'dist:rumpler:torquebox:clean' do
   sh 'rm -Rf ../torquebox-rpm/specs/gems' 
 end
@@ -206,66 +177,5 @@ task 'dist:rumpler:steamcannon:clean' do
   sh 'rm -Rf ../steamcannon-rpm/specs' 
 end
 
-task 'dist:rumpler:steamcannon-agent:clean' do 
-  sh 'rm -Rf ../steamcannon-agent-rpm/specs' 
-end
 
 
-###
-### Sanity-checking and verification
-###
-
-task 'dist:sanity'=>[ 'dist:sanity:dirs', 'dist:sanity:versions' ] 
-
-task 'dist:sanity:dirs' do
-  [ 
-    '../rumpler',
-    '../torquebox-rpm',
-    '../steamcannon-rpm',
-    '../steamcannon-agent-rpm',
-    '../deltacloud-rpm',
-    '../steamcannon-agent',
-    '../steamcannon',
-  ].each do |dir|
-    print "Checking #{dir}...."
-    if ( File.exist?( dir ) )
-      puts "kk!"
-    else
-      fail( "Missing important directory: #{dir}" )
-    end
-  end
-end
-
-task 'dist:sanity:versions' do
-  torquebox_versions = {}
-  [ 
-    './specs/torquebox-deployers.spec',
-    './specs/torquebox-cloud-profiles-deployers.spec',
-    '../torquebox-rpm/specs/torquebox-rubygems.spec',
-  ].each do |spec|
-    torquebox_versions[spec] = determine_value( spec, 'torquebox_build_number' )
-  end
-  if ( torquebox_versions.values.uniq.size == 1 )
-    torquebox_version = torquebox_versions.values.uniq.first
-  else
-    puts "TorqueBox build number mismatch!"
-    torquebox_versions.each do |spec, ver|
-      puts "  #{ver} - #{spec}"
-    end
-    fail( "TorqueBox build number mismatch" )
-  end
-  steamcannon_version = determine_value( './specs/steamcannon.spec', 'steamcannon_version' )
-  steamcannon_agent_version = determine_value( './specs/steamcannon-agent.spec', 'steamcannon_agent_version' )
-end
-
-task 'dist:sanity:versions:verify' => [ 'dist:sanity:versions' ] do
-  puts "TorqueBox build number...#{torquebox_version}"
-  puts "SteamCannon version......#{steamcannon_version}"
-  puts "SteamCannon Agent version......#{steamcannon_agent_version}"
-  puts "Deltacloud version.......#{deltacloud_version}"
-  print "Type 'y' if these versions are acceptable: "
-  c = STDIN.gets.strip
-  if ( c.downcase != 'y' )
-    fail "You didn't type 'y'"
-  end
-end

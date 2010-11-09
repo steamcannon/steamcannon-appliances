@@ -6,15 +6,20 @@ Name:           steamcannon-agent
 Version:        0.0.1
 Release:        1%{?dist}
 License:        LGPL
+Group:          Development/Tools
+
+BuildRequires:  ruby-devel gcc-c++ rubygems git sqlite-devel openssl-devel
+Source0:        %{name}.init
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+
+
 Requires:       shadow-utils
 Requires:       ruby git
 Requires:       initscripts
 Requires:       rubygems
-BuildRequires:  ruby-devel gcc-c++ rubygems git sqlite-devel openssl-devel
+Requires:       steamcannon-agent-dependencies = %{steamcannon_agent_version}
 Requires(post): /sbin/chkconfig
-Group:          Development/Tools
-Source0:        %{name}.init
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+
 
 # Ugly hack for thin
 Provides:       /usr/local/bin/ruby
@@ -33,10 +38,6 @@ install -d -m 755 $RPM_BUILD_ROOT/usr/lib/ruby/gems/%{ruby_version}
 /usr/bin/git clone git://github.com/steamcannon/steamcannon-agent.git $RPM_BUILD_ROOT/usr/share/%{name}
 cd $RPM_BUILD_ROOT/usr/share/%{name}
 /usr/bin/git checkout -b %{steamcannon_agent_version} %{steamcannon_agent_version}
-
-gem install --install-dir=$RPM_BUILD_ROOT/usr/lib/ruby/gems/%{ruby_version} --force --rdoc rack -v 1.2.0
-gem install --install-dir=$RPM_BUILD_ROOT/usr/lib/ruby/gems/%{ruby_version} --force --rdoc $RPM_BUILD_ROOT/usr/share/%{name}/gems/thin-1.2.8.gem
-gem install --install-dir=$RPM_BUILD_ROOT/usr/lib/ruby/gems/%{ruby_version} --force --rdoc sinatra dm-core dm-sqlite-adapter dm-migrations dm-is-tree json open4 rest-client
 
 install -d -m 755 $RPM_BUILD_ROOT/var/log/%{name}
 install -d -m 755 $RPM_BUILD_ROOT/var/lock

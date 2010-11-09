@@ -71,13 +71,13 @@ end
 
 desc 'Build all RPMs for the front-end appliance'
 task 'platform:frontend:rpm' => [
-  'rpm:steamcannon-agent',
+  'platform:rpm:steamcannon-agent',
   'rpm:mod_cluster',
 ]
 
 desc 'Build all PRMs for the appserver appliance'
 task 'platform:appserver:rpm' => [
-  'rpm:steamcannon-agent',
+  'platform:rpm:steamcannon-agent',
   'rpm:jboss-as6',
   'rpm:jboss-as6-cloud-profiles',
   'rpm:torquebox-deployers',
@@ -87,7 +87,7 @@ task 'platform:appserver:rpm' => [
 
 desc 'Build all RPMs for the postgresql appliance'
 task 'platform:postgresql:rpm' => [
-  'rpm:steamcannon-agent',
+  'platform:rpm:steamcannon-agent',
 ]
 
 desc 'Build all RPMs for the developer standalone appliance'
@@ -105,3 +105,37 @@ task 'platform:deps:torquebox:rpm' do
     sh 'rake rpm:repodata:force'
   end
 end
+
+desc 'Determines dependencies for steamcannon-agent and writes RPM spec files'
+task 'platform:rumpler:steamcannon-agent' => [ 'dist:sanity:versions:verify' ] do
+  puts "rumpling steamcannon-agent-rpm"
+  Dir.chdir( "../steamcannon-agent" ) do
+    sh "git fetch origin"
+    sh "git checkout -f #{steamcannon_agent_version}"
+    FileUtils.mkdir_p( '../steamcannon-agent-rpm/specs' )
+    if ( Dir[ '../steamcannon-agent-rpm/specs/*.spec' ].empty? )
+      sh "../rumpler/bin/rumpler -a -v #{steamcannon_agent_version} -o ../steamcannon-agent-rpm/specs -r ../torquebox-rpm/gemfiles/root.yml"
+    else
+      puts "INFO: specs present, not rumpling"
+    end
+  end
+end
+
+desc 'Create all required RPMs for steamcannon-agent'
+task 'platform:rpm:steamcannon-agent' => 'platform:rumpler:steamcannon-agent' do
+  Dir.chdir( '../steamcannon-agent-rpm' ) do
+    sh 'rake rpm:all'
+    sh 'rake rpm:repodata:force'
+  end
+end
+
+desc 'Clean out steamcannon-agent RPM specs'
+task 'platform:rumpler:steamcannon-agent:clean' do 
+  sh 'rm -Rf ../steamcannon-agent-rpm/specs' 
+end
+
+desc 'Clean steamcannon-agent RPM builds'
+task 'dist:rpm:steamcannon-agent:clean' do
+  sh 'rm -Rf ../steamcannon-agent-rpm/build/topdir' 
+end
+
