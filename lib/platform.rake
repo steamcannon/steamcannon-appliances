@@ -8,28 +8,28 @@ desc 'Build the SteamCannon front end agaent for VMware including all required R
 task 'platform:frontend:vmware' => [ 'platform:frontend:rpm', 'platform:frontend:vmware:grind' ]
 desc 'Refreshes the local RPM repository data and builds the SteamCannon front end agent for VMWare. Does NOT rebuild RPMs'
 task 'platform:frontend:vmware:grind' => 'rpm:repodata:force' do
-  sh "sudo boxgrinder-build -W ./appliances/postgresql.appl -p vmware"
+  sh "boxgrinder-build -W ./appliances/postgresql.appl -p vmware"
 end
 
 desc 'Build the SteamCannon app server agent for VMware including all required RPMs.'
 task 'platform:appserver:vmware' => [ 'platform:appserver:rpm', 'platform:appserver:vmware:grind' ] 
 desc 'Refreshes the local RPM repository data and builds the SteamCannon app server agent for VMware. Does NOT rebuild RPMs'
 task 'platform:appserver:vmware:grind' => 'rpm:repodata:force' do
-  sh "sudo boxgrinder-build -W ./appliances/appserver.appl -p vmware"
+  sh "boxgrinder-build -W ./appliances/appserver.appl -p vmware"
 end
 
 desc 'Build the SteamCannon postgresql agent for VMware including all required RPMs.'
 task 'platform:postgresql:vmware' => [ 'platform:postgresql:rpm', 'platform:postgresql:vmware:grind' ]
 desc 'Refreshes the local RPM repository data and builds the SteamCannon postgresql agent for VMware. Does NOT rebuild RPMs'
 task 'platform:postgresql:vmware:grind' => 'rpm:repodata:force' do
-  sh "sudo boxgrinder-build -W ./appliances/postgresql.appl -p vmware"
+  sh "boxgrinder-build -W ./appliances/postgresql.appl -p vmware"
 end
 
 desc 'Build the SteamCannon developer standalone agent for VMware including all required RPMs.'
 task 'platform:developer-standalone:vmware' => [ 'platform:developer-standalone:rpm', 'platform:developer-standalone:vmware:grind' ]
 desc 'Refreshes the local RPM repository data and builds the SteamCannon developer standalone agent for VMware. Does NOT rebuild RPMs'
 task 'platform:developer-standalone:vmware:grind' => 'rpm:repodata:force' do
-  sh "sudo boxgrinder-build -W ./appliances/developer-standalone.appl -p vmware"
+  sh "boxgrinder-build -W ./appliances/developer-standalone.appl -p vmware"
 end
 
 
@@ -114,7 +114,7 @@ task 'platform:rumpler:steamcannon-agent' => [ 'dist:sanity:versions:steamcannon
     sh "git checkout -f #{BuildVersion.instance.steamcannon_agent}"
     FileUtils.mkdir_p( '../steamcannon-agent-rpm/specs' )
     if ( Dir[ '../steamcannon-agent-rpm/specs/*.spec' ].empty? )
-      sh "../rumpler/bin/rumpler -a -v #{BuildVersion.instance.steamcannon_agent} -o ../steamcannon-agent-rpm/specs -r ../torquebox-rpm/gemfiles/root.yml"
+      sh "../rumpler/bin/rumpler -a -v #{BuildVersion.instance.steamcannon_agent} -o ../steamcannon-agent-rpm/specs"
     else
       puts "INFO: specs present, not rumpling"
     end
@@ -122,7 +122,13 @@ task 'platform:rumpler:steamcannon-agent' => [ 'dist:sanity:versions:steamcannon
 end
 
 desc 'Create all required RPMs for steamcannon-agent'
-task 'platform:rpm:steamcannon-agent' => 'platform:rumpler:steamcannon-agent' do
+task 'platform:rpm:steamcannon-agent' => [
+  'platform:rpm:steamcannon-agent:deps',
+  'rpm:steamcannon-agent'
+]
+
+desc 'Create all required RPMs for steamcannon-agent'
+task 'platform:rpm:steamcannon-agent:deps' => 'platform:rumpler:steamcannon-agent' do
   Dir.chdir( '../steamcannon-agent-rpm' ) do
     sh 'rake rpm:all'
     sh 'rake rpm:repodata:force'
