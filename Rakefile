@@ -3,7 +3,7 @@ $: << 'lib'
 
 require 'cantiere/helpers/rake-helper'
  
-#Cantiere::RakeHelper.new
+Cantiere::RakeHelper.new
 
 require 'rake_support'
 
