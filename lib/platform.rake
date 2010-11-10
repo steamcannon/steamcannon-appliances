@@ -40,7 +40,7 @@ task 'platform:meta:vmware' do
     scribble_config('local', {'path'=>'./vmware'})
     sh "boxgrinder-build -W ./appliances/steamcannon-meta.appl -p vmware -d local"
   ensure
-    restore_local_delivery
+    restore_config('local')
   end
 end
 
