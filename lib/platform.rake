@@ -114,7 +114,8 @@ task 'platform:rumpler:steamcannon-agent' => [ 'dist:sanity:versions:steamcannon
     sh "git checkout -f #{BuildVersion.instance.steamcannon_agent}"
     FileUtils.mkdir_p( '../steamcannon-agent-rpm/specs' )
     if ( Dir[ '../steamcannon-agent-rpm/specs/*.spec' ].empty? )
-      sh "../rumpler/bin/rumpler -a -v #{BuildVersion.instance.steamcannon_agent} -o ../steamcannon-agent-rpm/specs"
+      config_file = File.join( '..', 'steamcannon-agent', 'config', 'rumpler.yaml' )
+      sh "../rumpler/bin/rumpler -a -v #{BuildVersion.instance.steamcannon_agent} -o ../steamcannon-agent-rpm/specs -c #{config_file}"
     else
       puts "INFO: specs present, not rumpling"
     end
