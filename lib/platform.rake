@@ -32,6 +32,17 @@ task 'platform:developer-standalone:vmware:grind' => 'rpm:repodata:force' do
   sh "boxgrinder-build -W ./appliances/developer-standalone.appl -p vmware"
 end
 
+desc 'Build the SteamCannon Meta-Appliance for VMware'
+task 'platform:meta:vmware' do
+  begin
+    interrupt_handler = proc{ restore_local_delivery }
+    trap "SIGINT", interrupt_handler
+    scribble_config('local', {'path'=>'./vmware'})
+    sh "boxgrinder-build -W ./appliances/steamcannon-meta.appl -p vmware -d local"
+  ensure
+    restore_local_delivery
+  end
+end
 
 # -- EC2
 
@@ -61,6 +72,11 @@ task 'platform:developer-standalone:ec2' => [ 'platform:developer-standalone:rpm
 desc 'Refreshes the local RPM repository data and builds the SteamCannon developer-standalone server agent AMI for EC2. Does NOT rebuild RPMs'
 task 'platform:developer-standalone:ec2:grind' => 'rpm:repodata:force' do
   sh "boxgrinder-build -W ./appliances/developer-standalone.appl -p ec2 -d ami"
+end
+
+desc 'Build the SteamCannon Meta-Appliance for EC2 as an EBS-backed AMI'
+task 'platform:meta:ec2' do
+  sh "boxgrinder-build -W ./appliances/steamcannon-meta.appl -p ec2 -d ebs"
 end
 
 

@@ -10,25 +10,38 @@ def determine_value(file_path, key)
   nil
 end
 
+def scribble_config(plugin, options = {})
+  copy( boxgrinder_config_file(plugin), boxgrinder_config_file_bak(plugin) )
+  config = YAML.load_file( boxgrinder_config_file(plugin) )
+  config.merge!(options)
+  File.open( boxgrinder_config_file(plugin), 'w' ) do |out|
+    YAML.dump( config, out )
+  end
+end
+
+def restore_config(plugin)
+  move( boxgrinder_config_file_bak(plugin), boxgrinder_config_file(plugin) )
+end
+
 def scribble_s3
-  copy( s3_config_file_name, s3_config_file_bak )
-  config = YAML.load_file( s3_config_file_name )
+  copy( boxgrinder_config_file('s3'), boxgrinder_config_file_bak('s3') )
+  config = YAML.load_file( boxgrinder_config_file('s3') )
   config['bucket'] = config['bucket'] + "-" + rand(10000).to_s
-  File.open( s3_config_file_name, 'w' ) do |out|
+  File.open( boxgrinder_config_file('s3'), 'w' ) do |out|
     YAML.dump( config, out )
   end
 end
 
 def restore_s3
-  move( s3_config_file_bak, s3_config_file_name )
+  move( boxgrinder_config_file_bak('s3'), boxgrinder_config_file('s3') )
 end
 
-def s3_config_file_name
-  "#{ENV['HOME']}/.boxgrinder/plugins/s3"
+def boxgrinder_config_file(plugin)
+  "#{ENV['HOME']}/.boxgrinder/plugins/#{plugin}"
 end
 
-def s3_config_file_bak
-  s3_config_file_name + ".bak"
+def boxgrinder_config_file_bak(plugin)
+  boxgrinder_config_file(plugin) + ".bak"
 end
 
 class BuildVersion
