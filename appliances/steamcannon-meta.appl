@@ -1,6 +1,6 @@
 name: steamcannon-meta
 version: 1
-release: 4
+release: 4.RC1
 
 summary: Meta Appliance for building SteamCannon appliances
 
@@ -53,6 +53,17 @@ packages:
     - yum-utils
     - ec2-ami-tools
     - rubygem-amazon-ec2
+    - rubygem-boxgrinder-build
+    - rubygem-boxgrinder-build-fedora-os-plugin
+    - rubygem-boxgrinder-build-rhel-os-plugin
+    - rubygem-boxgrinder-build-centos-os-plugin
+    - rubygem-boxgrinder-build-ec2-platform-plugin
+    - rubygem-boxgrinder-build-vmware-platform-plugin
+    - rubygem-boxgrinder-build-s3-delivery-plugin
+    - rubygem-boxgrinder-build-sftp-delivery-plugin
+    - rubygem-boxgrinder-build-local-delivery-plugin
+    - rubygem-boxgrinder-build-ebs-delivery-plugin
+    
     
     # Tools required to build SteamCannon
     - createrepo
@@ -66,8 +77,8 @@ packages:
 post:
   base:
     # Box-grinder gems
-    - "/bin/echo 'gem install boxgrinder-build boxgrinder-build-fedora-os-plugin boxgrinder-build-rhel-os-plugin boxgrinder-build-centos-os-plugin boxgrinder-build-ec2-platform-plugin boxgrinder-build-vmware-platform-plugin boxgrinder-build-s3-delivery-plugin boxgrinder-build-sftp-delivery-plugin boxgrinder-build-local-delivery-plugin boxgrinder-build-ebs-delivery-plugin --no-ri --no-rdoc' >> /etc/rc.local"
-
+    - "/bin/echo 'yum -y update rubygem-boxgrinder-build rubygem-boxgrinder-build-fedora-os-plugin rubygem-boxgrinder-build-rhel-os-plugin rubygem-boxgrinder-build-centos-os-plugin rubygem-boxgrinder-build-ec2-platform-plugin rubygem-boxgrinder-build-vmware-platform-plugin rubygem-boxgrinder-build-s3-delivery-plugin rubygem-boxgrinder-build-sftp-delivery-plugin rubygem-boxgrinder-build-local-delivery-plugin rubygem-boxgrinder-build-ebs-delivery-plugin' >> /etc/rc.local"
+    
     # Gems for SteamCannon build and it's dependencies
     - "/bin/echo 'gem install rake bundler net-ssh net-sftp' >> /etc/rc.local"
 
