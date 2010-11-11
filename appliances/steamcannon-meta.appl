@@ -1,6 +1,6 @@
 name: steamcannon-meta
 version: 1
-release: 3
+release: 4
 
 summary: Meta Appliance for building SteamCannon appliances
 
@@ -75,6 +75,7 @@ post:
     - "/bin/echo 'mkdir /mnt/boxgrinder' >> /etc/rc.local"
     - "/bin/echo 'cd /mnt/boxgrinder && /usr/bin/git clone git://github.com/steamcannon/steamcannon.git' >> /etc/rc.local"
     - "/bin/echo 'cd /mnt/boxgrinder && /usr/bin/git clone git://github.com/steamcannon/steamcannon-appliances.git' >> /etc/rc.local"
+    - "/bin/echo 'cd /mnt/boxgrinder && /usr/bin/git clone git://github.com/steamcannon/steamcannon-agent.git' >> /etc/rc.local"
     - "/bin/echo 'cd /mnt/boxgrinder && /usr/bin/git clone git://github.com/steamcannon/steamcannon-agent-rpm.git' >> /etc/rc.local"
     - "/bin/echo 'cd /mnt/boxgrinder && /usr/bin/git clone git://github.com/steamcannon/steamcannon-rpm.git' >> /etc/rc.local"
     - "/bin/echo 'cd /mnt/boxgrinder && /usr/bin/git clone git://github.com/steamcannon/deltacloud-rpm.git' >> /etc/rc.local"
