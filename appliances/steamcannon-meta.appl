@@ -63,6 +63,8 @@ packages:
     - rubygem-boxgrinder-build-sftp-delivery-plugin
     - rubygem-boxgrinder-build-local-delivery-plugin
     - rubygem-boxgrinder-build-ebs-delivery-plugin
+    - httpd-devel
+    - autoconf
     
     
     # Tools required to build SteamCannon
