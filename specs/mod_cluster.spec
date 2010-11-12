@@ -1,118 +1,71 @@
-%define mod_cluster_arch x86
-%define mod_cluster_bit 32
-
-%ifarch x86_64
-	%define mod_cluster_arch x64
-	%define mod_cluster_bit 64
-%endif
-
-Summary:    JBoss mod_cluster for Apache httpd
+Summary:    Mod_cluster module for the Apache HTTP server
 Name:       mod_cluster
 Version:    1.1.0.Final
-Release:    1
-License:    LGPL
+Release:    1%{dist}
+License:    LGPLv2
+URL:        http://jboss.org/mod_cluster
+Group:      System Environment/Daemons
+Source:     http://downloads.jboss.org/%{name}/%{version}/%{name}-%{version}-src-ssl.tar.gz
+Source1:    mod_cluster.conf
 BuildRoot:  %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-Group:      Applications/System
-Requires:   httpd-devel >= 2.2.8
-Source:     http://downloads.jboss.org/mod_cluster/%{version}/mod_cluster-%{version}-linux2-%{mod_cluster_arch}-so.tar.gz
-Source2:    mod_cluster.conf
+
+Requires:      httpd >= 2.2.8
+BuildRequires: httpd-devel >= 2.2.8
+BuildRequires: autoconf
 
 %description
-JBoss mod_cluster for Apache httpd
+Mod_cluster is an httpd-based load balancer. Like mod_jk and mod_proxy,
+mod_cluster uses a communication channel to forward requests from httpd to one
+of a set of application server nodes. Unlike mod_jk and mod_proxy, mod_cluster
+leverages an additional connection between the application server nodes and
+httpd. The application server nodes use this connection to transmit server-side
+load balance factors and lifecycle events back to httpd via a custom set of
+HTTP methods, affectionately called the Mod-Cluster Management Protocol (MCMP).
+This additional feedback channel allows mod_cluster to offer a level of
+intelligence and granularity not found in other load balancing solutions.
 
 %prep
-rm -rf %{name}-%{mod_cluster_bit}
-%setup -T -b 0 -c -n %{name}-%{mod_cluster_bit}
+%setup -q -n %{name}-%{version}-src-ssl
 
-%install
+%build
+module_dirs=( advertise mod_manager mod_proxy_cluster mod_slotmem )
 
-cd %{_topdir}/BUILD
-
-%define httpd_modules_dir /usr/lib/httpd/modules
-
-%ifarch x86_64
-	%define httpd_modules_dir /usr/lib64/httpd/modules
-%endif
-
-modules=( mod_advertise mod_manager mod_proxy_cluster mod_slotmem )
-
-# mod_proxy_ajp mod_proxy_http
-
-pushd %{name}-%{mod_cluster_bit}
-
-install -d -m 755 $RPM_BUILD_ROOT%{httpd_modules_dir}
-
-for module in ${modules[@]} ; do
-  cp ${module}.so $RPM_BUILD_ROOT%{httpd_modules_dir}
+for dir in ${module_dirs[@]} ; do
+    pushd srclib/%{name}/native/${dir}
+        sh buildconf
+        ./configure --libdir=%{_libdir} --with-apxs=/usr/sbin/apxs
+        make
+    popd
 done
 
-popd
+%install
+rm -rf $RPM_BUILD_ROOT
+
+install -d -m 755 $RPM_BUILD_ROOT%{_libdir}/httpd/modules
+
+module_dirs=( advertise mod_manager mod_proxy_cluster mod_slotmem )
+
+for dir in ${module_dirs[@]} ; do
+    pushd srclib/%{name}/native/${dir}
+        cp ./*.so $RPM_BUILD_ROOT%{_libdir}/httpd/modules
+    popd
+done
 
 install -d -m 755 $RPM_BUILD_ROOT/etc/httpd/conf.d
-cp %{SOURCE2} $RPM_BUILD_ROOT/etc/httpd/conf.d/
-
-install -d -m 755 $RPM_BUILD_ROOT/usr/share/%{name}
-echo "%{version}" > $RPM_BUILD_ROOT/usr/share/%{name}/VERSION
+cp %{SOURCE1} $RPM_BUILD_ROOT/etc/httpd/conf.d/
 
 %clean
 rm -Rf $RPM_BUILD_ROOT
 
-%pre
-
-%post
-
-pushd /etc/httpd/conf > /dev/null
-
-cp httpd.conf httpd.conf.orig
-sed s/"^LoadModule proxy_balancer_module"/"#LoadModule proxy_balancer_module"/ httpd.conf.orig > httpd.conf
-
-popd > /dev/null
-
-%preun
-
-pushd /etc/httpd/conf > /dev/null
-
-rm -f httpd.conf.orig > /dev/null
-cp httpd.conf httpd.conf.orig
-sed s/"^#LoadModule proxy_balancer_module"/"LoadModule proxy_balancer_module"/ httpd.conf.orig > httpd.conf
-
-popd > /dev/null
-
 %files
 %defattr(-,root,root)
-/
+%{_libdir}/httpd/modules/mod_advertise.so
+%{_libdir}/httpd/modules/mod_manager.so
+%{_libdir}/httpd/modules/mod_proxy_cluster.so
+%{_libdir}/httpd/modules/mod_slotmem.so
+%config(noreplace) %{_sysconfdir}/httpd/conf.d/*.conf
 
 %changelog
-* Wed Sep 15 2010 Marek Goldmann 1.0.0.Final
-- Upgrade to upstream 1.0.0.Final release
-
-* Tue Jun 29 2010 Marek Goldmann 1.0.0.CR3
-- Upgrade to upstream 1.0.0.CR3 release
-
-* Fri May 05 2010 Marek Goldmann 1.0.0.CR1
-- Upgrade to upstream 1.0.0.CR1
-
-* Thu Dec 03 2009 Marek Goldmann 1.1.0.Beta1
-- Update to 1.1.0.Beta1
-
-* Sat May 30 2009 Marek Goldmann 1.0.0.GA
-- Update to 1.0.0.GA
-
-* Tue Apr 28 2009 Marek Goldmann 1.0.0.CR1
-- Using compiled modules
-
-* Thu Mar 26 2009 Marek Goldmann 1.0.0.CR1
-- Update to 1.0.0.CR1
-
-* Fri Feb 20 2009 Marek Goldmann 1.0.0.Beta4
-- Update to 1.0.0.Beta4
-
-* Wed Feb 04 2009 Marek Goldmann 1.0.0.Beta3
-- Commenting proxy_balancer_module
-
-* Tue Dec 30 2008 Marek Goldmann 1.0.0.Beta2
-- Added support for x86_64 arch
-
-* Mon Dec 29 2008 Mob McWhirter 1.0.0.Beta2
-- Initial packaging for Fedora 10 i386
+* Fri Nov 12 2010  <mgoldman@redhat.com> - 1.1.0.Final-1
+- Initial release
 
