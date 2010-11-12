@@ -40,7 +40,7 @@ that comes pre-rolled with everything you need to create and customize your own 
 The meta-appliance can be launched as an EBS-backed instance on EC2 using the ID ami-ae6296c7.  Or you can [Download](http://github.com/steamcannon/steamcannon-appliances/downloads) the latest VMware image from GitHub.
 
 You may also try the beta version of the 1.4 32-bit image on Amazon using the ID ami-78cb3c11
-You may also try the beta version of the 1.4 64-bit image on Amazon using the ID ami-1e34c377
+You may also try the beta version of the 1.4 64-bit image on Amazon using the ID ami-6c30c705
 
 Open up your Amazon AWS tool of choice, provide it with the AMI ID, and launch an instance.  Or, alternatively,
 fire up VMware and load the image you downloaded.  SSH to the instance as root using 'boxgrinder' as your password.
