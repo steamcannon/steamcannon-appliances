@@ -7,6 +7,7 @@ URL:        http://jboss.org/mod_cluster
 Group:      System Environment/Daemons
 Source:     http://downloads.jboss.org/%{name}/%{version}/%{name}-%{version}-src-ssl.tar.gz
 Source1:    mod_cluster.conf
+Source2:    README.fedora
 BuildRoot:  %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Requires:      httpd >= 2.2.8
@@ -54,11 +55,14 @@ done
 install -d -m 755 $RPM_BUILD_ROOT/etc/httpd/conf.d
 cp %{SOURCE1} $RPM_BUILD_ROOT/etc/httpd/conf.d/
 
+install -m 0644 %{SOURCE2} README
+
 %clean
 rm -Rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root)
+%doc README
 %{_libdir}/httpd/modules/mod_advertise.so
 %{_libdir}/httpd/modules/mod_manager.so
 %{_libdir}/httpd/modules/mod_proxy_cluster.so
