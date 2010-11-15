@@ -13,4 +13,4 @@ post:
     - "/sbin/chkconfig --level 234 httpd on"
     - "echo -e '\n  - ModCluster' >> /etc/sysconfig/steamcannon-agent"
     - 'sed -i s/"^LoadModule proxy_balancer_module"/"#LoadModule proxy_balancer_module"/ /etc/httpd/conf/httpd.conf'
-    - "echo -e 'LoadModule slotmem_module modules/mod_slotmem.so\nLoadModule proxy_cluster_module modules/mod_proxy_cluster.so\nLoadModule advertise_module modules/mod_advertise.so'"
+    - "echo -e 'LoadModule slotmem_module modules/mod_slotmem.so\nLoadModule proxy_cluster_module modules/mod_proxy_cluster.so\nLoadModule advertise_module modules/mod_advertise.so' >> /etc/httpd/conf.d/mod_cluster.conf"
