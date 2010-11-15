@@ -19,13 +19,12 @@ Next step is to load all required mod_cluster modules. Uncomment all LoadModule 
 LoadModule slotmem_module modules/mod_slotmem.so
 LoadModule proxy_cluster_module modules/mod_proxy_cluster.so
 LoadModule advertise_module modules/mod_advertise.so
+LoadModule manager_module modules/mod_manager.so
 
 == Enabling mod_cluster manager (optional) ==
 
 Mod_cluster manager is a simple tool that displays useful information about the cluster. To enable it you need to
 load the mod_manager module and call SetHandler for the selected context:
-
-LoadModule manager_module modules/mod_manager.so
 
 <Location /mod_cluster_manager>
     SetHandler mod_cluster-manager
