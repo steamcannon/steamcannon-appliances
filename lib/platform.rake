@@ -4,6 +4,11 @@
 ##
 
 # -- VMware
+desc 'Build all the SteamCannon appliances[frontend, appserver, postgresql and developer-standalone], plus all of their dependencies, for vmware'
+task 'platform:appliances:vmware' do
+  puts "Not implemented yet. Complain to Lance"
+end
+
 desc 'Build the SteamCannon front end agaent for VMware including all required RPMs.'
 task 'platform:frontend:vmware' => [ 'platform:frontend:rpm', 'platform:frontend:vmware:grind' ]
 desc 'Refreshes the local RPM repository data and builds the SteamCannon front end agent for VMWare. Does NOT rebuild RPMs'
@@ -45,6 +50,10 @@ task 'platform:meta:vmware' do
 end
 
 # -- EC2
+desc 'Build all the SteamCannon appliances[frontend, appserver, postgresql and developer-standalone], plus all of their dependencies, for vmware'
+task 'platform:appliances:ec2' do
+  puts "Not implemented yet. Complain to Lance"
+end
 
 desc 'Build the SteamCannon front end agent AMI for EC2 including all required RPMs.'
 task 'platform:frontend:ec2' => [ 'platform:frontend:rpm', 'platform:frontend:ec2:grind' ]
