@@ -1,6 +1,6 @@
 name: appserver
 version: 1
-release: 5
+release: 6
 summary: SteamCannon back-end appliance with JBoss AS 6 and TorqueBox
 hardware:
   memory: 2048
