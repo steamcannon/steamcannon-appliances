@@ -1,7 +1,7 @@
 name: frontend
 summary: SteamCannon front-end appliance with HTTPD and mod_cluster
 version: 1
-release: 2
+release: 2.final
 appliances:
   - _base
 packages:
