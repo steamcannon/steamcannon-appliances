@@ -109,8 +109,9 @@ task 'platform:frontend:rpm' => [
   'rpm:mod_cluster',
 ]
 
-desc 'Build all PRMs for the appserver appliance'
+desc 'Build all RPMs for the appserver appliance'
 task 'platform:appserver:rpm' => [
+  'dist:rpm:torquebox',
   'platform:rpm:steamcannon-agent',
   'rpm:jboss-as6',
   'rpm:jboss-as6-cloud-profiles',
@@ -176,7 +177,7 @@ task 'platform:rumpler:steamcannon-agent:clean' do
 end
 
 desc 'Clean steamcannon-agent RPM builds'
-task 'dist:rpm:steamcannon-agent:clean' do
+task 'platform:rpm:steamcannon-agent:clean' do
   sh 'rm -Rf ../steamcannon-agent-rpm/build/topdir' 
 end
 
