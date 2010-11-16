@@ -82,7 +82,8 @@ post:
     - "/bin/echo 'yum -y update rubygem-boxgrinder-build rubygem-boxgrinder-build-fedora-os-plugin rubygem-boxgrinder-build-rhel-os-plugin rubygem-boxgrinder-build-centos-os-plugin rubygem-boxgrinder-build-ec2-platform-plugin rubygem-boxgrinder-build-vmware-platform-plugin rubygem-boxgrinder-build-s3-delivery-plugin rubygem-boxgrinder-build-sftp-delivery-plugin rubygem-boxgrinder-build-local-delivery-plugin rubygem-boxgrinder-build-ebs-delivery-plugin' >> /etc/rc.local"
     
     # Gems for SteamCannon build and it's dependencies
-    - "/bin/echo 'gem install rake bundler net-ssh net-sftp' >> /etc/rc.local"
+    - "/bin/echo 'gem install bundler -v 1.0.3' >> /etc/rc.local"
+    - "/bin/echo 'gem install rake net-ssh net-sftp' >> /etc/rc.local"
 
     # Setup build repos
     - "/bin/echo 'mkdir /mnt/boxgrinder' >> /etc/rc.local"
