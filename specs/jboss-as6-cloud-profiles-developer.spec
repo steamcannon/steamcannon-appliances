@@ -51,15 +51,6 @@ cp -R jboss-%{jboss_version_full}/server/all/deploy/jbossws-console-activator-jb
 cp -R jboss-%{jboss_version_full}/server/all/deploy/jbossws-console-activator-jboss-beans.xml $RPM_BUILD_ROOT/opt/%{jboss_name}/server/cluster-ec2/deploy/
 cp -R jboss-%{jboss_version_full}/server/all/deploy/jbossws-console-activator-jboss-beans.xml $RPM_BUILD_ROOT/opt/%{jboss_name}/server/group/deploy/
 
-# re-install 'admin-console-activator-jboss-beans.xml' to { all, default, standard }
-cp -R jboss-%{jboss_version_full}/server/all/deploy/admin-console-activator-jboss-beans.xml $RPM_BUILD_ROOT/opt/%{jboss_name}/server/cluster/deploy/
-cp -R jboss-%{jboss_version_full}/server/all/deploy/admin-console-activator-jboss-beans.xml $RPM_BUILD_ROOT/opt/%{jboss_name}/server/cluster-ec2/deploy/
-cp -R jboss-%{jboss_version_full}/server/all/deploy/admin-console-activator-jboss-beans.xml $RPM_BUILD_ROOT/opt/%{jboss_name}/server/group/deploy/
-
-# re-install 'jmx-console-activator-jboss-beans.xml' to { all, osgi, jbossweb-standalone, default, standard }
-cp -R jboss-%{jboss_version_full}/server/all/deploy/jmx-console-activator-jboss-beans.xml $RPM_BUILD_ROOT/opt/%{jboss_name}/server/cluster/deploy/
-cp -R jboss-%{jboss_version_full}/server/all/deploy/jmx-console-activator-jboss-beans.xml $RPM_BUILD_ROOT/opt/%{jboss_name}/server/cluster-ec2/deploy/
-cp -R jboss-%{jboss_version_full}/server/all/deploy/jmx-console-activator-jboss-beans.xml $RPM_BUILD_ROOT/opt/%{jboss_name}/server/group/deploy/
 
 %clean
 rm -Rf $RPM_BUILD_ROOT

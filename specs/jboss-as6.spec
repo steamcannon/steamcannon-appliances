@@ -10,6 +10,7 @@ Group:          Applications/System
 Source0:        http://cdnetworks-us-1.dl.sourceforge.net/project/jboss/JBoss/JBoss-6.0.0.M5/jboss-as-distribution-%{jboss_version_full}.zip
 Source1:        %{name}.init
 Source2:        jboss-as6-https-connector.patch
+Source3:        jboss-as6-jmx-console.patch
 Requires:       shadow-utils
 Requires:       coreutils
 Requires:       java-1.6.0-openjdk
@@ -49,19 +50,15 @@ find $RPM_BUILD_ROOT/opt/%{name}/common/ -name "jbossws-console.war" | xargs rm 
 find $RPM_BUILD_ROOT/opt/%{name}/server/ -name "jbossws.war" | xargs rm -rf
 find $RPM_BUILD_ROOT/opt/%{name}/server/ -name "jbossws-console-activator-jboss-beans.xml" | xargs rm -rf
 
-find $RPM_BUILD_ROOT/opt/%{name}/common/ -name "admin-console.war" | xargs rm -rf
-find $RPM_BUILD_ROOT/opt/%{name}/server/ -name "admin-console-activator-jboss-beans.xml" | xargs rm -f
-
-find $RPM_BUILD_ROOT/opt/%{name}/common/ -name "jmx-console.war" | xargs rm -rf
-find $RPM_BUILD_ROOT/opt/%{name}/server/ -name "jmx-console-activator-jboss-beans.xml" | xargs rm -f
-
 # Open the HTTPS Connector
-
 cd $RPM_BUILD_ROOT/opt/%{name}/server/all/deploy/jbossweb.sar && patch -i %{SOURCE2}
 cd $RPM_BUILD_ROOT/opt/%{name}/server/default/deploy/jbossweb.sar && patch -i %{SOURCE2}
 cd $RPM_BUILD_ROOT/opt/%{name}/server/jbossweb-standalone/deploy/jbossweb.sar && patch -i %{SOURCE2}
 cd $RPM_BUILD_ROOT/opt/%{name}/server/osgi/deploy/jbossweb.sar && patch -i %{SOURCE2}
 cd $RPM_BUILD_ROOT/opt/%{name}/server/standard/deploy/jbossweb.sar && patch -i %{SOURCE2}
+
+# Enable authentication for jmx-console
+cd $RPM_BUILD_ROOT/opt/%{name} && patch -p0 -i %{SOURCE3}
 
 install -d -m 755 $RPM_BUILD_ROOT%{_initrddir}
 install -m 755 %{SOURCE1} $RPM_BUILD_ROOT%{_initrddir}/%{name}
