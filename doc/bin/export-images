@@ -1,0 +1,3 @@
+#!/bin/sh
+
+osascript bin/export-images.scrpt ./graffle ./images
