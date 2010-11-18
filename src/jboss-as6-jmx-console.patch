@@ -9,12 +9,11 @@ diff -ur ../jboss-6.0.0.20100911-M5.orig/common/deploy/jmx-console.war/WEB-INF/j
  </jboss-web>
 diff -ur ../jboss-6.0.0.20100911-M5.orig/common/deploy/jmx-console.war/WEB-INF/web.xml common/deploy/jmx-console.war/WEB-INF/web.xml
 --- ../jboss-6.0.0.20100911-M5.orig/common/deploy/jmx-console.war/WEB-INF/web.xml	2010-11-17 13:47:29.000000000 -0500
-+++ common/deploy/jmx-console.war/WEB-INF/web.xml	2010-11-17 13:49:37.000000000 -0500
-@@ -119,4 +119,17 @@
-    <security-role>
-       <role-name>JBossAdmin</role-name>
-    </security-role>
-+
++++ common/deploy/jmx-console.war/WEB-INF/web.xml	2010-11-18 16:00:48.000000000 -0500
+@@ -110,6 +110,18 @@
+      </auth-constraint>
+    </security-constraint>
+    -->
 +   <security-constraint>
 +     <web-resource-collection>
 +       <web-resource-name>HtmlAdaptor</web-resource-name>
@@ -27,4 +26,6 @@ diff -ur ../jboss-6.0.0.20100911-M5.orig/common/deploy/jmx-console.war/WEB-INF/w
 +       <role-name>JBossAdmin</role-name>
 +     </auth-constraint>
 +   </security-constraint>
- </web-app>
+ 
+    <login-config>
+       <auth-method>BASIC</auth-method>
