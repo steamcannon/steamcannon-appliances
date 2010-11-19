@@ -1,5 +1,5 @@
 %define jruby_version 1.8
-%define steamcannon_version 7126f90
+%define steamcannon_version 82175ed
 %define deltacloud_version 0.0.8.1
 
 # Don't complain about arch-specific packages in noarch build
