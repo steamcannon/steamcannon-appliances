@@ -17,27 +17,17 @@ hardware:
 packages:
   includes:
     # Base packages
-    - bash
+    - @core
     - kernel
     - grub
-    - e2fsprogs
-    - passwd
-    - policycoreutils
     - chkconfig
-    - rootfiles
     - acpid
-    - dhclient
-    - iputils
     - generic-logos
-    - sudo
-    - yum 
     - wget
     - which
     - make
     - gcc-c++
     - ruby-devel
-    - vim-minimal
-    - openssh-server
     - openssh-clients
     
     # Tools required to build AMIs
@@ -46,7 +36,6 @@ packages:
     - parted
     - rpmdevtools
     - appliance-tools
-    - sudo
     - libguestfs
     - ruby-libguestfs
     - guestfish
@@ -79,7 +68,7 @@ packages:
 post:
   base:
     # Box-grinder gems
-    - "/bin/echo 'yum -y update rubygem-boxgrinder-build rubygem-boxgrinder-build-fedora-os-plugin rubygem-boxgrinder-build-rhel-os-plugin rubygem-boxgrinder-build-centos-os-plugin rubygem-boxgrinder-build-ec2-platform-plugin rubygem-boxgrinder-build-vmware-platform-plugin rubygem-boxgrinder-build-s3-delivery-plugin rubygem-boxgrinder-build-sftp-delivery-plugin rubygem-boxgrinder-build-local-delivery-plugin rubygem-boxgrinder-build-ebs-delivery-plugin' >> /etc/rc.local"
+    - "/bin/echo 'yum -y update rubygem-boxgrinder-*' >> /etc/rc.local"
     
     # Gems for SteamCannon build and it's dependencies
     - "/bin/echo 'gem install bundler -v 1.0.3' >> /etc/rc.local"

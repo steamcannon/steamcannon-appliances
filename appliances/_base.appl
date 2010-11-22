@@ -12,16 +12,12 @@ appliances:
 packages:
   includes:
     - steamcannon-agent
-    - bash
+    - @core
     - grub
-    - yum
-    - vim-minimal
-    - openssh-server
     - openssh-clients
     - which
     - wget
-    - selinux-policy-targeted
-    - dhclient
+
 post:
   base:
     - "echo -e 'log_level: trace\nservices:' > /etc/sysconfig/steamcannon-agent" 

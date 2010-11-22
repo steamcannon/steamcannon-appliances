@@ -16,20 +16,15 @@ hardware:
 
 packages:
   includes:
-    - bash
-    - yum
+    - @core
     - wget
     - which
-    - vim-minimal
-    - openssh-server
     - openssh-clients
     - jboss-as6
     - torquebox-deployers
     - steamcannon
     - postgresql-server
     - steamcannon-deltacloud-core-deployment
-    - selinux-policy-targeted
-    - dhclient
 
 post:
   base:
