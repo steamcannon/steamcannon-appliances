@@ -15,7 +15,7 @@ BuildArch:      noarch
 Group:          Applications/System
 BuildRequires:  libxml2 libxml2-devel libxslt libxslt-devel 
 BuildRoot:      %{_tmppath}/steamcannon-%{version}-%{release}-root-%(%{__id_u} -n)
-Source0:        http://github.com/steamcannon/steamcannon/tarball/%{steamcannon_version}
+Source0:        https://github.com/steamcannon/steamcannon/tarball/%{steamcannon_version}
 
 
 Requires:       torquebox-deployers
