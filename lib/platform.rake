@@ -100,7 +100,7 @@ end
 ###
 desc 'Build all required RPMs for all platform appliances'
 task 'platform:all:rpm' => [ 
-  'platform:frontend:rpm', 'platform:appserver:rpm', 'platform:posgresql:rpm', 'platform:developer-standalone:rpm' 
+  'platform:frontend:rpm', 'platform:appserver:rpm', 'platform:postgresql:rpm', 'platform:developer-standalone:rpm' 
 ]
 
 desc 'Build all RPMs for the front-end appliance'
