@@ -1,9 +1,6 @@
 %define jboss_name jboss-as6
 %define jboss_version 6.0.0.M5
 %define jboss_version_full 6.0.0.20100911-M5
-%define jgroups_version 2.10.1.SNAPSHOT
-%define jgroups_version_target 2.10.1.GA
-%define mod_cluster_version 1.1.0.Final
 
 Summary:        The JBoss AS 6 Developer Add-ons
 Name:           jboss-as6-developer
