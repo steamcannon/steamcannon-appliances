@@ -1,13 +1,14 @@
-%define jboss_version_full 6.0.0.20100911-M5
+%define jboss_version 6.0.0.CR1
+%define jboss_version_full 6.0.0.20101110-CR1
 
 Summary:        JBoss Application Server
 Name:           jboss-as6
-Version:        6.0.0.M5
+Version:        %{jboss_version}
 Release:        1
 License:        LGPL
 BuildArch:      noarch
 Group:          Applications/System
-Source0:        http://cdnetworks-us-1.dl.sourceforge.net/project/jboss/JBoss/JBoss-6.0.0.M5/jboss-as-distribution-%{jboss_version_full}.zip
+Source0:        http://cdnetworks-us-1.dl.sourceforge.net/project/jboss/JBoss/JBoss-%{jboss_version}/jboss-as-distribution-%{jboss_version_full}.zip
 Source1:        %{name}.init
 Source2:        jboss-as6-https-connector.patch
 Source3:        jboss-as6-jmx-console.patch

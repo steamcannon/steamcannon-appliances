@@ -1,6 +1,6 @@
 %define jboss_name jboss-as6
-%define jboss_version 6.0.0.M5
-%define jboss_version_full 6.0.0.20100911-M5
+%define jboss_version 6.0.0.CR1
+%define jboss_version_full 6.0.0.20101110-CR1
 
 Summary:        The JBoss AS 6 Developer Add-ons for Cloud Profiles
 Name:           jboss-as6-cloud-profiles-developer
