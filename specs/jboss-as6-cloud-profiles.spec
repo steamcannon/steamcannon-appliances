@@ -1,7 +1,7 @@
 %define jboss_name jboss-as6
 %define jboss_version 6.0.0.CR1
 %define jboss_version_full 6.0.0.20101110-CR1
-%define jgroups_version 2.11.0.GA.SNAPSHOT
+%define jgroups_version 2.11.0.GA
 %define jgroups_version_target 2.11.0.GA
 %define mod_cluster_version 1.1.0.Final
 
