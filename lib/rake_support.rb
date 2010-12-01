@@ -46,18 +46,18 @@ end
 
 class BuildVersion
   include Singleton
-  
+
   attr_accessor :steamcannon, :steamcannon_agent, :torquebox, :deltacloud, :torquebox_rpm
-  
+
   def initialize()
     @steamcannon       = nil
     @steamcannon_agent = nil
     @torquebox         = nil
-    @deltacloud        = '0.0.8.1'
-    @torquebox_rpm     = '1.0.0.Beta23.SNAPSHOT'  
+    @deltacloud        = '0.1.1.2'
+    @torquebox_rpm     = '1.0.0.Beta23.SNAPSHOT'
 
     torquebox_versions = {}
-    [ 
+    [
       './specs/torquebox-deployers.spec',
       './specs/torquebox-cloud-profiles-deployers.spec',
       '../torquebox-rpm/specs/torquebox-rubygems.spec',
