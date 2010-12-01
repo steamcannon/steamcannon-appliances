@@ -1,8 +1,8 @@
 %define jboss_name jboss-as6
 %define jboss_version 6.0.0.M5
 %define jboss_version_full 6.0.0.20100911-M5
-%define jgroups_version 2.10.1.SNAPSHOT
-%define jgroups_version_target 2.10.1.GA
+%define jgroups_version 2.11.0.GA.SNAPSHOT
+%define jgroups_version_target 2.11.0.GA
 %define mod_cluster_version 1.1.0.Final
 
 Summary:        The JBoss AS 6 cloud profiles (cluster and group)
@@ -17,8 +17,8 @@ Source0:        http://cdnetworks-us-1.dl.sourceforge.net/project/jboss/JBoss/JB
 Source2:        %{jboss_name}-jbossws-host.patch
 Source3:        %{jboss_name}-jgroups-s3_ping.patch
 Source4:        %{jboss_name}-jvm-route.patch
-# Source5:        http://heanet.dl.sourceforge.net/sourceforge/javagroups/JGroups-%{jgroups_version}.bin.zip
-Source5:        http://repo.steamcannon.org/jgroups/JGroups-%{jgroups_version}.bin.zip
+Source5:        http://heanet.dl.sourceforge.net/sourceforge/javagroups/JGroups-%{jgroups_version}.bin.zip
+# Source5:        http://repo.steamcannon.org/jgroups/JGroups-%{jgroups_version}.bin.zip
 Source6:        http://downloads.jboss.org/mod_cluster/%{mod_cluster_version}/mod_cluster-%{mod_cluster_version}-bin.tar.gz
 Requires:       %{jboss_name}
 BuildRequires:  patch
