@@ -1,5 +1,5 @@
 %define jruby_version 1.8
-%define deltacloud_version 0.0.8.1
+%define deltacloud_version 0.1.1.2
 %define gemname steamcannon-deltacloud-core
 %define gemdir /opt/jruby/lib/ruby/gems/%{jruby_version}
 %define geminstdir %{gemdir}/gems/%{gemname}-%{deltacloud_version}
