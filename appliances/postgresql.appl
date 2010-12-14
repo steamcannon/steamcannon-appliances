@@ -1,7 +1,7 @@
 name: postgresql
 summary: SteamCannon database appliance with PostgreSQL
-version: 1
-release: 2.final
+version: 0
+release: 2.0
 appliances:
   - _base
   - _postgresql
