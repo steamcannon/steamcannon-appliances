@@ -1,5 +1,5 @@
 %define jruby_version 1.8
-%define deltacloud_version 0.1.1.2
+%define deltacloud_version 0.1.1.3
 %define gemname steamcannon-deltacloud-core
 %define gemdir /opt/jruby/lib/ruby/gems/%{jruby_version}
 %define geminstdir %{gemdir}/gems/%{gemname}-%{deltacloud_version}
@@ -50,5 +50,8 @@ rm -rf %{buildroot}
 /opt/jboss-as/server/all/deploy/deltacloud-rack.yml
 
 %changelog
+* Thu Dec 16 2010 Ben Browning
+- Upgrade steamcannon-deltacloud-core to 0.1.1.3
+
 * Mon Oct 11 2010  <builder@localhost.localdomain> - 0.0.7.1-1
 - Initial package

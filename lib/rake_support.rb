@@ -53,7 +53,7 @@ class BuildVersion
     @steamcannon       = nil
     @steamcannon_agent = nil
     @torquebox         = nil
-    @deltacloud        = '0.1.1.2'
+    @deltacloud        = '0.1.1.3'
     @torquebox_rpm     = '1.0.0.RC1.SNAPSHOT'
 
     torquebox_versions = {}

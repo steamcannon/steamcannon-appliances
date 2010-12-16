@@ -1,6 +1,6 @@
 %define jruby_version 1.8
 %define steamcannon_version 269498f
-%define deltacloud_version 0.1.1.2
+%define deltacloud_version 0.1.1.3
 
 # Don't complain about arch-specific packages in noarch build
 %global _binaries_in_noarch_packages_terminate_build 0
@@ -48,6 +48,9 @@ rm -rf $RPM_BUILD_ROOT
 /
 
 %changelog
+* Thu Dec 16 2010 Ben Browning
+- Upgrade steamcannon-deltacloud-core to 0.1.1.3
+
 * Thu Oct 07 2010 Lance Ball %{steamcannon_version}
 - Initial release
 
