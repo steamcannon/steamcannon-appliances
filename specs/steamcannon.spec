@@ -1,5 +1,5 @@
 %define jruby_version 1.8
-%define steamcannon_version 269498f
+%define steamcannon_version 61c88dc
 %define deltacloud_version 0.1.1.3
 
 # Don't complain about arch-specific packages in noarch build
@@ -48,6 +48,9 @@ rm -rf $RPM_BUILD_ROOT
 /
 
 %changelog
+* Fri Dec 17 2010 Ben Browning
+- Upgrade steamcannon to commit hash 61c88dc
+
 * Thu Dec 16 2010 Ben Browning
 - Upgrade steamcannon-deltacloud-core to 0.1.1.3
 
