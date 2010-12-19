@@ -35,7 +35,7 @@ install -d -m 755 %{buildroot}/opt/jboss-as/server/all/deploy
 
 # Write deltacloud-rack.yml file 
 echo "application:"                         >> %{buildroot}/opt/jboss-as/server/all/deploy/deltacloud-rack.yml
-echo "    RACK_ROOT: %{geminstdir}-java"    >> %{buildroot}/opt/jboss-as/server/all/deploy/deltacloud-rack.yml
+echo "    RACK_ROOT: %{geminstdir}"         >> %{buildroot}/opt/jboss-as/server/all/deploy/deltacloud-rack.yml
 echo "    RACK_ENV: production"             >> %{buildroot}/opt/jboss-as/server/all/deploy/deltacloud-rack.yml
 echo "web:"                                 >> %{buildroot}/opt/jboss-as/server/all/deploy/deltacloud-rack.yml
 echo "    context: /deltacloud"             >> %{buildroot}/opt/jboss-as/server/all/deploy/deltacloud-rack.yml
