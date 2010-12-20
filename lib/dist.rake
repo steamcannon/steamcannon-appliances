@@ -4,6 +4,7 @@
 ## Appliances
 ##
 
+desc "Build appliance as vmware image"
 task 'dist:appliance:vmware' => 'dist:rpm' do
   sh "boxgrinder-build -W ./appliances/steamcannon.appl -p vmware"
 end
@@ -12,15 +13,17 @@ task 'dist:appliance:vmware:only' do
   sh "boxgrinder-build -W ./appliances/steamcannon.appl -p vmware"
 end
 
-task 'dist:appliance:ec2' => 'dist:rpm' do
+desc "Build appliance as EC2 EBS backed image"
+task 'dist:appliance:ec2:ebs' => 'dist:rpm' do
   sh 'boxgrinder-build -W ./appliances/steamcannon.appl -p ec2 -d ebs'
 end
 
-task 'dist:appliance:ec2:only' do
+task 'dist:appliance:ec2:ebs:only' do
   sh 'boxgrinder-build -W ./appliances/steamcannon.appl -p ec2 -d ebs'
 end
 
-task 'dist:appliance:ami' => 'dist:rpm' do
+desc "Build appliance as EC2 S3 backed image"
+task 'dist:appliance:ec2:s3' => 'dist:rpm' do
   begin
     interrupt_handler = proc{ restore_s3 }
     trap "SIGINT", interrupt_handler
@@ -31,7 +34,7 @@ task 'dist:appliance:ami' => 'dist:rpm' do
   end
 end
 
-task 'dist:appliance:ami:only' do
+task 'dist:appliance:ec2:s3:only' do
   begin
     interrupt_handler = proc{ restore_s3 }
     trap "SIGINT", interrupt_handler

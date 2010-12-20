@@ -61,11 +61,11 @@ is just a couple of command lines.
     
 If you want to build an EC2 EBS-backed image, issue the following command.
 
-    # rake dist:appliance:ec2
+    # rake dist:appliance:ec2:ebs
     
 If you want to build an EC2 AMI stored in S3, issue the following command.
 
-    # rake dist:appliance:ami
+    # rake dist:appliance:ec2:s3
     
 If you want to build a machine image for VMware, issue the following command.
 
