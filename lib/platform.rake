@@ -17,7 +17,7 @@ task 'platform:frontend:vmware:grind' => 'rpm:repodata:force' do
 end
 
 desc 'Build the SteamCannon app server agent for VMware including all required RPMs.'
-task 'platform:appserver:vmware' => [ 'platform:appserver:rpm', 'platform:appserver:vmware:grind' ] 
+task 'platform:appserver:vmware' => [ 'platform:appserver:rpm', 'platform:appserver:vmware:grind' ]
 desc 'Refreshes the local RPM repository data and builds the SteamCannon app server agent for VMware. Does NOT rebuild RPMs'
 task 'platform:appserver:vmware:grind' => 'rpm:repodata:force' do
   sh "boxgrinder-build -W ./appliances/appserver.appl -p vmware"
@@ -51,13 +51,13 @@ end
 
 # -- EC2
 desc 'Build all the SteamCannon appliances [frontend, appserver, postgresql and developer-standalone], plus all of their dependencies, for vmware'
-task 'platform:all:ec2' => [ 
-  'platform:all:rpm', 'platform:all:ec2' 
+task 'platform:all:ec2' => [
+  'platform:all:rpm', 'platform:all:ec2'
 ]
 
 desc 'Build all the SteamCannon appliances [frontend, appserver, postgresql, and developer-standalone]'
-task 'platform:appliances:ec2' => [ 
-  'platform:frontend:ec2', 'platform:appserver:ec2', 'platform:postgresql:ec2', 'platform:developer-standalone:ec2' 
+task 'platform:appliances:ec2' => [
+  'platform:frontend:ec2', 'platform:appserver:ec2', 'platform:postgresql:ec2', 'platform:developer-standalone:ec2'
 ]
 
 desc 'Build the SteamCannon front end agent AMI for EC2 including all required RPMs.'
@@ -68,7 +68,7 @@ task 'platform:frontend:ec2:grind' => 'rpm:repodata:force' do
 end
 
 desc 'Build the SteamCannon app server agent AMI for EC2 including all required RPMs.'
-task 'platform:appserver:ec2' => [ 'platform:appserver:rpm', 'platform:appserver:ec2:grind' ] 
+task 'platform:appserver:ec2' => [ 'platform:appserver:rpm', 'platform:appserver:ec2:grind' ]
 desc 'Refreshes the local RPM repository data and builds the SteamCannon app server agent AMI for EC2. Does NOT rebuild RPMs'
 task 'platform:appserver:ec2:grind' => 'rpm:repodata:force' do
   sh "boxgrinder-build -W ./appliances/appserver.appl -p ec2 -d ami"
@@ -99,8 +99,8 @@ end
 ### RPM
 ###
 desc 'Build all required RPMs for all platform appliances'
-task 'platform:all:rpm' => [ 
-  'platform:frontend:rpm', 'platform:appserver:rpm', 'platform:postgresql:rpm', 'platform:developer-standalone:rpm' 
+task 'platform:all:rpm' => [
+  'platform:frontend:rpm', 'platform:appserver:rpm', 'platform:postgresql:rpm', 'platform:developer-standalone:rpm'
 ]
 
 desc 'Build all RPMs for the front-end appliance'
@@ -118,7 +118,7 @@ task 'platform:appserver:rpm' => [
   'rpm:torquebox-deployers',
   'rpm:torquebox-cloud-profiles-deployers',
   'platform:deps:torquebox:rpm',
-] 
+]
 
 desc 'Build all RPMs for the postgresql appliance'
 task 'platform:postgresql:rpm' => [
@@ -172,12 +172,12 @@ task 'platform:rpm:steamcannon-agent:deps' => 'platform:rumpler:steamcannon-agen
 end
 
 desc 'Clean out steamcannon-agent RPM specs'
-task 'platform:rumpler:steamcannon-agent:clean' do 
-  sh 'rm -Rf ../steamcannon-agent-rpm/specs' 
+task 'platform:rumpler:steamcannon-agent:clean' do
+  sh 'rm -Rf ../steamcannon-agent-rpm/specs'
 end
 
 desc 'Clean steamcannon-agent RPM builds'
 task 'platform:rpm:steamcannon-agent:clean' do
-  sh 'rm -Rf ../steamcannon-agent-rpm/build/topdir' 
+  sh 'rm -Rf ../steamcannon-agent-rpm/build/topdir'
 end
 
