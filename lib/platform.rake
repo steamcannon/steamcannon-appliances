@@ -13,7 +13,7 @@ desc 'Build the SteamCannon front end agaent for VMware including all required R
 task 'platform:frontend:vmware' => [ 'platform:frontend:rpm', 'platform:frontend:vmware:grind' ]
 desc 'Refreshes the local RPM repository data and builds the SteamCannon front end agent for VMWare. Does NOT rebuild RPMs'
 task 'platform:frontend:vmware:grind' => 'rpm:repodata:force' do
-  sh "boxgrinder-build -W ./appliances/postgresql.appl -p vmware"
+  sh "boxgrinder-build -W ./appliances/frontend.appl -p vmware"
 end
 
 desc 'Build the SteamCannon app server agent for VMware including all required RPMs.'
