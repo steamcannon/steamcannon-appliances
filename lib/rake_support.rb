@@ -1,3 +1,20 @@
+def boxgrinder_build(options)
+  if options[:delivery].to_s == 'ami'
+    options[:delivery_config] ||= { }
+    options[:delivery_config][:region] ||= ENV['REGION']
+    options[:delivery_config][:bucket] ||= "#{ENV['BUCKET_PREFIX']}-#{ENV['REGION']}" if ENV['BUCKET_PREFIX']
+  end
+  cmd = "boxgrinder build appliances/#{options[:appliance]}.appl -p #{options[:platform]}"
+  cmd << " -d #{options[:delivery]}" if options[:delivery]
+  cmd << " --delivery-config #{hash_to_cli_config(options[:delivery_config])}" if options[:delivery_config]
+  sh cmd
+end
+
+def hash_to_cli_config(hash)
+  cfg = []
+  hash.each { |k,v| cfg << "#{k}:#{v}"}
+  cfg.join(" ")
+end
 
 def determine_value(file_path, key)
   File.open( file_path ) do |f|
