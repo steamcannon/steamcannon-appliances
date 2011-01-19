@@ -124,7 +124,7 @@ namespace :platform do
 
   desc 'Build the SteamCannon Meta-Appliance for EC2 as an EBS-backed AMI'
   task 'meta:ec2' do
-    boxgrinder_build :appliance => :steamcannon-meta, :platform => :ec2, :delivery => :ebs
+    boxgrinder_build :appliance => :"steamcannon-meta", :platform => :ec2, :delivery => :ebs
   end
 
 
