@@ -99,10 +99,12 @@ post:
 
 
 repos:
-  - name: "boxgrinder-#BASE_ARCH#"
-    baseurl: "http://repo.boxgrinder.org/boxgrinder/packages/#OS_NAME#/#OS_VERSION#/RPMS/#BASE_ARCH#"
-  - name: "boxgrinder-noarch"
-    baseurl: "http://repo.boxgrinder.org/boxgrinder/packages/#OS_NAME#/#OS_VERSION#/RPMS/noarch"
+  - name: "boxgrinder-nightly"
+    baseurl: "http://repo.ci.boxgrinder.org/RPMS/"
+  #- name: "boxgrinder-#BASE_ARCH#"
+  #  baseurl: "http://repo.boxgrinder.org/boxgrinder/packages/#OS_NAME#/#OS_VERSION#/RPMS/#BASE_ARCH#"
+  #- name: "boxgrinder-noarch"
+  #  baseurl: "http://repo.boxgrinder.org/boxgrinder/packages/#OS_NAME#/#OS_VERSION#/RPMS/noarch"
   - name: "steamcannon-#BASE_ARCH#"
     baseurl: "http://repo.steamcannon.org/packages/#OS_NAME#/#OS_VERSION#/RPMS/#BASE_ARCH#"
   - name: "steamcannon-noarch"
