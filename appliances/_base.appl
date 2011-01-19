@@ -21,6 +21,7 @@ packages:
 post:
   base:
     - "echo -e 'log_level: trace\nservices:' > /etc/sysconfig/steamcannon-agent" 
+  ec2:
     - "sed -i 's/PermitRootLogin no/PermitRootLogin yes/' /etc/ssh/sshd_config"
 repos:
   - name: "steamcannon-agent-rpm"

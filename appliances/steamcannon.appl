@@ -28,7 +28,6 @@ packages:
 
 post:
   base:
-    - "sed -i 's/PermitRootLogin no/PermitRootLogin yes/' /etc/ssh/sshd_config"
     - "/sbin/chkconfig postgresql on"
     - "/sbin/service postgresql initdb"
     - "/bin/sed -i s/'^host'/'# host'/g /var/lib/pgsql/data/pg_hba.conf"
@@ -39,6 +38,8 @@ post:
     - echo "[ -b /dev/xvda3 ] && /sbin/swapon /dev/xvda3" >> /etc/rc.local
     - echo "[ -b /dev/xvdb ] && /sbin/mkswap -f /dev/xvdb" >> /etc/rc.local
     - echo "[ -b /dev/xvdb ] && /sbin/swapon /dev/xvdb" >> /etc/rc.local
+  ec2:
+    - "sed -i 's/PermitRootLogin no/PermitRootLogin yes/' /etc/ssh/sshd_config"
 
 repos:
   - name: "steamcannon-rpm-local"
