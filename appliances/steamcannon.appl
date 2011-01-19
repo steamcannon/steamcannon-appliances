@@ -15,16 +15,15 @@ hardware:
       size: 5
 
 packages:
-  includes:
-    - @core
-    - wget
-    - which
-    - openssh-clients
-    - jboss-as6
-    - torquebox-deployers
-    - steamcannon
-    - postgresql-server
-    - steamcannon-deltacloud-core-deployment
+  - @core
+  - wget
+  - which
+  - openssh-clients
+  - jboss-as6
+  - torquebox-deployers
+  - steamcannon
+  - postgresql-server
+  - steamcannon-deltacloud-core-deployment
 
 post:
   base:

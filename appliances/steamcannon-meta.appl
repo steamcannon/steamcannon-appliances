@@ -15,55 +15,54 @@ hardware:
       size: 20
 
 packages:
-  includes:
-    # Base packages
-    - @core
-    - kernel
-    - grub
-    - chkconfig
-    - acpid
-    - generic-logos
-    - wget
-    - which
-    - make
-    - gcc-c++
-    - ruby-devel
-    - openssh-clients
+  # Base packages
+  - @core
+  - kernel
+  - grub
+  - chkconfig
+  - acpid
+  - generic-logos
+  - wget
+  - which
+  - make
+  - gcc-c++
+  - ruby-devel
+  - openssh-clients
     
-    # Tools required to build AMIs
-    - rubygems
-    - git
-    - parted
-    - rpmdevtools
-    - appliance-tools
-    - libguestfs
-    - ruby-libguestfs
-    - guestfish
-    - yum-utils
-    - ec2-ami-tools
-    - rubygem-amazon-ec2
-    - rubygem-boxgrinder-build
-    - rubygem-boxgrinder-build-fedora-os-plugin
-    - rubygem-boxgrinder-build-rhel-os-plugin
-    - rubygem-boxgrinder-build-centos-os-plugin
-    - rubygem-boxgrinder-build-ec2-platform-plugin
-    - rubygem-boxgrinder-build-vmware-platform-plugin
-    - rubygem-boxgrinder-build-s3-delivery-plugin
-    - rubygem-boxgrinder-build-sftp-delivery-plugin
-    - rubygem-boxgrinder-build-local-delivery-plugin
-    - rubygem-boxgrinder-build-ebs-delivery-plugin
-    - httpd-devel
-    - autoconf
-    
-    
-    # Tools required to build SteamCannon
-    - createrepo
-    - sqlite-devel
-    - openssl-devel
-    - libxml2
-    - libxml2-devel
-    - libxslt-devel
-    - libxslt
+  # Tools required to build AMIs
+  - rubygems
+  - git
+  - parted
+  - rpmdevtools
+  - appliance-tools
+  - libguestfs
+  - ruby-libguestfs
+  - guestfish
+  - yum-utils
+  - ec2-ami-tools
+  - rubygem-amazon-ec2
+  - rubygem-boxgrinder-build
+  - rubygem-boxgrinder-build-fedora-os-plugin
+  - rubygem-boxgrinder-build-rhel-os-plugin
+  - rubygem-boxgrinder-build-centos-os-plugin
+  - rubygem-boxgrinder-build-ec2-platform-plugin
+  - rubygem-boxgrinder-build-vmware-platform-plugin
+  - rubygem-boxgrinder-build-s3-delivery-plugin
+  - rubygem-boxgrinder-build-sftp-delivery-plugin
+  - rubygem-boxgrinder-build-local-delivery-plugin
+  - rubygem-boxgrinder-build-ebs-delivery-plugin
+  - httpd-devel
+  - autoconf
+  
+  
+  # Tools required to build SteamCannon
+  - createrepo
+  - sqlite-devel
+  - openssl-devel
+  - libxml2
+  - libxml2-devel
+  - libxslt-devel
+  - libxslt
 
 post:
   base:

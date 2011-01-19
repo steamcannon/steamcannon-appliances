@@ -10,13 +10,12 @@ hardware:
       size: 1
 appliances:
 packages:
-  includes:
-    - steamcannon-agent
-    - @core
-    - grub
-    - openssh-clients
-    - which
-    - wget
+  - steamcannon-agent
+  - @core
+  - grub
+  - openssh-clients
+  - which
+  - wget
 
 post:
   base:

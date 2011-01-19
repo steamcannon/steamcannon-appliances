@@ -5,9 +5,8 @@ release: 2.0
 appliances:
   - _base
 packages:
-  includes:
-    - mod_cluster
-    - httpd
+  - mod_cluster
+  - httpd
 post:
   base:
     - "/sbin/chkconfig --level 234 httpd on"

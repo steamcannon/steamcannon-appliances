@@ -3,12 +3,11 @@ version: 1
 release: 5
 summary: AS 6 and TorqueBox mixin
 packages:
-  includes:
-    - jboss-as6
-    - jboss-as6-cloud-profiles
-    - torquebox-jruby
-    - torquebox-deployers
-    - torquebox-cloud-profiles-deployers
+  - jboss-as6
+  - jboss-as6-cloud-profiles
+  - torquebox-jruby
+  - torquebox-deployers
+  - torquebox-cloud-profiles-deployers
 repos:
   - name: "torquebox-local"
     baseurl: "file:///mnt/boxgrinder/torquebox-rpm/build/topdir/fedora/13/RPMS/noarch"
